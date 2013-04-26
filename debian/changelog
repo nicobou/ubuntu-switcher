@@ -1,0 +1,5 @@
+switcher (0.1.2-1~precise~ppa1) precise; urgency=low
+
+  * Initial packaging.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Fri, 26 Apr 2013 11:43:21 -0400
