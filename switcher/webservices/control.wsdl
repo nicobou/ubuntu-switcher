@@ -232,6 +232,64 @@
  <part name="result" type="xsd:boolean"/><!-- switcher__invoke_method::result -->
 </message>
 
+<message name="get-signals-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_signals_description::quiddity_name -->
+</message>
+
+<message name="get-signals-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signals_description::result -->
+</message>
+
+<message name="get-signal-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_signal_description::quiddity_name -->
+ <part name="signal-name" type="xsd:string"/><!-- switcher__get_signal_description::signal_name -->
+</message>
+
+<message name="get-signal-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signal_description::result -->
+</message>
+
+<message name="get-signals-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_signals_description_by_class::class_name -->
+</message>
+
+<message name="get-signals-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signals_description_by_class::result -->
+</message>
+
+<message name="saveRequest">
+ <part name="file-name" type="xsd:string"/><!-- switcher__save::file_name -->
+</message>
+
+<message name="saveResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__save::result -->
+</message>
+
+<message name="loadRequest">
+ <part name="file-name" type="xsd:string"/><!-- switcher__load::file_name -->
+</message>
+
+<message name="loadResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__load::result -->
+</message>
+
+<message name="runRequest">
+ <part name="file-name" type="xsd:string"/><!-- switcher__run::file_name -->
+</message>
+
+<message name="runResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__run::result -->
+</message>
+
+<message name="get-signal-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_signal_description_by_class::class_name -->
+ <part name="signal-name" type="xsd:string"/><!-- switcher__get_signal_description_by_class::signal_name -->
+</message>
+
+<message name="get-signal-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signal_description_by_class::result -->
+</message>
+
 <portType name="controlPortType">
  <operation name="add">
   <documentation>Sums two values</documentation>
@@ -355,6 +413,41 @@
   <documentation>Service definition of function switcher__invoke_method</documentation>
   <input message="tns:invoke-methodRequest"/>
   <output message="tns:invoke-methodResponse"/>
+ </operation>
+ <operation name="get-signals-description">
+  <documentation>Service definition of function switcher__get_signals_description</documentation>
+  <input message="tns:get-signals-descriptionRequest"/>
+  <output message="tns:get-signals-descriptionResponse"/>
+ </operation>
+ <operation name="get-signal-description">
+  <documentation>Service definition of function switcher__get_signal_description</documentation>
+  <input message="tns:get-signal-descriptionRequest"/>
+  <output message="tns:get-signal-descriptionResponse"/>
+ </operation>
+ <operation name="get-signals-description-by-class">
+  <documentation>Service definition of function switcher__get_signals_description_by_class</documentation>
+  <input message="tns:get-signals-description-by-classRequest"/>
+  <output message="tns:get-signals-description-by-classResponse"/>
+ </operation>
+ <operation name="save">
+  <documentation>Service definition of function switcher__save</documentation>
+  <input message="tns:saveRequest"/>
+  <output message="tns:saveResponse"/>
+ </operation>
+ <operation name="load">
+  <documentation>Service definition of function switcher__load</documentation>
+  <input message="tns:loadRequest"/>
+  <output message="tns:loadResponse"/>
+ </operation>
+ <operation name="run">
+  <documentation>Service definition of function switcher__run</documentation>
+  <input message="tns:runRequest"/>
+  <output message="tns:runResponse"/>
+ </operation>
+ <operation name="get-signal-description-by-class">
+  <documentation>Service definition of function switcher__get_signal_description_by_class</documentation>
+  <input message="tns:get-signal-description-by-classRequest"/>
+  <output message="tns:get-signal-description-by-classResponse"/>
  </operation>
 </portType>
 
@@ -579,10 +672,73 @@
      <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
   </output>
  </operation>
+ <operation name="get-signals-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-signal-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-signals-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="save">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="load">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="run">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-signal-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
 </binding>
 
 <service name="control">
- <documentation>Switcher control interface</documentation>
+ <documentation>save history   </documentation>
  <port name="control" binding="tns:control">
   <SOAP:address location="http://localhost:8080/switcher-control.cgi"/>
  </port>

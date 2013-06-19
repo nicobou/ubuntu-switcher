@@ -545,10 +545,152 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_switcher__get_signals_descriptionResponse
+#define SOAP_TYPE_switcher__get_signals_descriptionResponse (91)
+/* switcher:get-signals-descriptionResponse */
+struct switcher__get_signals_descriptionResponse
+{
+public:
+	std::string *result;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__get_signals_description
+#define SOAP_TYPE_switcher__get_signals_description (92)
+/* switcher:get-signals-description */
+struct switcher__get_signals_description
+{
+public:
+	std::string quiddity_name;	/* required element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__get_signal_descriptionResponse
+#define SOAP_TYPE_switcher__get_signal_descriptionResponse (94)
+/* switcher:get-signal-descriptionResponse */
+struct switcher__get_signal_descriptionResponse
+{
+public:
+	std::string *result;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__get_signal_description
+#define SOAP_TYPE_switcher__get_signal_description (95)
+/* switcher:get-signal-description */
+struct switcher__get_signal_description
+{
+public:
+	std::string quiddity_name;	/* required element of type xsd:string */
+	std::string signal_name;	/* required element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__get_signals_description_by_classResponse
+#define SOAP_TYPE_switcher__get_signals_description_by_classResponse (97)
+/* switcher:get-signals-description-by-classResponse */
+struct switcher__get_signals_description_by_classResponse
+{
+public:
+	std::string *result;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__get_signals_description_by_class
+#define SOAP_TYPE_switcher__get_signals_description_by_class (98)
+/* switcher:get-signals-description-by-class */
+struct switcher__get_signals_description_by_class
+{
+public:
+	std::string class_name;	/* required element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__saveResponse
+#define SOAP_TYPE_switcher__saveResponse (100)
+/* switcher:saveResponse */
+struct switcher__saveResponse
+{
+public:
+	std::string *result;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__save
+#define SOAP_TYPE_switcher__save (101)
+/* switcher:save */
+struct switcher__save
+{
+public:
+	std::string file_name;	/* required element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__loadResponse
+#define SOAP_TYPE_switcher__loadResponse (103)
+/* switcher:loadResponse */
+struct switcher__loadResponse
+{
+public:
+	std::string *result;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__load
+#define SOAP_TYPE_switcher__load (104)
+/* switcher:load */
+struct switcher__load
+{
+public:
+	std::string file_name;	/* required element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__runResponse
+#define SOAP_TYPE_switcher__runResponse (106)
+/* switcher:runResponse */
+struct switcher__runResponse
+{
+public:
+	std::string *result;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__run
+#define SOAP_TYPE_switcher__run (107)
+/* switcher:run */
+struct switcher__run
+{
+public:
+	std::string file_name;	/* required element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__get_signal_description_by_classResponse
+#define SOAP_TYPE_switcher__get_signal_description_by_classResponse (109)
+/* switcher:get-signal-description-by-classResponse */
+struct switcher__get_signal_description_by_classResponse
+{
+public:
+	std::string *result;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+};
+#endif
+
+#ifndef SOAP_TYPE_switcher__get_signal_description_by_class
+#define SOAP_TYPE_switcher__get_signal_description_by_class (110)
+/* switcher:get-signal-description-by-class */
+struct switcher__get_signal_description_by_class
+{
+public:
+	std::string class_name;	/* required element of type xsd:string */
+	std::string signal_name;	/* required element of type xsd:string */
+};
+#endif
+
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (90)
+#define SOAP_TYPE_SOAP_ENV__Header (111)
 /* SOAP Header: */
 struct SOAP_ENV__Header
 {
@@ -564,7 +706,7 @@ private:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (91)
+#define SOAP_TYPE_SOAP_ENV__Code (112)
 /* SOAP Fault Code: */
 struct SOAP_ENV__Code
 {
@@ -579,7 +721,7 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (93)
+#define SOAP_TYPE_SOAP_ENV__Detail (114)
 /* SOAP-ENV:Detail */
 struct SOAP_ENV__Detail
 {
@@ -595,7 +737,7 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (95)
+#define SOAP_TYPE_SOAP_ENV__Reason (116)
 /* SOAP-ENV:Reason */
 struct SOAP_ENV__Reason
 {
@@ -609,7 +751,7 @@ public:
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (96)
+#define SOAP_TYPE_SOAP_ENV__Fault (117)
 /* SOAP Fault: */
 struct SOAP_ENV__Fault
 {

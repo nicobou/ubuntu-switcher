@@ -170,5 +170,33 @@ class SOAP_CMAC controlProxy : public soap
 	/// Web service operation 'invoke-method' (returns error code or SOAP_OK)
 	virtual	int invoke_method(std::string quiddity_name, std::string method_name, std::vector<std::string >args, bool *result) { return invoke_method(NULL, NULL, quiddity_name, method_name, args, result); }
 	virtual	int invoke_method(const char *endpoint, const char *soap_action, std::string quiddity_name, std::string method_name, std::vector<std::string >args, bool *result);
+
+	/// Web service operation 'get-signals-description' (returns error code or SOAP_OK)
+	virtual	int get_signals_description(std::string quiddity_name, std::string *result) { return get_signals_description(NULL, NULL, quiddity_name, result); }
+	virtual	int get_signals_description(const char *endpoint, const char *soap_action, std::string quiddity_name, std::string *result);
+
+	/// Web service operation 'get-signal-description' (returns error code or SOAP_OK)
+	virtual	int get_signal_description(std::string quiddity_name, std::string signal_name, std::string *result) { return get_signal_description(NULL, NULL, quiddity_name, signal_name, result); }
+	virtual	int get_signal_description(const char *endpoint, const char *soap_action, std::string quiddity_name, std::string signal_name, std::string *result);
+
+	/// Web service operation 'get-signals-description-by-class' (returns error code or SOAP_OK)
+	virtual	int get_signals_description_by_class(std::string class_name, std::string *result) { return get_signals_description_by_class(NULL, NULL, class_name, result); }
+	virtual	int get_signals_description_by_class(const char *endpoint, const char *soap_action, std::string class_name, std::string *result);
+
+	/// Web service operation 'save' (returns error code or SOAP_OK)
+	virtual	int save(std::string file_name, std::string *result) { return save(NULL, NULL, file_name, result); }
+	virtual	int save(const char *endpoint, const char *soap_action, std::string file_name, std::string *result);
+
+	/// Web service operation 'load' (returns error code or SOAP_OK)
+	virtual	int load(std::string file_name, std::string *result) { return load(NULL, NULL, file_name, result); }
+	virtual	int load(const char *endpoint, const char *soap_action, std::string file_name, std::string *result);
+
+	/// Web service operation 'run' (returns error code or SOAP_OK)
+	virtual	int run(std::string file_name, std::string *result) { return run(NULL, NULL, file_name, result); }
+	virtual	int run(const char *endpoint, const char *soap_action, std::string file_name, std::string *result);
+
+	/// Web service operation 'get-signal-description-by-class' (returns error code or SOAP_OK)
+	virtual	int get_signal_description_by_class(std::string class_name, std::string signal_name, std::string *result) { return get_signal_description_by_class(NULL, NULL, class_name, signal_name, result); }
+	virtual	int get_signal_description_by_class(const char *endpoint, const char *soap_action, std::string class_name, std::string signal_name, std::string *result);
 };
 #endif

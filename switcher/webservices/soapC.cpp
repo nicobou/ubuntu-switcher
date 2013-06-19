@@ -15,7 +15,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 
 #include "soapH.h"
 
-SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.8.4 2013-04-26 14:54:40 GMT")
+SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.8.4 2013-06-14 20:56:59 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -178,6 +178,34 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_bool(soap, NULL, NULL, "xsd:boolean");
 	case SOAP_TYPE_std__string:
 		return soap_in_std__string(soap, NULL, NULL, "xsd:string");
+	case SOAP_TYPE_switcher__get_signal_description_by_class:
+		return soap_in_switcher__get_signal_description_by_class(soap, NULL, NULL, "switcher:get-signal-description-by-class");
+	case SOAP_TYPE_switcher__get_signal_description_by_classResponse:
+		return soap_in_switcher__get_signal_description_by_classResponse(soap, NULL, NULL, "switcher:get-signal-description-by-classResponse");
+	case SOAP_TYPE_switcher__run:
+		return soap_in_switcher__run(soap, NULL, NULL, "switcher:run");
+	case SOAP_TYPE_switcher__runResponse:
+		return soap_in_switcher__runResponse(soap, NULL, NULL, "switcher:runResponse");
+	case SOAP_TYPE_switcher__load:
+		return soap_in_switcher__load(soap, NULL, NULL, "switcher:load");
+	case SOAP_TYPE_switcher__loadResponse:
+		return soap_in_switcher__loadResponse(soap, NULL, NULL, "switcher:loadResponse");
+	case SOAP_TYPE_switcher__save:
+		return soap_in_switcher__save(soap, NULL, NULL, "switcher:save");
+	case SOAP_TYPE_switcher__saveResponse:
+		return soap_in_switcher__saveResponse(soap, NULL, NULL, "switcher:saveResponse");
+	case SOAP_TYPE_switcher__get_signals_description_by_class:
+		return soap_in_switcher__get_signals_description_by_class(soap, NULL, NULL, "switcher:get-signals-description-by-class");
+	case SOAP_TYPE_switcher__get_signals_description_by_classResponse:
+		return soap_in_switcher__get_signals_description_by_classResponse(soap, NULL, NULL, "switcher:get-signals-description-by-classResponse");
+	case SOAP_TYPE_switcher__get_signal_description:
+		return soap_in_switcher__get_signal_description(soap, NULL, NULL, "switcher:get-signal-description");
+	case SOAP_TYPE_switcher__get_signal_descriptionResponse:
+		return soap_in_switcher__get_signal_descriptionResponse(soap, NULL, NULL, "switcher:get-signal-descriptionResponse");
+	case SOAP_TYPE_switcher__get_signals_description:
+		return soap_in_switcher__get_signals_description(soap, NULL, NULL, "switcher:get-signals-description");
+	case SOAP_TYPE_switcher__get_signals_descriptionResponse:
+		return soap_in_switcher__get_signals_descriptionResponse(soap, NULL, NULL, "switcher:get-signals-descriptionResponse");
 	case SOAP_TYPE_switcher__invoke_method:
 		return soap_in_switcher__invoke_method(soap, NULL, NULL, "switcher:invoke-method");
 	case SOAP_TYPE_switcher__invoke_methodResponse:
@@ -313,6 +341,62 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		if (!soap_match_tag(soap, t, "xsd:boolean"))
 		{	*type = SOAP_TYPE_bool;
 			return soap_in_bool(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signal-description-by-class"))
+		{	*type = SOAP_TYPE_switcher__get_signal_description_by_class;
+			return soap_in_switcher__get_signal_description_by_class(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signal-description-by-classResponse"))
+		{	*type = SOAP_TYPE_switcher__get_signal_description_by_classResponse;
+			return soap_in_switcher__get_signal_description_by_classResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:run"))
+		{	*type = SOAP_TYPE_switcher__run;
+			return soap_in_switcher__run(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:runResponse"))
+		{	*type = SOAP_TYPE_switcher__runResponse;
+			return soap_in_switcher__runResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:load"))
+		{	*type = SOAP_TYPE_switcher__load;
+			return soap_in_switcher__load(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:loadResponse"))
+		{	*type = SOAP_TYPE_switcher__loadResponse;
+			return soap_in_switcher__loadResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:save"))
+		{	*type = SOAP_TYPE_switcher__save;
+			return soap_in_switcher__save(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:saveResponse"))
+		{	*type = SOAP_TYPE_switcher__saveResponse;
+			return soap_in_switcher__saveResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signals-description-by-class"))
+		{	*type = SOAP_TYPE_switcher__get_signals_description_by_class;
+			return soap_in_switcher__get_signals_description_by_class(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signals-description-by-classResponse"))
+		{	*type = SOAP_TYPE_switcher__get_signals_description_by_classResponse;
+			return soap_in_switcher__get_signals_description_by_classResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signal-description"))
+		{	*type = SOAP_TYPE_switcher__get_signal_description;
+			return soap_in_switcher__get_signal_description(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signal-descriptionResponse"))
+		{	*type = SOAP_TYPE_switcher__get_signal_descriptionResponse;
+			return soap_in_switcher__get_signal_descriptionResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signals-description"))
+		{	*type = SOAP_TYPE_switcher__get_signals_description;
+			return soap_in_switcher__get_signals_description(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "switcher:get-signals-descriptionResponse"))
+		{	*type = SOAP_TYPE_switcher__get_signals_descriptionResponse;
+			return soap_in_switcher__get_signals_descriptionResponse(soap, NULL, NULL, NULL);
 		}
 		if (!soap_match_tag(soap, t, "switcher:invoke-method"))
 		{	*type = SOAP_TYPE_switcher__invoke_method;
@@ -594,6 +678,34 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return soap_out_bool(soap, tag, id, (const bool *)ptr, "xsd:boolean");
 	case SOAP_TYPE_std__string:
 		return soap_out_std__string(soap, tag, id, (const std::string *)ptr, "xsd:string");
+	case SOAP_TYPE_switcher__get_signal_description_by_class:
+		return soap_out_switcher__get_signal_description_by_class(soap, tag, id, (const struct switcher__get_signal_description_by_class *)ptr, "switcher:get-signal-description-by-class");
+	case SOAP_TYPE_switcher__get_signal_description_by_classResponse:
+		return soap_out_switcher__get_signal_description_by_classResponse(soap, tag, id, (const struct switcher__get_signal_description_by_classResponse *)ptr, "switcher:get-signal-description-by-classResponse");
+	case SOAP_TYPE_switcher__run:
+		return soap_out_switcher__run(soap, tag, id, (const struct switcher__run *)ptr, "switcher:run");
+	case SOAP_TYPE_switcher__runResponse:
+		return soap_out_switcher__runResponse(soap, tag, id, (const struct switcher__runResponse *)ptr, "switcher:runResponse");
+	case SOAP_TYPE_switcher__load:
+		return soap_out_switcher__load(soap, tag, id, (const struct switcher__load *)ptr, "switcher:load");
+	case SOAP_TYPE_switcher__loadResponse:
+		return soap_out_switcher__loadResponse(soap, tag, id, (const struct switcher__loadResponse *)ptr, "switcher:loadResponse");
+	case SOAP_TYPE_switcher__save:
+		return soap_out_switcher__save(soap, tag, id, (const struct switcher__save *)ptr, "switcher:save");
+	case SOAP_TYPE_switcher__saveResponse:
+		return soap_out_switcher__saveResponse(soap, tag, id, (const struct switcher__saveResponse *)ptr, "switcher:saveResponse");
+	case SOAP_TYPE_switcher__get_signals_description_by_class:
+		return soap_out_switcher__get_signals_description_by_class(soap, tag, id, (const struct switcher__get_signals_description_by_class *)ptr, "switcher:get-signals-description-by-class");
+	case SOAP_TYPE_switcher__get_signals_description_by_classResponse:
+		return soap_out_switcher__get_signals_description_by_classResponse(soap, tag, id, (const struct switcher__get_signals_description_by_classResponse *)ptr, "switcher:get-signals-description-by-classResponse");
+	case SOAP_TYPE_switcher__get_signal_description:
+		return soap_out_switcher__get_signal_description(soap, tag, id, (const struct switcher__get_signal_description *)ptr, "switcher:get-signal-description");
+	case SOAP_TYPE_switcher__get_signal_descriptionResponse:
+		return soap_out_switcher__get_signal_descriptionResponse(soap, tag, id, (const struct switcher__get_signal_descriptionResponse *)ptr, "switcher:get-signal-descriptionResponse");
+	case SOAP_TYPE_switcher__get_signals_description:
+		return soap_out_switcher__get_signals_description(soap, tag, id, (const struct switcher__get_signals_description *)ptr, "switcher:get-signals-description");
+	case SOAP_TYPE_switcher__get_signals_descriptionResponse:
+		return soap_out_switcher__get_signals_descriptionResponse(soap, tag, id, (const struct switcher__get_signals_descriptionResponse *)ptr, "switcher:get-signals-descriptionResponse");
 	case SOAP_TYPE_switcher__invoke_method:
 		return soap_out_switcher__invoke_method(soap, tag, id, (const struct switcher__invoke_method *)ptr, "switcher:invoke-method");
 	case SOAP_TYPE_switcher__invoke_methodResponse:
@@ -721,6 +833,48 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	{
 	case SOAP_TYPE_std__string:
 		soap_serialize_std__string(soap, (const std::string *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_description_by_class:
+		soap_serialize_switcher__get_signal_description_by_class(soap, (const struct switcher__get_signal_description_by_class *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_description_by_classResponse:
+		soap_serialize_switcher__get_signal_description_by_classResponse(soap, (const struct switcher__get_signal_description_by_classResponse *)ptr);
+		break;
+	case SOAP_TYPE_switcher__run:
+		soap_serialize_switcher__run(soap, (const struct switcher__run *)ptr);
+		break;
+	case SOAP_TYPE_switcher__runResponse:
+		soap_serialize_switcher__runResponse(soap, (const struct switcher__runResponse *)ptr);
+		break;
+	case SOAP_TYPE_switcher__load:
+		soap_serialize_switcher__load(soap, (const struct switcher__load *)ptr);
+		break;
+	case SOAP_TYPE_switcher__loadResponse:
+		soap_serialize_switcher__loadResponse(soap, (const struct switcher__loadResponse *)ptr);
+		break;
+	case SOAP_TYPE_switcher__save:
+		soap_serialize_switcher__save(soap, (const struct switcher__save *)ptr);
+		break;
+	case SOAP_TYPE_switcher__saveResponse:
+		soap_serialize_switcher__saveResponse(soap, (const struct switcher__saveResponse *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_description_by_class:
+		soap_serialize_switcher__get_signals_description_by_class(soap, (const struct switcher__get_signals_description_by_class *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_description_by_classResponse:
+		soap_serialize_switcher__get_signals_description_by_classResponse(soap, (const struct switcher__get_signals_description_by_classResponse *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_description:
+		soap_serialize_switcher__get_signal_description(soap, (const struct switcher__get_signal_description *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_descriptionResponse:
+		soap_serialize_switcher__get_signal_descriptionResponse(soap, (const struct switcher__get_signal_descriptionResponse *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_description:
+		soap_serialize_switcher__get_signals_description(soap, (const struct switcher__get_signals_description *)ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_descriptionResponse:
+		soap_serialize_switcher__get_signals_descriptionResponse(soap, (const struct switcher__get_signals_descriptionResponse *)ptr);
 		break;
 	case SOAP_TYPE_switcher__invoke_method:
 		soap_serialize_switcher__invoke_method(soap, (const struct switcher__invoke_method *)ptr);
@@ -991,6 +1145,34 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_instantiate(struct soap *soap, int t, const ch
 		return (void*)soap_instantiate_switcher__invoke_methodResponse(soap, -1, type, arrayType, n);
 	case SOAP_TYPE_switcher__invoke_method:
 		return (void*)soap_instantiate_switcher__invoke_method(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signals_descriptionResponse:
+		return (void*)soap_instantiate_switcher__get_signals_descriptionResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signals_description:
+		return (void*)soap_instantiate_switcher__get_signals_description(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signal_descriptionResponse:
+		return (void*)soap_instantiate_switcher__get_signal_descriptionResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signal_description:
+		return (void*)soap_instantiate_switcher__get_signal_description(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signals_description_by_classResponse:
+		return (void*)soap_instantiate_switcher__get_signals_description_by_classResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signals_description_by_class:
+		return (void*)soap_instantiate_switcher__get_signals_description_by_class(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__saveResponse:
+		return (void*)soap_instantiate_switcher__saveResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__save:
+		return (void*)soap_instantiate_switcher__save(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__loadResponse:
+		return (void*)soap_instantiate_switcher__loadResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__load:
+		return (void*)soap_instantiate_switcher__load(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__runResponse:
+		return (void*)soap_instantiate_switcher__runResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__run:
+		return (void*)soap_instantiate_switcher__run(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signal_description_by_classResponse:
+		return (void*)soap_instantiate_switcher__get_signal_description_by_classResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_switcher__get_signal_description_by_class:
+		return (void*)soap_instantiate_switcher__get_signal_description_by_class(soap, -1, type, arrayType, n);
 #ifndef WITH_NOGLOBAL
 	case SOAP_TYPE_SOAP_ENV__Header:
 		return (void*)soap_instantiate_SOAP_ENV__Header(soap, -1, type, arrayType, n);
@@ -1313,6 +1495,90 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_fdelete(struct soap_clist *p)
 			SOAP_DELETE((struct switcher__invoke_method*)p->ptr);
 		else
 			SOAP_DELETE_ARRAY((struct switcher__invoke_method*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_descriptionResponse:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signals_descriptionResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signals_descriptionResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_description:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signals_description*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signals_description*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_descriptionResponse:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signal_descriptionResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signal_descriptionResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_description:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signal_description*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signal_description*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_description_by_classResponse:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signals_description_by_classResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signals_description_by_classResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signals_description_by_class:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signals_description_by_class*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signals_description_by_class*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__saveResponse:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__saveResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__saveResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__save:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__save*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__save*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__loadResponse:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__loadResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__loadResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__load:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__load*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__load*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__runResponse:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__runResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__runResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__run:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__run*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__run*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_description_by_classResponse:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signal_description_by_classResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signal_description_by_classResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_switcher__get_signal_description_by_class:
+		if (p->size < 0)
+			SOAP_DELETE((struct switcher__get_signal_description_by_class*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct switcher__get_signal_description_by_class*)p->ptr);
 		break;
 #ifndef WITH_NOGLOBAL
 	case SOAP_TYPE_SOAP_ENV__Header:
@@ -2318,6 +2584,1533 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Header(struct soap *soap, int st,
 }
 
 #endif
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_description_by_class(struct soap *soap, struct switcher__get_signal_description_by_class *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_std__string(soap, &a->class_name);
+	soap_default_std__string(soap, &a->signal_name);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_description_by_class(struct soap *soap, const struct switcher__get_signal_description_by_class *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_embedded(soap, &a->class_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->class_name);
+	soap_embedded(soap, &a->signal_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->signal_name);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_description_by_class(struct soap *soap, const char *tag, int id, const struct switcher__get_signal_description_by_class *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signal_description_by_class), type))
+		return soap->error;
+	if (soap_out_std__string(soap, "class-name", -1, &a->class_name, ""))
+		return soap->error;
+	if (soap_out_std__string(soap, "signal-name", -1, &a->signal_name, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_description_by_class * SOAP_FMAC4 soap_in_switcher__get_signal_description_by_class(struct soap *soap, const char *tag, struct switcher__get_signal_description_by_class *a, const char *type)
+{
+	size_t soap_flag_class_name = 1;
+	size_t soap_flag_signal_name = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signal_description_by_class *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signal_description_by_class, sizeof(struct switcher__get_signal_description_by_class), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signal_description_by_class(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_class_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "class-name", &a->class_name, "xsd:string"))
+				{	soap_flag_class_name--;
+					continue;
+				}
+			if (soap_flag_signal_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "signal-name", &a->signal_name, "xsd:string"))
+				{	soap_flag_signal_name--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signal_description_by_class *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signal_description_by_class, 0, sizeof(struct switcher__get_signal_description_by_class), 0, soap_copy_switcher__get_signal_description_by_class);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_class_name > 0 || soap_flag_signal_name > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_description_by_class(struct soap *soap, const struct switcher__get_signal_description_by_class *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signal_description_by_class);
+	if (soap_out_switcher__get_signal_description_by_class(soap, tag?tag:"switcher:get-signal-description-by-class", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_description_by_class * SOAP_FMAC4 soap_get_switcher__get_signal_description_by_class(struct soap *soap, struct switcher__get_signal_description_by_class *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signal_description_by_class(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signal_description_by_class * SOAP_FMAC2 soap_instantiate_switcher__get_signal_description_by_class(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signal_description_by_class(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signal_description_by_class, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_description_by_class);
+		if (size)
+			*size = sizeof(struct switcher__get_signal_description_by_class);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_description_by_class[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signal_description_by_class);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signal_description_by_class*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_description_by_class(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signal_description_by_class %p -> %p\n", q, p));
+	*(struct switcher__get_signal_description_by_class*)p = *(struct switcher__get_signal_description_by_class*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_description_by_classResponse(struct soap *soap, struct switcher__get_signal_description_by_classResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->result = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_description_by_classResponse(struct soap *soap, const struct switcher__get_signal_description_by_classResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &a->result);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_description_by_classResponse(struct soap *soap, const char *tag, int id, const struct switcher__get_signal_description_by_classResponse *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signal_description_by_classResponse), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "result", -1, &a->result, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_description_by_classResponse * SOAP_FMAC4 soap_in_switcher__get_signal_description_by_classResponse(struct soap *soap, const char *tag, struct switcher__get_signal_description_by_classResponse *a, const char *type)
+{
+	size_t soap_flag_result = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signal_description_by_classResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signal_description_by_classResponse, sizeof(struct switcher__get_signal_description_by_classResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signal_description_by_classResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_result && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "result", &a->result, "xsd:string"))
+				{	soap_flag_result--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signal_description_by_classResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signal_description_by_classResponse, 0, sizeof(struct switcher__get_signal_description_by_classResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_description_by_classResponse(struct soap *soap, const struct switcher__get_signal_description_by_classResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signal_description_by_classResponse);
+	if (soap_out_switcher__get_signal_description_by_classResponse(soap, tag?tag:"switcher:get-signal-description-by-classResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_description_by_classResponse * SOAP_FMAC4 soap_get_switcher__get_signal_description_by_classResponse(struct soap *soap, struct switcher__get_signal_description_by_classResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signal_description_by_classResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signal_description_by_classResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signal_description_by_classResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signal_description_by_classResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signal_description_by_classResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_description_by_classResponse);
+		if (size)
+			*size = sizeof(struct switcher__get_signal_description_by_classResponse);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_description_by_classResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signal_description_by_classResponse);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signal_description_by_classResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_description_by_classResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signal_description_by_classResponse %p -> %p\n", q, p));
+	*(struct switcher__get_signal_description_by_classResponse*)p = *(struct switcher__get_signal_description_by_classResponse*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__run(struct soap *soap, struct switcher__run *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_std__string(soap, &a->file_name);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__run(struct soap *soap, const struct switcher__run *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_embedded(soap, &a->file_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->file_name);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__run(struct soap *soap, const char *tag, int id, const struct switcher__run *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__run), type))
+		return soap->error;
+	if (soap_out_std__string(soap, "file-name", -1, &a->file_name, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__run * SOAP_FMAC4 soap_in_switcher__run(struct soap *soap, const char *tag, struct switcher__run *a, const char *type)
+{
+	size_t soap_flag_file_name = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__run *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__run, sizeof(struct switcher__run), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	soap_default_switcher__run(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_file_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "file-name", &a->file_name, "xsd:string"))
+				{	soap_flag_file_name--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__run *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__run, 0, sizeof(struct switcher__run), 0, soap_copy_switcher__run);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_file_name > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__run(struct soap *soap, const struct switcher__run *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__run);
+	if (soap_out_switcher__run(soap, tag?tag:"switcher:run", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__run * SOAP_FMAC4 soap_get_switcher__run(struct soap *soap, struct switcher__run *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__run(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__run * SOAP_FMAC2 soap_instantiate_switcher__run(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__run(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__run, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__run);
+		if (size)
+			*size = sizeof(struct switcher__run);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__run[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__run);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__run*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__run(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__run %p -> %p\n", q, p));
+	*(struct switcher__run*)p = *(struct switcher__run*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__runResponse(struct soap *soap, struct switcher__runResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->result = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__runResponse(struct soap *soap, const struct switcher__runResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &a->result);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__runResponse(struct soap *soap, const char *tag, int id, const struct switcher__runResponse *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__runResponse), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "result", -1, &a->result, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__runResponse * SOAP_FMAC4 soap_in_switcher__runResponse(struct soap *soap, const char *tag, struct switcher__runResponse *a, const char *type)
+{
+	size_t soap_flag_result = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__runResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__runResponse, sizeof(struct switcher__runResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_switcher__runResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_result && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "result", &a->result, "xsd:string"))
+				{	soap_flag_result--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__runResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__runResponse, 0, sizeof(struct switcher__runResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__runResponse(struct soap *soap, const struct switcher__runResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__runResponse);
+	if (soap_out_switcher__runResponse(soap, tag?tag:"switcher:runResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__runResponse * SOAP_FMAC4 soap_get_switcher__runResponse(struct soap *soap, struct switcher__runResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__runResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__runResponse * SOAP_FMAC2 soap_instantiate_switcher__runResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__runResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__runResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__runResponse);
+		if (size)
+			*size = sizeof(struct switcher__runResponse);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__runResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__runResponse);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__runResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__runResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__runResponse %p -> %p\n", q, p));
+	*(struct switcher__runResponse*)p = *(struct switcher__runResponse*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__load(struct soap *soap, struct switcher__load *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_std__string(soap, &a->file_name);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__load(struct soap *soap, const struct switcher__load *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_embedded(soap, &a->file_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->file_name);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__load(struct soap *soap, const char *tag, int id, const struct switcher__load *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__load), type))
+		return soap->error;
+	if (soap_out_std__string(soap, "file-name", -1, &a->file_name, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__load * SOAP_FMAC4 soap_in_switcher__load(struct soap *soap, const char *tag, struct switcher__load *a, const char *type)
+{
+	size_t soap_flag_file_name = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__load *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__load, sizeof(struct switcher__load), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	soap_default_switcher__load(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_file_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "file-name", &a->file_name, "xsd:string"))
+				{	soap_flag_file_name--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__load *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__load, 0, sizeof(struct switcher__load), 0, soap_copy_switcher__load);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_file_name > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__load(struct soap *soap, const struct switcher__load *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__load);
+	if (soap_out_switcher__load(soap, tag?tag:"switcher:load", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__load * SOAP_FMAC4 soap_get_switcher__load(struct soap *soap, struct switcher__load *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__load(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__load * SOAP_FMAC2 soap_instantiate_switcher__load(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__load(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__load, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__load);
+		if (size)
+			*size = sizeof(struct switcher__load);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__load[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__load);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__load*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__load(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__load %p -> %p\n", q, p));
+	*(struct switcher__load*)p = *(struct switcher__load*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__loadResponse(struct soap *soap, struct switcher__loadResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->result = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__loadResponse(struct soap *soap, const struct switcher__loadResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &a->result);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__loadResponse(struct soap *soap, const char *tag, int id, const struct switcher__loadResponse *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__loadResponse), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "result", -1, &a->result, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__loadResponse * SOAP_FMAC4 soap_in_switcher__loadResponse(struct soap *soap, const char *tag, struct switcher__loadResponse *a, const char *type)
+{
+	size_t soap_flag_result = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__loadResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__loadResponse, sizeof(struct switcher__loadResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_switcher__loadResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_result && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "result", &a->result, "xsd:string"))
+				{	soap_flag_result--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__loadResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__loadResponse, 0, sizeof(struct switcher__loadResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__loadResponse(struct soap *soap, const struct switcher__loadResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__loadResponse);
+	if (soap_out_switcher__loadResponse(soap, tag?tag:"switcher:loadResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__loadResponse * SOAP_FMAC4 soap_get_switcher__loadResponse(struct soap *soap, struct switcher__loadResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__loadResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__loadResponse * SOAP_FMAC2 soap_instantiate_switcher__loadResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__loadResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__loadResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__loadResponse);
+		if (size)
+			*size = sizeof(struct switcher__loadResponse);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__loadResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__loadResponse);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__loadResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__loadResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__loadResponse %p -> %p\n", q, p));
+	*(struct switcher__loadResponse*)p = *(struct switcher__loadResponse*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__save(struct soap *soap, struct switcher__save *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_std__string(soap, &a->file_name);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__save(struct soap *soap, const struct switcher__save *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_embedded(soap, &a->file_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->file_name);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__save(struct soap *soap, const char *tag, int id, const struct switcher__save *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__save), type))
+		return soap->error;
+	if (soap_out_std__string(soap, "file-name", -1, &a->file_name, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__save * SOAP_FMAC4 soap_in_switcher__save(struct soap *soap, const char *tag, struct switcher__save *a, const char *type)
+{
+	size_t soap_flag_file_name = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__save *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__save, sizeof(struct switcher__save), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	soap_default_switcher__save(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_file_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "file-name", &a->file_name, "xsd:string"))
+				{	soap_flag_file_name--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__save *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__save, 0, sizeof(struct switcher__save), 0, soap_copy_switcher__save);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_file_name > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__save(struct soap *soap, const struct switcher__save *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__save);
+	if (soap_out_switcher__save(soap, tag?tag:"switcher:save", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__save * SOAP_FMAC4 soap_get_switcher__save(struct soap *soap, struct switcher__save *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__save(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__save * SOAP_FMAC2 soap_instantiate_switcher__save(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__save(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__save, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__save);
+		if (size)
+			*size = sizeof(struct switcher__save);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__save[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__save);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__save*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__save(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__save %p -> %p\n", q, p));
+	*(struct switcher__save*)p = *(struct switcher__save*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__saveResponse(struct soap *soap, struct switcher__saveResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->result = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__saveResponse(struct soap *soap, const struct switcher__saveResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &a->result);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__saveResponse(struct soap *soap, const char *tag, int id, const struct switcher__saveResponse *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__saveResponse), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "result", -1, &a->result, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__saveResponse * SOAP_FMAC4 soap_in_switcher__saveResponse(struct soap *soap, const char *tag, struct switcher__saveResponse *a, const char *type)
+{
+	size_t soap_flag_result = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__saveResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__saveResponse, sizeof(struct switcher__saveResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_switcher__saveResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_result && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "result", &a->result, "xsd:string"))
+				{	soap_flag_result--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__saveResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__saveResponse, 0, sizeof(struct switcher__saveResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__saveResponse(struct soap *soap, const struct switcher__saveResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__saveResponse);
+	if (soap_out_switcher__saveResponse(soap, tag?tag:"switcher:saveResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__saveResponse * SOAP_FMAC4 soap_get_switcher__saveResponse(struct soap *soap, struct switcher__saveResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__saveResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__saveResponse * SOAP_FMAC2 soap_instantiate_switcher__saveResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__saveResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__saveResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__saveResponse);
+		if (size)
+			*size = sizeof(struct switcher__saveResponse);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__saveResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__saveResponse);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__saveResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__saveResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__saveResponse %p -> %p\n", q, p));
+	*(struct switcher__saveResponse*)p = *(struct switcher__saveResponse*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_description_by_class(struct soap *soap, struct switcher__get_signals_description_by_class *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_std__string(soap, &a->class_name);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_description_by_class(struct soap *soap, const struct switcher__get_signals_description_by_class *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_embedded(soap, &a->class_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->class_name);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_description_by_class(struct soap *soap, const char *tag, int id, const struct switcher__get_signals_description_by_class *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signals_description_by_class), type))
+		return soap->error;
+	if (soap_out_std__string(soap, "class-name", -1, &a->class_name, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_description_by_class * SOAP_FMAC4 soap_in_switcher__get_signals_description_by_class(struct soap *soap, const char *tag, struct switcher__get_signals_description_by_class *a, const char *type)
+{
+	size_t soap_flag_class_name = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signals_description_by_class *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signals_description_by_class, sizeof(struct switcher__get_signals_description_by_class), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signals_description_by_class(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_class_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "class-name", &a->class_name, "xsd:string"))
+				{	soap_flag_class_name--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signals_description_by_class *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signals_description_by_class, 0, sizeof(struct switcher__get_signals_description_by_class), 0, soap_copy_switcher__get_signals_description_by_class);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_class_name > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_description_by_class(struct soap *soap, const struct switcher__get_signals_description_by_class *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signals_description_by_class);
+	if (soap_out_switcher__get_signals_description_by_class(soap, tag?tag:"switcher:get-signals-description-by-class", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_description_by_class * SOAP_FMAC4 soap_get_switcher__get_signals_description_by_class(struct soap *soap, struct switcher__get_signals_description_by_class *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signals_description_by_class(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signals_description_by_class * SOAP_FMAC2 soap_instantiate_switcher__get_signals_description_by_class(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signals_description_by_class(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signals_description_by_class, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_description_by_class);
+		if (size)
+			*size = sizeof(struct switcher__get_signals_description_by_class);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_description_by_class[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signals_description_by_class);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signals_description_by_class*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_description_by_class(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signals_description_by_class %p -> %p\n", q, p));
+	*(struct switcher__get_signals_description_by_class*)p = *(struct switcher__get_signals_description_by_class*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_description_by_classResponse(struct soap *soap, struct switcher__get_signals_description_by_classResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->result = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_description_by_classResponse(struct soap *soap, const struct switcher__get_signals_description_by_classResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &a->result);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_description_by_classResponse(struct soap *soap, const char *tag, int id, const struct switcher__get_signals_description_by_classResponse *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signals_description_by_classResponse), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "result", -1, &a->result, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_description_by_classResponse * SOAP_FMAC4 soap_in_switcher__get_signals_description_by_classResponse(struct soap *soap, const char *tag, struct switcher__get_signals_description_by_classResponse *a, const char *type)
+{
+	size_t soap_flag_result = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signals_description_by_classResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signals_description_by_classResponse, sizeof(struct switcher__get_signals_description_by_classResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signals_description_by_classResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_result && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "result", &a->result, "xsd:string"))
+				{	soap_flag_result--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signals_description_by_classResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signals_description_by_classResponse, 0, sizeof(struct switcher__get_signals_description_by_classResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_description_by_classResponse(struct soap *soap, const struct switcher__get_signals_description_by_classResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signals_description_by_classResponse);
+	if (soap_out_switcher__get_signals_description_by_classResponse(soap, tag?tag:"switcher:get-signals-description-by-classResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_description_by_classResponse * SOAP_FMAC4 soap_get_switcher__get_signals_description_by_classResponse(struct soap *soap, struct switcher__get_signals_description_by_classResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signals_description_by_classResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signals_description_by_classResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signals_description_by_classResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signals_description_by_classResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signals_description_by_classResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_description_by_classResponse);
+		if (size)
+			*size = sizeof(struct switcher__get_signals_description_by_classResponse);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_description_by_classResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signals_description_by_classResponse);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signals_description_by_classResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_description_by_classResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signals_description_by_classResponse %p -> %p\n", q, p));
+	*(struct switcher__get_signals_description_by_classResponse*)p = *(struct switcher__get_signals_description_by_classResponse*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_description(struct soap *soap, struct switcher__get_signal_description *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_std__string(soap, &a->quiddity_name);
+	soap_default_std__string(soap, &a->signal_name);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_description(struct soap *soap, const struct switcher__get_signal_description *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_embedded(soap, &a->quiddity_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->quiddity_name);
+	soap_embedded(soap, &a->signal_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->signal_name);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_description(struct soap *soap, const char *tag, int id, const struct switcher__get_signal_description *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signal_description), type))
+		return soap->error;
+	if (soap_out_std__string(soap, "quiddity-name", -1, &a->quiddity_name, ""))
+		return soap->error;
+	if (soap_out_std__string(soap, "signal-name", -1, &a->signal_name, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_description * SOAP_FMAC4 soap_in_switcher__get_signal_description(struct soap *soap, const char *tag, struct switcher__get_signal_description *a, const char *type)
+{
+	size_t soap_flag_quiddity_name = 1;
+	size_t soap_flag_signal_name = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signal_description *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signal_description, sizeof(struct switcher__get_signal_description), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signal_description(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_quiddity_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "quiddity-name", &a->quiddity_name, "xsd:string"))
+				{	soap_flag_quiddity_name--;
+					continue;
+				}
+			if (soap_flag_signal_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "signal-name", &a->signal_name, "xsd:string"))
+				{	soap_flag_signal_name--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signal_description *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signal_description, 0, sizeof(struct switcher__get_signal_description), 0, soap_copy_switcher__get_signal_description);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_quiddity_name > 0 || soap_flag_signal_name > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_description(struct soap *soap, const struct switcher__get_signal_description *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signal_description);
+	if (soap_out_switcher__get_signal_description(soap, tag?tag:"switcher:get-signal-description", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_description * SOAP_FMAC4 soap_get_switcher__get_signal_description(struct soap *soap, struct switcher__get_signal_description *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signal_description(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signal_description * SOAP_FMAC2 soap_instantiate_switcher__get_signal_description(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signal_description(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signal_description, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_description);
+		if (size)
+			*size = sizeof(struct switcher__get_signal_description);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_description[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signal_description);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signal_description*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_description(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signal_description %p -> %p\n", q, p));
+	*(struct switcher__get_signal_description*)p = *(struct switcher__get_signal_description*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_descriptionResponse(struct soap *soap, struct switcher__get_signal_descriptionResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->result = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_descriptionResponse(struct soap *soap, const struct switcher__get_signal_descriptionResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &a->result);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_descriptionResponse(struct soap *soap, const char *tag, int id, const struct switcher__get_signal_descriptionResponse *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signal_descriptionResponse), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "result", -1, &a->result, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_descriptionResponse * SOAP_FMAC4 soap_in_switcher__get_signal_descriptionResponse(struct soap *soap, const char *tag, struct switcher__get_signal_descriptionResponse *a, const char *type)
+{
+	size_t soap_flag_result = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signal_descriptionResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signal_descriptionResponse, sizeof(struct switcher__get_signal_descriptionResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signal_descriptionResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_result && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "result", &a->result, "xsd:string"))
+				{	soap_flag_result--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signal_descriptionResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signal_descriptionResponse, 0, sizeof(struct switcher__get_signal_descriptionResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_descriptionResponse(struct soap *soap, const struct switcher__get_signal_descriptionResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signal_descriptionResponse);
+	if (soap_out_switcher__get_signal_descriptionResponse(soap, tag?tag:"switcher:get-signal-descriptionResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signal_descriptionResponse * SOAP_FMAC4 soap_get_switcher__get_signal_descriptionResponse(struct soap *soap, struct switcher__get_signal_descriptionResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signal_descriptionResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signal_descriptionResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signal_descriptionResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signal_descriptionResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signal_descriptionResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_descriptionResponse);
+		if (size)
+			*size = sizeof(struct switcher__get_signal_descriptionResponse);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signal_descriptionResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signal_descriptionResponse);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signal_descriptionResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_descriptionResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signal_descriptionResponse %p -> %p\n", q, p));
+	*(struct switcher__get_signal_descriptionResponse*)p = *(struct switcher__get_signal_descriptionResponse*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_description(struct soap *soap, struct switcher__get_signals_description *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_default_std__string(soap, &a->quiddity_name);
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_description(struct soap *soap, const struct switcher__get_signals_description *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_embedded(soap, &a->quiddity_name, SOAP_TYPE_std__string);
+	soap_serialize_std__string(soap, &a->quiddity_name);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_description(struct soap *soap, const char *tag, int id, const struct switcher__get_signals_description *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signals_description), type))
+		return soap->error;
+	if (soap_out_std__string(soap, "quiddity-name", -1, &a->quiddity_name, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_description * SOAP_FMAC4 soap_in_switcher__get_signals_description(struct soap *soap, const char *tag, struct switcher__get_signals_description *a, const char *type)
+{
+	size_t soap_flag_quiddity_name = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signals_description *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signals_description, sizeof(struct switcher__get_signals_description), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signals_description(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_quiddity_name && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_std__string(soap, "quiddity-name", &a->quiddity_name, "xsd:string"))
+				{	soap_flag_quiddity_name--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signals_description *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signals_description, 0, sizeof(struct switcher__get_signals_description), 0, soap_copy_switcher__get_signals_description);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_quiddity_name > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_description(struct soap *soap, const struct switcher__get_signals_description *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signals_description);
+	if (soap_out_switcher__get_signals_description(soap, tag?tag:"switcher:get-signals-description", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_description * SOAP_FMAC4 soap_get_switcher__get_signals_description(struct soap *soap, struct switcher__get_signals_description *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signals_description(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signals_description * SOAP_FMAC2 soap_instantiate_switcher__get_signals_description(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signals_description(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signals_description, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_description);
+		if (size)
+			*size = sizeof(struct switcher__get_signals_description);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_description[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signals_description);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signals_description*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_description(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signals_description %p -> %p\n", q, p));
+	*(struct switcher__get_signals_description*)p = *(struct switcher__get_signals_description*)q;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_descriptionResponse(struct soap *soap, struct switcher__get_signals_descriptionResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->result = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_descriptionResponse(struct soap *soap, const struct switcher__get_signals_descriptionResponse *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &a->result);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_descriptionResponse(struct soap *soap, const char *tag, int id, const struct switcher__get_signals_descriptionResponse *a, const char *type)
+{	(void)soap; (void)tag; (void)id; (void)type;
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_switcher__get_signals_descriptionResponse), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "result", -1, &a->result, ""))
+		return soap->error;
+	return soap_element_end_out(soap, tag);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_descriptionResponse * SOAP_FMAC4 soap_in_switcher__get_signals_descriptionResponse(struct soap *soap, const char *tag, struct switcher__get_signals_descriptionResponse *a, const char *type)
+{
+	size_t soap_flag_result = 1;
+	if (soap_element_begin_in(soap, tag, 0, type))
+		return NULL;
+	a = (struct switcher__get_signals_descriptionResponse *)soap_id_enter(soap, soap->id, a, SOAP_TYPE_switcher__get_signals_descriptionResponse, sizeof(struct switcher__get_signals_descriptionResponse), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default_switcher__get_signals_descriptionResponse(soap, a);
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_result && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "result", &a->result, "xsd:string"))
+				{	soap_flag_result--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (struct switcher__get_signals_descriptionResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_switcher__get_signals_descriptionResponse, 0, sizeof(struct switcher__get_signals_descriptionResponse), 0, NULL);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_descriptionResponse(struct soap *soap, const struct switcher__get_signals_descriptionResponse *a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_switcher__get_signals_descriptionResponse);
+	if (soap_out_switcher__get_signals_descriptionResponse(soap, tag?tag:"switcher:get-signals-descriptionResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 struct switcher__get_signals_descriptionResponse * SOAP_FMAC4 soap_get_switcher__get_signals_descriptionResponse(struct soap *soap, struct switcher__get_signals_descriptionResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_switcher__get_signals_descriptionResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct switcher__get_signals_descriptionResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signals_descriptionResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_switcher__get_signals_descriptionResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_switcher__get_signals_descriptionResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_descriptionResponse);
+		if (size)
+			*size = sizeof(struct switcher__get_signals_descriptionResponse);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct switcher__get_signals_descriptionResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct switcher__get_signals_descriptionResponse);
+	}
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct switcher__get_signals_descriptionResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_descriptionResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)tt; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct switcher__get_signals_descriptionResponse %p -> %p\n", q, p));
+	*(struct switcher__get_signals_descriptionResponse*)p = *(struct switcher__get_signals_descriptionResponse*)q;
+}
 
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__invoke_method(struct soap *soap, struct switcher__invoke_method *a)
 {

@@ -152,7 +152,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_std__string(struct soap*, int, int, void*, 
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (96)
+#define SOAP_TYPE_SOAP_ENV__Fault (117)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Fault(struct soap*, struct SOAP_ENV__Fault *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Fault(struct soap*, const struct SOAP_ENV__Fault *);
@@ -185,7 +185,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Fault(struct soap*, int, int, voi
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (95)
+#define SOAP_TYPE_SOAP_ENV__Reason (116)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Reason(struct soap*, const struct SOAP_ENV__Reason *);
@@ -218,7 +218,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Reason(struct soap*, int, int, vo
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (93)
+#define SOAP_TYPE_SOAP_ENV__Detail (114)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Detail(struct soap*, const struct SOAP_ENV__Detail *);
@@ -251,7 +251,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Detail(struct soap*, int, int, vo
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (91)
+#define SOAP_TYPE_SOAP_ENV__Code (112)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Code(struct soap*, const struct SOAP_ENV__Code *);
@@ -284,7 +284,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Code(struct soap*, int, int, void
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (90)
+#define SOAP_TYPE_SOAP_ENV__Header (111)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Header(struct soap*, struct SOAP_ENV__Header *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Header(struct soap*, const struct SOAP_ENV__Header *);
@@ -313,6 +313,412 @@ SOAP_FMAC1 struct SOAP_ENV__Header * SOAP_FMAC2 soap_instantiate_SOAP_ENV__Heade
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Header(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #endif
+
+#ifndef SOAP_TYPE_switcher__get_signal_description_by_class
+#define SOAP_TYPE_switcher__get_signal_description_by_class (110)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_description_by_class(struct soap*, struct switcher__get_signal_description_by_class *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_description_by_class(struct soap*, const struct switcher__get_signal_description_by_class *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_description_by_class(struct soap*, const char*, int, const struct switcher__get_signal_description_by_class *, const char*);
+SOAP_FMAC3 struct switcher__get_signal_description_by_class * SOAP_FMAC4 soap_in_switcher__get_signal_description_by_class(struct soap*, const char*, struct switcher__get_signal_description_by_class *, const char*);
+
+#ifndef soap_write_switcher__get_signal_description_by_class
+#define soap_write_switcher__get_signal_description_by_class(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signal_description_by_class(soap, data), 0) || soap_put_switcher__get_signal_description_by_class(soap, data, "switcher:get-signal-description-by-class", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_description_by_class(struct soap*, const struct switcher__get_signal_description_by_class *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signal_description_by_class
+#define soap_read_switcher__get_signal_description_by_class(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signal_description_by_class(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signal_description_by_class * SOAP_FMAC4 soap_get_switcher__get_signal_description_by_class(struct soap*, struct switcher__get_signal_description_by_class *, const char*, const char*);
+
+#define soap_new_switcher__get_signal_description_by_class(soap, n) soap_instantiate_switcher__get_signal_description_by_class(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signal_description_by_class(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signal_description_by_class * SOAP_FMAC2 soap_instantiate_switcher__get_signal_description_by_class(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_description_by_class(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__get_signal_description_by_classResponse
+#define SOAP_TYPE_switcher__get_signal_description_by_classResponse (109)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_description_by_classResponse(struct soap*, struct switcher__get_signal_description_by_classResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_description_by_classResponse(struct soap*, const struct switcher__get_signal_description_by_classResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_description_by_classResponse(struct soap*, const char*, int, const struct switcher__get_signal_description_by_classResponse *, const char*);
+SOAP_FMAC3 struct switcher__get_signal_description_by_classResponse * SOAP_FMAC4 soap_in_switcher__get_signal_description_by_classResponse(struct soap*, const char*, struct switcher__get_signal_description_by_classResponse *, const char*);
+
+#ifndef soap_write_switcher__get_signal_description_by_classResponse
+#define soap_write_switcher__get_signal_description_by_classResponse(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signal_description_by_classResponse(soap, data), 0) || soap_put_switcher__get_signal_description_by_classResponse(soap, data, "switcher:get-signal-description-by-classResponse", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_description_by_classResponse(struct soap*, const struct switcher__get_signal_description_by_classResponse *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signal_description_by_classResponse
+#define soap_read_switcher__get_signal_description_by_classResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signal_description_by_classResponse(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signal_description_by_classResponse * SOAP_FMAC4 soap_get_switcher__get_signal_description_by_classResponse(struct soap*, struct switcher__get_signal_description_by_classResponse *, const char*, const char*);
+
+#define soap_new_switcher__get_signal_description_by_classResponse(soap, n) soap_instantiate_switcher__get_signal_description_by_classResponse(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signal_description_by_classResponse(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signal_description_by_classResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signal_description_by_classResponse(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_description_by_classResponse(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__run
+#define SOAP_TYPE_switcher__run (107)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__run(struct soap*, struct switcher__run *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__run(struct soap*, const struct switcher__run *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__run(struct soap*, const char*, int, const struct switcher__run *, const char*);
+SOAP_FMAC3 struct switcher__run * SOAP_FMAC4 soap_in_switcher__run(struct soap*, const char*, struct switcher__run *, const char*);
+
+#ifndef soap_write_switcher__run
+#define soap_write_switcher__run(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__run(soap, data), 0) || soap_put_switcher__run(soap, data, "switcher:run", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__run(struct soap*, const struct switcher__run *, const char*, const char*);
+
+#ifndef soap_read_switcher__run
+#define soap_read_switcher__run(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__run(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__run * SOAP_FMAC4 soap_get_switcher__run(struct soap*, struct switcher__run *, const char*, const char*);
+
+#define soap_new_switcher__run(soap, n) soap_instantiate_switcher__run(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__run(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__run * SOAP_FMAC2 soap_instantiate_switcher__run(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__run(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__runResponse
+#define SOAP_TYPE_switcher__runResponse (106)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__runResponse(struct soap*, struct switcher__runResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__runResponse(struct soap*, const struct switcher__runResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__runResponse(struct soap*, const char*, int, const struct switcher__runResponse *, const char*);
+SOAP_FMAC3 struct switcher__runResponse * SOAP_FMAC4 soap_in_switcher__runResponse(struct soap*, const char*, struct switcher__runResponse *, const char*);
+
+#ifndef soap_write_switcher__runResponse
+#define soap_write_switcher__runResponse(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__runResponse(soap, data), 0) || soap_put_switcher__runResponse(soap, data, "switcher:runResponse", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__runResponse(struct soap*, const struct switcher__runResponse *, const char*, const char*);
+
+#ifndef soap_read_switcher__runResponse
+#define soap_read_switcher__runResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__runResponse(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__runResponse * SOAP_FMAC4 soap_get_switcher__runResponse(struct soap*, struct switcher__runResponse *, const char*, const char*);
+
+#define soap_new_switcher__runResponse(soap, n) soap_instantiate_switcher__runResponse(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__runResponse(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__runResponse * SOAP_FMAC2 soap_instantiate_switcher__runResponse(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__runResponse(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__load
+#define SOAP_TYPE_switcher__load (104)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__load(struct soap*, struct switcher__load *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__load(struct soap*, const struct switcher__load *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__load(struct soap*, const char*, int, const struct switcher__load *, const char*);
+SOAP_FMAC3 struct switcher__load * SOAP_FMAC4 soap_in_switcher__load(struct soap*, const char*, struct switcher__load *, const char*);
+
+#ifndef soap_write_switcher__load
+#define soap_write_switcher__load(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__load(soap, data), 0) || soap_put_switcher__load(soap, data, "switcher:load", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__load(struct soap*, const struct switcher__load *, const char*, const char*);
+
+#ifndef soap_read_switcher__load
+#define soap_read_switcher__load(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__load(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__load * SOAP_FMAC4 soap_get_switcher__load(struct soap*, struct switcher__load *, const char*, const char*);
+
+#define soap_new_switcher__load(soap, n) soap_instantiate_switcher__load(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__load(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__load * SOAP_FMAC2 soap_instantiate_switcher__load(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__load(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__loadResponse
+#define SOAP_TYPE_switcher__loadResponse (103)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__loadResponse(struct soap*, struct switcher__loadResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__loadResponse(struct soap*, const struct switcher__loadResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__loadResponse(struct soap*, const char*, int, const struct switcher__loadResponse *, const char*);
+SOAP_FMAC3 struct switcher__loadResponse * SOAP_FMAC4 soap_in_switcher__loadResponse(struct soap*, const char*, struct switcher__loadResponse *, const char*);
+
+#ifndef soap_write_switcher__loadResponse
+#define soap_write_switcher__loadResponse(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__loadResponse(soap, data), 0) || soap_put_switcher__loadResponse(soap, data, "switcher:loadResponse", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__loadResponse(struct soap*, const struct switcher__loadResponse *, const char*, const char*);
+
+#ifndef soap_read_switcher__loadResponse
+#define soap_read_switcher__loadResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__loadResponse(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__loadResponse * SOAP_FMAC4 soap_get_switcher__loadResponse(struct soap*, struct switcher__loadResponse *, const char*, const char*);
+
+#define soap_new_switcher__loadResponse(soap, n) soap_instantiate_switcher__loadResponse(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__loadResponse(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__loadResponse * SOAP_FMAC2 soap_instantiate_switcher__loadResponse(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__loadResponse(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__save
+#define SOAP_TYPE_switcher__save (101)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__save(struct soap*, struct switcher__save *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__save(struct soap*, const struct switcher__save *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__save(struct soap*, const char*, int, const struct switcher__save *, const char*);
+SOAP_FMAC3 struct switcher__save * SOAP_FMAC4 soap_in_switcher__save(struct soap*, const char*, struct switcher__save *, const char*);
+
+#ifndef soap_write_switcher__save
+#define soap_write_switcher__save(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__save(soap, data), 0) || soap_put_switcher__save(soap, data, "switcher:save", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__save(struct soap*, const struct switcher__save *, const char*, const char*);
+
+#ifndef soap_read_switcher__save
+#define soap_read_switcher__save(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__save(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__save * SOAP_FMAC4 soap_get_switcher__save(struct soap*, struct switcher__save *, const char*, const char*);
+
+#define soap_new_switcher__save(soap, n) soap_instantiate_switcher__save(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__save(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__save * SOAP_FMAC2 soap_instantiate_switcher__save(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__save(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__saveResponse
+#define SOAP_TYPE_switcher__saveResponse (100)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__saveResponse(struct soap*, struct switcher__saveResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__saveResponse(struct soap*, const struct switcher__saveResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__saveResponse(struct soap*, const char*, int, const struct switcher__saveResponse *, const char*);
+SOAP_FMAC3 struct switcher__saveResponse * SOAP_FMAC4 soap_in_switcher__saveResponse(struct soap*, const char*, struct switcher__saveResponse *, const char*);
+
+#ifndef soap_write_switcher__saveResponse
+#define soap_write_switcher__saveResponse(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__saveResponse(soap, data), 0) || soap_put_switcher__saveResponse(soap, data, "switcher:saveResponse", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__saveResponse(struct soap*, const struct switcher__saveResponse *, const char*, const char*);
+
+#ifndef soap_read_switcher__saveResponse
+#define soap_read_switcher__saveResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__saveResponse(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__saveResponse * SOAP_FMAC4 soap_get_switcher__saveResponse(struct soap*, struct switcher__saveResponse *, const char*, const char*);
+
+#define soap_new_switcher__saveResponse(soap, n) soap_instantiate_switcher__saveResponse(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__saveResponse(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__saveResponse * SOAP_FMAC2 soap_instantiate_switcher__saveResponse(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__saveResponse(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__get_signals_description_by_class
+#define SOAP_TYPE_switcher__get_signals_description_by_class (98)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_description_by_class(struct soap*, struct switcher__get_signals_description_by_class *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_description_by_class(struct soap*, const struct switcher__get_signals_description_by_class *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_description_by_class(struct soap*, const char*, int, const struct switcher__get_signals_description_by_class *, const char*);
+SOAP_FMAC3 struct switcher__get_signals_description_by_class * SOAP_FMAC4 soap_in_switcher__get_signals_description_by_class(struct soap*, const char*, struct switcher__get_signals_description_by_class *, const char*);
+
+#ifndef soap_write_switcher__get_signals_description_by_class
+#define soap_write_switcher__get_signals_description_by_class(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signals_description_by_class(soap, data), 0) || soap_put_switcher__get_signals_description_by_class(soap, data, "switcher:get-signals-description-by-class", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_description_by_class(struct soap*, const struct switcher__get_signals_description_by_class *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signals_description_by_class
+#define soap_read_switcher__get_signals_description_by_class(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signals_description_by_class(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signals_description_by_class * SOAP_FMAC4 soap_get_switcher__get_signals_description_by_class(struct soap*, struct switcher__get_signals_description_by_class *, const char*, const char*);
+
+#define soap_new_switcher__get_signals_description_by_class(soap, n) soap_instantiate_switcher__get_signals_description_by_class(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signals_description_by_class(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signals_description_by_class * SOAP_FMAC2 soap_instantiate_switcher__get_signals_description_by_class(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_description_by_class(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__get_signals_description_by_classResponse
+#define SOAP_TYPE_switcher__get_signals_description_by_classResponse (97)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_description_by_classResponse(struct soap*, struct switcher__get_signals_description_by_classResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_description_by_classResponse(struct soap*, const struct switcher__get_signals_description_by_classResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_description_by_classResponse(struct soap*, const char*, int, const struct switcher__get_signals_description_by_classResponse *, const char*);
+SOAP_FMAC3 struct switcher__get_signals_description_by_classResponse * SOAP_FMAC4 soap_in_switcher__get_signals_description_by_classResponse(struct soap*, const char*, struct switcher__get_signals_description_by_classResponse *, const char*);
+
+#ifndef soap_write_switcher__get_signals_description_by_classResponse
+#define soap_write_switcher__get_signals_description_by_classResponse(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signals_description_by_classResponse(soap, data), 0) || soap_put_switcher__get_signals_description_by_classResponse(soap, data, "switcher:get-signals-description-by-classResponse", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_description_by_classResponse(struct soap*, const struct switcher__get_signals_description_by_classResponse *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signals_description_by_classResponse
+#define soap_read_switcher__get_signals_description_by_classResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signals_description_by_classResponse(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signals_description_by_classResponse * SOAP_FMAC4 soap_get_switcher__get_signals_description_by_classResponse(struct soap*, struct switcher__get_signals_description_by_classResponse *, const char*, const char*);
+
+#define soap_new_switcher__get_signals_description_by_classResponse(soap, n) soap_instantiate_switcher__get_signals_description_by_classResponse(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signals_description_by_classResponse(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signals_description_by_classResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signals_description_by_classResponse(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_description_by_classResponse(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__get_signal_description
+#define SOAP_TYPE_switcher__get_signal_description (95)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_description(struct soap*, struct switcher__get_signal_description *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_description(struct soap*, const struct switcher__get_signal_description *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_description(struct soap*, const char*, int, const struct switcher__get_signal_description *, const char*);
+SOAP_FMAC3 struct switcher__get_signal_description * SOAP_FMAC4 soap_in_switcher__get_signal_description(struct soap*, const char*, struct switcher__get_signal_description *, const char*);
+
+#ifndef soap_write_switcher__get_signal_description
+#define soap_write_switcher__get_signal_description(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signal_description(soap, data), 0) || soap_put_switcher__get_signal_description(soap, data, "switcher:get-signal-description", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_description(struct soap*, const struct switcher__get_signal_description *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signal_description
+#define soap_read_switcher__get_signal_description(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signal_description(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signal_description * SOAP_FMAC4 soap_get_switcher__get_signal_description(struct soap*, struct switcher__get_signal_description *, const char*, const char*);
+
+#define soap_new_switcher__get_signal_description(soap, n) soap_instantiate_switcher__get_signal_description(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signal_description(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signal_description * SOAP_FMAC2 soap_instantiate_switcher__get_signal_description(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_description(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__get_signal_descriptionResponse
+#define SOAP_TYPE_switcher__get_signal_descriptionResponse (94)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signal_descriptionResponse(struct soap*, struct switcher__get_signal_descriptionResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signal_descriptionResponse(struct soap*, const struct switcher__get_signal_descriptionResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signal_descriptionResponse(struct soap*, const char*, int, const struct switcher__get_signal_descriptionResponse *, const char*);
+SOAP_FMAC3 struct switcher__get_signal_descriptionResponse * SOAP_FMAC4 soap_in_switcher__get_signal_descriptionResponse(struct soap*, const char*, struct switcher__get_signal_descriptionResponse *, const char*);
+
+#ifndef soap_write_switcher__get_signal_descriptionResponse
+#define soap_write_switcher__get_signal_descriptionResponse(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signal_descriptionResponse(soap, data), 0) || soap_put_switcher__get_signal_descriptionResponse(soap, data, "switcher:get-signal-descriptionResponse", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signal_descriptionResponse(struct soap*, const struct switcher__get_signal_descriptionResponse *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signal_descriptionResponse
+#define soap_read_switcher__get_signal_descriptionResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signal_descriptionResponse(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signal_descriptionResponse * SOAP_FMAC4 soap_get_switcher__get_signal_descriptionResponse(struct soap*, struct switcher__get_signal_descriptionResponse *, const char*, const char*);
+
+#define soap_new_switcher__get_signal_descriptionResponse(soap, n) soap_instantiate_switcher__get_signal_descriptionResponse(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signal_descriptionResponse(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signal_descriptionResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signal_descriptionResponse(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signal_descriptionResponse(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__get_signals_description
+#define SOAP_TYPE_switcher__get_signals_description (92)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_description(struct soap*, struct switcher__get_signals_description *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_description(struct soap*, const struct switcher__get_signals_description *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_description(struct soap*, const char*, int, const struct switcher__get_signals_description *, const char*);
+SOAP_FMAC3 struct switcher__get_signals_description * SOAP_FMAC4 soap_in_switcher__get_signals_description(struct soap*, const char*, struct switcher__get_signals_description *, const char*);
+
+#ifndef soap_write_switcher__get_signals_description
+#define soap_write_switcher__get_signals_description(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signals_description(soap, data), 0) || soap_put_switcher__get_signals_description(soap, data, "switcher:get-signals-description", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_description(struct soap*, const struct switcher__get_signals_description *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signals_description
+#define soap_read_switcher__get_signals_description(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signals_description(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signals_description * SOAP_FMAC4 soap_get_switcher__get_signals_description(struct soap*, struct switcher__get_signals_description *, const char*, const char*);
+
+#define soap_new_switcher__get_signals_description(soap, n) soap_instantiate_switcher__get_signals_description(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signals_description(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signals_description * SOAP_FMAC2 soap_instantiate_switcher__get_signals_description(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_description(struct soap*, int, int, void*, size_t, const void*, size_t);
+
+#ifndef SOAP_TYPE_switcher__get_signals_descriptionResponse
+#define SOAP_TYPE_switcher__get_signals_descriptionResponse (91)
+#endif
+SOAP_FMAC3 void SOAP_FMAC4 soap_default_switcher__get_signals_descriptionResponse(struct soap*, struct switcher__get_signals_descriptionResponse *);
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_switcher__get_signals_descriptionResponse(struct soap*, const struct switcher__get_signals_descriptionResponse *);
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_switcher__get_signals_descriptionResponse(struct soap*, const char*, int, const struct switcher__get_signals_descriptionResponse *, const char*);
+SOAP_FMAC3 struct switcher__get_signals_descriptionResponse * SOAP_FMAC4 soap_in_switcher__get_signals_descriptionResponse(struct soap*, const char*, struct switcher__get_signals_descriptionResponse *, const char*);
+
+#ifndef soap_write_switcher__get_signals_descriptionResponse
+#define soap_write_switcher__get_signals_descriptionResponse(soap, data) ( soap_begin_send(soap) || (soap_serialize_switcher__get_signals_descriptionResponse(soap, data), 0) || soap_put_switcher__get_signals_descriptionResponse(soap, data, "switcher:get-signals-descriptionResponse", NULL) || soap_end_send(soap) )
+#endif
+
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_switcher__get_signals_descriptionResponse(struct soap*, const struct switcher__get_signals_descriptionResponse *, const char*, const char*);
+
+#ifndef soap_read_switcher__get_signals_descriptionResponse
+#define soap_read_switcher__get_signals_descriptionResponse(soap, data) ( soap_begin_recv(soap) || !soap_get_switcher__get_signals_descriptionResponse(soap, data, NULL, NULL) || soap_end_recv(soap) )
+#endif
+
+SOAP_FMAC3 struct switcher__get_signals_descriptionResponse * SOAP_FMAC4 soap_get_switcher__get_signals_descriptionResponse(struct soap*, struct switcher__get_signals_descriptionResponse *, const char*, const char*);
+
+#define soap_new_switcher__get_signals_descriptionResponse(soap, n) soap_instantiate_switcher__get_signals_descriptionResponse(soap, n, NULL, NULL, NULL)
+
+
+#define soap_delete_switcher__get_signals_descriptionResponse(soap, p) soap_delete(soap, p)
+
+SOAP_FMAC1 struct switcher__get_signals_descriptionResponse * SOAP_FMAC2 soap_instantiate_switcher__get_signals_descriptionResponse(struct soap*, int, const char*, const char*, size_t*);
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__get_signals_descriptionResponse(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE_switcher__invoke_method
 #define SOAP_TYPE_switcher__invoke_method (89)
@@ -1709,7 +2115,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_switcher__addResponse(struct soap*, int, in
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason
-#define SOAP_TYPE_PointerToSOAP_ENV__Reason (98)
+#define SOAP_TYPE_PointerToSOAP_ENV__Reason (119)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Reason(struct soap*, const char *, int, struct SOAP_ENV__Reason *const*, const char *);
@@ -1732,7 +2138,7 @@ SOAP_FMAC3 struct SOAP_ENV__Reason ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Rea
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Detail
-#define SOAP_TYPE_PointerToSOAP_ENV__Detail (97)
+#define SOAP_TYPE_PointerToSOAP_ENV__Detail (118)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Detail(struct soap*, const char *, int, struct SOAP_ENV__Detail *const*, const char *);
@@ -1755,7 +2161,7 @@ SOAP_FMAC3 struct SOAP_ENV__Detail ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Det
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Code
-#define SOAP_TYPE_PointerToSOAP_ENV__Code (92)
+#define SOAP_TYPE_PointerToSOAP_ENV__Code (113)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Code(struct soap*, const char *, int, struct SOAP_ENV__Code *const*, const char *);

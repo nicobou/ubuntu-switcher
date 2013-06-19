@@ -185,6 +185,13 @@ static int serve_switcher__get_method_description(controlService*);
 static int serve_switcher__get_methods_description_by_class(controlService*);
 static int serve_switcher__get_method_description_by_class(controlService*);
 static int serve_switcher__invoke_method(controlService*);
+static int serve_switcher__get_signals_description(controlService*);
+static int serve_switcher__get_signal_description(controlService*);
+static int serve_switcher__get_signals_description_by_class(controlService*);
+static int serve_switcher__save(controlService*);
+static int serve_switcher__load(controlService*);
+static int serve_switcher__run(controlService*);
+static int serve_switcher__get_signal_description_by_class(controlService*);
 
 int controlService::dispatch()
 {	soap_peek_element(this);
@@ -238,6 +245,20 @@ int controlService::dispatch()
 		return serve_switcher__get_method_description_by_class(this);
 	if (!soap_match_tag(this, this->tag, "switcher:invoke-method"))
 		return serve_switcher__invoke_method(this);
+	if (!soap_match_tag(this, this->tag, "switcher:get-signals-description"))
+		return serve_switcher__get_signals_description(this);
+	if (!soap_match_tag(this, this->tag, "switcher:get-signal-description"))
+		return serve_switcher__get_signal_description(this);
+	if (!soap_match_tag(this, this->tag, "switcher:get-signals-description-by-class"))
+		return serve_switcher__get_signals_description_by_class(this);
+	if (!soap_match_tag(this, this->tag, "switcher:save"))
+		return serve_switcher__save(this);
+	if (!soap_match_tag(this, this->tag, "switcher:load"))
+		return serve_switcher__load(this);
+	if (!soap_match_tag(this, this->tag, "switcher:run"))
+		return serve_switcher__run(this);
+	if (!soap_match_tag(this, this->tag, "switcher:get-signal-description-by-class"))
+		return serve_switcher__get_signal_description_by_class(this);
 	return this->error = SOAP_NO_METHOD;
 }
 
@@ -1278,6 +1299,314 @@ static int serve_switcher__invoke_method(controlService *soap)
 	 || soap_putheader(soap)
 	 || soap_body_begin_out(soap)
 	 || soap_put_switcher__invoke_methodResponse(soap, &soap_tmp_switcher__invoke_methodResponse, "switcher:invoke-methodResponse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap->error;
+	return soap_closesock(soap);
+}
+
+static int serve_switcher__get_signals_description(controlService *soap)
+{	struct switcher__get_signals_description soap_tmp_switcher__get_signals_description;
+	struct switcher__get_signals_descriptionResponse soap_tmp_switcher__get_signals_descriptionResponse;
+	std::string soap_tmp_std__string;
+	soap_default_switcher__get_signals_descriptionResponse(soap, &soap_tmp_switcher__get_signals_descriptionResponse);
+	soap_default_std__string(soap, &soap_tmp_std__string);
+	soap_tmp_switcher__get_signals_descriptionResponse.result = &soap_tmp_std__string;
+	soap_default_switcher__get_signals_description(soap, &soap_tmp_switcher__get_signals_description);
+	soap->encodingStyle = "";
+	if (!soap_get_switcher__get_signals_description(soap, &soap_tmp_switcher__get_signals_description, "switcher:get-signals-description", NULL))
+		return soap->error;
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap->error;
+	soap->error = soap->get_signals_description(soap_tmp_switcher__get_signals_description.quiddity_name, soap_tmp_switcher__get_signals_descriptionResponse.result);
+	if (soap->error)
+		return soap->error;
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signals_descriptionResponse(soap, &soap_tmp_switcher__get_signals_descriptionResponse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signals_descriptionResponse(soap, &soap_tmp_switcher__get_signals_descriptionResponse, "switcher:get-signals-descriptionResponse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signals_descriptionResponse(soap, &soap_tmp_switcher__get_signals_descriptionResponse, "switcher:get-signals-descriptionResponse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap->error;
+	return soap_closesock(soap);
+}
+
+static int serve_switcher__get_signal_description(controlService *soap)
+{	struct switcher__get_signal_description soap_tmp_switcher__get_signal_description;
+	struct switcher__get_signal_descriptionResponse soap_tmp_switcher__get_signal_descriptionResponse;
+	std::string soap_tmp_std__string;
+	soap_default_switcher__get_signal_descriptionResponse(soap, &soap_tmp_switcher__get_signal_descriptionResponse);
+	soap_default_std__string(soap, &soap_tmp_std__string);
+	soap_tmp_switcher__get_signal_descriptionResponse.result = &soap_tmp_std__string;
+	soap_default_switcher__get_signal_description(soap, &soap_tmp_switcher__get_signal_description);
+	soap->encodingStyle = "";
+	if (!soap_get_switcher__get_signal_description(soap, &soap_tmp_switcher__get_signal_description, "switcher:get-signal-description", NULL))
+		return soap->error;
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap->error;
+	soap->error = soap->get_signal_description(soap_tmp_switcher__get_signal_description.quiddity_name, soap_tmp_switcher__get_signal_description.signal_name, soap_tmp_switcher__get_signal_descriptionResponse.result);
+	if (soap->error)
+		return soap->error;
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signal_descriptionResponse(soap, &soap_tmp_switcher__get_signal_descriptionResponse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signal_descriptionResponse(soap, &soap_tmp_switcher__get_signal_descriptionResponse, "switcher:get-signal-descriptionResponse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signal_descriptionResponse(soap, &soap_tmp_switcher__get_signal_descriptionResponse, "switcher:get-signal-descriptionResponse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap->error;
+	return soap_closesock(soap);
+}
+
+static int serve_switcher__get_signals_description_by_class(controlService *soap)
+{	struct switcher__get_signals_description_by_class soap_tmp_switcher__get_signals_description_by_class;
+	struct switcher__get_signals_description_by_classResponse soap_tmp_switcher__get_signals_description_by_classResponse;
+	std::string soap_tmp_std__string;
+	soap_default_switcher__get_signals_description_by_classResponse(soap, &soap_tmp_switcher__get_signals_description_by_classResponse);
+	soap_default_std__string(soap, &soap_tmp_std__string);
+	soap_tmp_switcher__get_signals_description_by_classResponse.result = &soap_tmp_std__string;
+	soap_default_switcher__get_signals_description_by_class(soap, &soap_tmp_switcher__get_signals_description_by_class);
+	soap->encodingStyle = "";
+	if (!soap_get_switcher__get_signals_description_by_class(soap, &soap_tmp_switcher__get_signals_description_by_class, "switcher:get-signals-description-by-class", NULL))
+		return soap->error;
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap->error;
+	soap->error = soap->get_signals_description_by_class(soap_tmp_switcher__get_signals_description_by_class.class_name, soap_tmp_switcher__get_signals_description_by_classResponse.result);
+	if (soap->error)
+		return soap->error;
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signals_description_by_classResponse(soap, &soap_tmp_switcher__get_signals_description_by_classResponse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signals_description_by_classResponse(soap, &soap_tmp_switcher__get_signals_description_by_classResponse, "switcher:get-signals-description-by-classResponse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signals_description_by_classResponse(soap, &soap_tmp_switcher__get_signals_description_by_classResponse, "switcher:get-signals-description-by-classResponse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap->error;
+	return soap_closesock(soap);
+}
+
+static int serve_switcher__save(controlService *soap)
+{	struct switcher__save soap_tmp_switcher__save;
+	struct switcher__saveResponse soap_tmp_switcher__saveResponse;
+	std::string soap_tmp_std__string;
+	soap_default_switcher__saveResponse(soap, &soap_tmp_switcher__saveResponse);
+	soap_default_std__string(soap, &soap_tmp_std__string);
+	soap_tmp_switcher__saveResponse.result = &soap_tmp_std__string;
+	soap_default_switcher__save(soap, &soap_tmp_switcher__save);
+	soap->encodingStyle = "";
+	if (!soap_get_switcher__save(soap, &soap_tmp_switcher__save, "switcher:save", NULL))
+		return soap->error;
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap->error;
+	soap->error = soap->save(soap_tmp_switcher__save.file_name, soap_tmp_switcher__saveResponse.result);
+	if (soap->error)
+		return soap->error;
+	soap_serializeheader(soap);
+	soap_serialize_switcher__saveResponse(soap, &soap_tmp_switcher__saveResponse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__saveResponse(soap, &soap_tmp_switcher__saveResponse, "switcher:saveResponse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__saveResponse(soap, &soap_tmp_switcher__saveResponse, "switcher:saveResponse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap->error;
+	return soap_closesock(soap);
+}
+
+static int serve_switcher__load(controlService *soap)
+{	struct switcher__load soap_tmp_switcher__load;
+	struct switcher__loadResponse soap_tmp_switcher__loadResponse;
+	std::string soap_tmp_std__string;
+	soap_default_switcher__loadResponse(soap, &soap_tmp_switcher__loadResponse);
+	soap_default_std__string(soap, &soap_tmp_std__string);
+	soap_tmp_switcher__loadResponse.result = &soap_tmp_std__string;
+	soap_default_switcher__load(soap, &soap_tmp_switcher__load);
+	soap->encodingStyle = "";
+	if (!soap_get_switcher__load(soap, &soap_tmp_switcher__load, "switcher:load", NULL))
+		return soap->error;
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap->error;
+	soap->error = soap->load(soap_tmp_switcher__load.file_name, soap_tmp_switcher__loadResponse.result);
+	if (soap->error)
+		return soap->error;
+	soap_serializeheader(soap);
+	soap_serialize_switcher__loadResponse(soap, &soap_tmp_switcher__loadResponse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__loadResponse(soap, &soap_tmp_switcher__loadResponse, "switcher:loadResponse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__loadResponse(soap, &soap_tmp_switcher__loadResponse, "switcher:loadResponse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap->error;
+	return soap_closesock(soap);
+}
+
+static int serve_switcher__run(controlService *soap)
+{	struct switcher__run soap_tmp_switcher__run;
+	struct switcher__runResponse soap_tmp_switcher__runResponse;
+	std::string soap_tmp_std__string;
+	soap_default_switcher__runResponse(soap, &soap_tmp_switcher__runResponse);
+	soap_default_std__string(soap, &soap_tmp_std__string);
+	soap_tmp_switcher__runResponse.result = &soap_tmp_std__string;
+	soap_default_switcher__run(soap, &soap_tmp_switcher__run);
+	soap->encodingStyle = "";
+	if (!soap_get_switcher__run(soap, &soap_tmp_switcher__run, "switcher:run", NULL))
+		return soap->error;
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap->error;
+	soap->error = soap->run(soap_tmp_switcher__run.file_name, soap_tmp_switcher__runResponse.result);
+	if (soap->error)
+		return soap->error;
+	soap_serializeheader(soap);
+	soap_serialize_switcher__runResponse(soap, &soap_tmp_switcher__runResponse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__runResponse(soap, &soap_tmp_switcher__runResponse, "switcher:runResponse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__runResponse(soap, &soap_tmp_switcher__runResponse, "switcher:runResponse", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap->error;
+	return soap_closesock(soap);
+}
+
+static int serve_switcher__get_signal_description_by_class(controlService *soap)
+{	struct switcher__get_signal_description_by_class soap_tmp_switcher__get_signal_description_by_class;
+	struct switcher__get_signal_description_by_classResponse soap_tmp_switcher__get_signal_description_by_classResponse;
+	std::string soap_tmp_std__string;
+	soap_default_switcher__get_signal_description_by_classResponse(soap, &soap_tmp_switcher__get_signal_description_by_classResponse);
+	soap_default_std__string(soap, &soap_tmp_std__string);
+	soap_tmp_switcher__get_signal_description_by_classResponse.result = &soap_tmp_std__string;
+	soap_default_switcher__get_signal_description_by_class(soap, &soap_tmp_switcher__get_signal_description_by_class);
+	soap->encodingStyle = "";
+	if (!soap_get_switcher__get_signal_description_by_class(soap, &soap_tmp_switcher__get_signal_description_by_class, "switcher:get-signal-description-by-class", NULL))
+		return soap->error;
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap->error;
+	soap->error = soap->get_signal_description_by_class(soap_tmp_switcher__get_signal_description_by_class.class_name, soap_tmp_switcher__get_signal_description_by_class.signal_name, soap_tmp_switcher__get_signal_description_by_classResponse.result);
+	if (soap->error)
+		return soap->error;
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signal_description_by_classResponse(soap, &soap_tmp_switcher__get_signal_description_by_classResponse);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signal_description_by_classResponse(soap, &soap_tmp_switcher__get_signal_description_by_classResponse, "switcher:get-signal-description-by-classResponse", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	};
+	if (soap_end_count(soap)
+	 || soap_response(soap, SOAP_OK)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signal_description_by_classResponse(soap, &soap_tmp_switcher__get_signal_description_by_classResponse, "switcher:get-signal-description-by-classResponse", NULL)
 	 || soap_body_end_out(soap)
 	 || soap_envelope_end_out(soap)
 	 || soap_end_send(soap))

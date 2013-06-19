@@ -145,5 +145,26 @@ class SOAP_CMAC controlService : public soap
 
 	/// Web service operation 'invoke-method' (returns error code or SOAP_OK)
 	virtual	int invoke_method(std::string quiddity_name, std::string method_name, std::vector<std::string >args, bool *result) SOAP_PURE_VIRTUAL;
+
+	/// Web service operation 'get-signals-description' (returns error code or SOAP_OK)
+	virtual	int get_signals_description(std::string quiddity_name, std::string *result) SOAP_PURE_VIRTUAL;
+
+	/// Web service operation 'get-signal-description' (returns error code or SOAP_OK)
+	virtual	int get_signal_description(std::string quiddity_name, std::string signal_name, std::string *result) SOAP_PURE_VIRTUAL;
+
+	/// Web service operation 'get-signals-description-by-class' (returns error code or SOAP_OK)
+	virtual	int get_signals_description_by_class(std::string class_name, std::string *result) SOAP_PURE_VIRTUAL;
+
+	/// Web service operation 'save' (returns error code or SOAP_OK)
+	virtual	int save(std::string file_name, std::string *result) SOAP_PURE_VIRTUAL;
+
+	/// Web service operation 'load' (returns error code or SOAP_OK)
+	virtual	int load(std::string file_name, std::string *result) SOAP_PURE_VIRTUAL;
+
+	/// Web service operation 'run' (returns error code or SOAP_OK)
+	virtual	int run(std::string file_name, std::string *result) SOAP_PURE_VIRTUAL;
+
+	/// Web service operation 'get-signal-description-by-class' (returns error code or SOAP_OK)
+	virtual	int get_signal_description_by_class(std::string class_name, std::string signal_name, std::string *result) SOAP_PURE_VIRTUAL;
 };
 #endif

@@ -1540,4 +1540,405 @@ int controlProxy::invoke_method(const char *endpoint, const char *soap_action, s
 		*result = *soap_tmp_switcher__invoke_methodResponse->result;
 	return soap_closesock(soap);
 }
+
+int controlProxy::get_signals_description(const char *endpoint, const char *soap_action, std::string quiddity_name, std::string *result)
+{	struct soap *soap = this;
+	struct switcher__get_signals_description soap_tmp_switcher__get_signals_description;
+	struct switcher__get_signals_descriptionResponse *soap_tmp_switcher__get_signals_descriptionResponse;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (!soap_endpoint)
+		soap_endpoint = "http://localhost:8080/switcher-control.cgi";
+	soap->encodingStyle = "";
+	soap_tmp_switcher__get_signals_description.quiddity_name = quiddity_name;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signals_description(soap, &soap_tmp_switcher__get_signals_description);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signals_description(soap, &soap_tmp_switcher__get_signals_description, "switcher:get-signals-description", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signals_description(soap, &soap_tmp_switcher__get_signals_description, "switcher:get-signals-description", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!result)
+		return soap_closesock(soap);
+	soap_default_std__string(soap, result);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	if (soap_recv_fault(soap, 1))
+		return soap->error;
+	soap_tmp_switcher__get_signals_descriptionResponse = soap_get_switcher__get_signals_descriptionResponse(soap, NULL, "", "");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (result && soap_tmp_switcher__get_signals_descriptionResponse->result)
+		*result = *soap_tmp_switcher__get_signals_descriptionResponse->result;
+	return soap_closesock(soap);
+}
+
+int controlProxy::get_signal_description(const char *endpoint, const char *soap_action, std::string quiddity_name, std::string signal_name, std::string *result)
+{	struct soap *soap = this;
+	struct switcher__get_signal_description soap_tmp_switcher__get_signal_description;
+	struct switcher__get_signal_descriptionResponse *soap_tmp_switcher__get_signal_descriptionResponse;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (!soap_endpoint)
+		soap_endpoint = "http://localhost:8080/switcher-control.cgi";
+	soap->encodingStyle = "";
+	soap_tmp_switcher__get_signal_description.quiddity_name = quiddity_name;
+	soap_tmp_switcher__get_signal_description.signal_name = signal_name;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signal_description(soap, &soap_tmp_switcher__get_signal_description);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signal_description(soap, &soap_tmp_switcher__get_signal_description, "switcher:get-signal-description", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signal_description(soap, &soap_tmp_switcher__get_signal_description, "switcher:get-signal-description", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!result)
+		return soap_closesock(soap);
+	soap_default_std__string(soap, result);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	if (soap_recv_fault(soap, 1))
+		return soap->error;
+	soap_tmp_switcher__get_signal_descriptionResponse = soap_get_switcher__get_signal_descriptionResponse(soap, NULL, "", "");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (result && soap_tmp_switcher__get_signal_descriptionResponse->result)
+		*result = *soap_tmp_switcher__get_signal_descriptionResponse->result;
+	return soap_closesock(soap);
+}
+
+int controlProxy::get_signals_description_by_class(const char *endpoint, const char *soap_action, std::string class_name, std::string *result)
+{	struct soap *soap = this;
+	struct switcher__get_signals_description_by_class soap_tmp_switcher__get_signals_description_by_class;
+	struct switcher__get_signals_description_by_classResponse *soap_tmp_switcher__get_signals_description_by_classResponse;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (!soap_endpoint)
+		soap_endpoint = "http://localhost:8080/switcher-control.cgi";
+	soap->encodingStyle = "";
+	soap_tmp_switcher__get_signals_description_by_class.class_name = class_name;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signals_description_by_class(soap, &soap_tmp_switcher__get_signals_description_by_class);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signals_description_by_class(soap, &soap_tmp_switcher__get_signals_description_by_class, "switcher:get-signals-description-by-class", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signals_description_by_class(soap, &soap_tmp_switcher__get_signals_description_by_class, "switcher:get-signals-description-by-class", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!result)
+		return soap_closesock(soap);
+	soap_default_std__string(soap, result);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	if (soap_recv_fault(soap, 1))
+		return soap->error;
+	soap_tmp_switcher__get_signals_description_by_classResponse = soap_get_switcher__get_signals_description_by_classResponse(soap, NULL, "", "");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (result && soap_tmp_switcher__get_signals_description_by_classResponse->result)
+		*result = *soap_tmp_switcher__get_signals_description_by_classResponse->result;
+	return soap_closesock(soap);
+}
+
+int controlProxy::save(const char *endpoint, const char *soap_action, std::string file_name, std::string *result)
+{	struct soap *soap = this;
+	struct switcher__save soap_tmp_switcher__save;
+	struct switcher__saveResponse *soap_tmp_switcher__saveResponse;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (!soap_endpoint)
+		soap_endpoint = "http://localhost:8080/switcher-control.cgi";
+	soap->encodingStyle = "";
+	soap_tmp_switcher__save.file_name = file_name;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize_switcher__save(soap, &soap_tmp_switcher__save);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__save(soap, &soap_tmp_switcher__save, "switcher:save", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__save(soap, &soap_tmp_switcher__save, "switcher:save", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!result)
+		return soap_closesock(soap);
+	soap_default_std__string(soap, result);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	if (soap_recv_fault(soap, 1))
+		return soap->error;
+	soap_tmp_switcher__saveResponse = soap_get_switcher__saveResponse(soap, NULL, "", "");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (result && soap_tmp_switcher__saveResponse->result)
+		*result = *soap_tmp_switcher__saveResponse->result;
+	return soap_closesock(soap);
+}
+
+int controlProxy::load(const char *endpoint, const char *soap_action, std::string file_name, std::string *result)
+{	struct soap *soap = this;
+	struct switcher__load soap_tmp_switcher__load;
+	struct switcher__loadResponse *soap_tmp_switcher__loadResponse;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (!soap_endpoint)
+		soap_endpoint = "http://localhost:8080/switcher-control.cgi";
+	soap->encodingStyle = "";
+	soap_tmp_switcher__load.file_name = file_name;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize_switcher__load(soap, &soap_tmp_switcher__load);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__load(soap, &soap_tmp_switcher__load, "switcher:load", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__load(soap, &soap_tmp_switcher__load, "switcher:load", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!result)
+		return soap_closesock(soap);
+	soap_default_std__string(soap, result);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	if (soap_recv_fault(soap, 1))
+		return soap->error;
+	soap_tmp_switcher__loadResponse = soap_get_switcher__loadResponse(soap, NULL, "", "");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (result && soap_tmp_switcher__loadResponse->result)
+		*result = *soap_tmp_switcher__loadResponse->result;
+	return soap_closesock(soap);
+}
+
+int controlProxy::run(const char *endpoint, const char *soap_action, std::string file_name, std::string *result)
+{	struct soap *soap = this;
+	struct switcher__run soap_tmp_switcher__run;
+	struct switcher__runResponse *soap_tmp_switcher__runResponse;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (!soap_endpoint)
+		soap_endpoint = "http://localhost:8080/switcher-control.cgi";
+	soap->encodingStyle = "";
+	soap_tmp_switcher__run.file_name = file_name;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize_switcher__run(soap, &soap_tmp_switcher__run);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__run(soap, &soap_tmp_switcher__run, "switcher:run", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__run(soap, &soap_tmp_switcher__run, "switcher:run", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!result)
+		return soap_closesock(soap);
+	soap_default_std__string(soap, result);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	if (soap_recv_fault(soap, 1))
+		return soap->error;
+	soap_tmp_switcher__runResponse = soap_get_switcher__runResponse(soap, NULL, "", "");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (result && soap_tmp_switcher__runResponse->result)
+		*result = *soap_tmp_switcher__runResponse->result;
+	return soap_closesock(soap);
+}
+
+int controlProxy::get_signal_description_by_class(const char *endpoint, const char *soap_action, std::string class_name, std::string signal_name, std::string *result)
+{	struct soap *soap = this;
+	struct switcher__get_signal_description_by_class soap_tmp_switcher__get_signal_description_by_class;
+	struct switcher__get_signal_description_by_classResponse *soap_tmp_switcher__get_signal_description_by_classResponse;
+	if (endpoint)
+		soap_endpoint = endpoint;
+	if (!soap_endpoint)
+		soap_endpoint = "http://localhost:8080/switcher-control.cgi";
+	soap->encodingStyle = "";
+	soap_tmp_switcher__get_signal_description_by_class.class_name = class_name;
+	soap_tmp_switcher__get_signal_description_by_class.signal_name = signal_name;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize_switcher__get_signal_description_by_class(soap, &soap_tmp_switcher__get_signal_description_by_class);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put_switcher__get_signal_description_by_class(soap, &soap_tmp_switcher__get_signal_description_by_class, "switcher:get-signal-description-by-class", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put_switcher__get_signal_description_by_class(soap, &soap_tmp_switcher__get_signal_description_by_class, "switcher:get-signal-description-by-class", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!result)
+		return soap_closesock(soap);
+	soap_default_std__string(soap, result);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	if (soap_recv_fault(soap, 1))
+		return soap->error;
+	soap_tmp_switcher__get_signal_description_by_classResponse = soap_get_switcher__get_signal_description_by_classResponse(soap, NULL, "", "");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	if (result && soap_tmp_switcher__get_signal_description_by_classResponse->result)
+		*result = *soap_tmp_switcher__get_signal_description_by_classResponse->result;
+	return soap_closesock(soap);
+}
 /* End of client proxy code */
