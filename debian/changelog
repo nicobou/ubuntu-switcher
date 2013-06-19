@@ -1,4 +1,4 @@
-switcher (0.2.9-1~precise~ppa1) precise; urgency=low
+switcher (0.2.0-1~precise~ppa1) precise; urgency=low
 
   * Initial packaging.
 
