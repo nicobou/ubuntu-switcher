@@ -35,7 +35,8 @@ build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = check_quiddity_create_remove$(EXEEXT) \
 	check_quiddity_create_remove_with_auto_pipeline$(EXEEXT) \
-	check_property_subscriber$(EXEEXT) check_rtp_session$(EXEEXT)
+	check_property_subscriber$(EXEEXT) check_rtp_session$(EXEEXT) \
+	check_signal_subscriber$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,41 +48,28 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am_check_property_subscriber_OBJECTS =  \
-	check_property_subscriber-check_property_subscriber.$(OBJEXT)
+	check_property_subscriber.$(OBJEXT)
 check_property_subscriber_OBJECTS =  \
 	$(am_check_property_subscriber_OBJECTS)
 check_property_subscriber_LDADD = $(LDADD)
-check_property_subscriber_LINK = $(LIBTOOL) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(check_property_subscriber_CXXFLAGS) $(CXXFLAGS) \
-	$(check_property_subscriber_LDFLAGS) $(LDFLAGS) -o $@
-am_check_quiddity_create_remove_OBJECTS = check_quiddity_create_remove-check_quiddity_create_remove.$(OBJEXT)
+am_check_quiddity_create_remove_OBJECTS =  \
+	check_quiddity_create_remove.$(OBJEXT)
 check_quiddity_create_remove_OBJECTS =  \
 	$(am_check_quiddity_create_remove_OBJECTS)
 check_quiddity_create_remove_LDADD = $(LDADD)
-check_quiddity_create_remove_LINK = $(LIBTOOL) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(check_quiddity_create_remove_CXXFLAGS) $(CXXFLAGS) \
-	$(check_quiddity_create_remove_LDFLAGS) $(LDFLAGS) -o $@
-am_check_quiddity_create_remove_with_auto_pipeline_OBJECTS = check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.$(OBJEXT)
+am_check_quiddity_create_remove_with_auto_pipeline_OBJECTS =  \
+	check_quiddity_create_remove_with_auto_pipeline.$(OBJEXT)
 check_quiddity_create_remove_with_auto_pipeline_OBJECTS =  \
 	$(am_check_quiddity_create_remove_with_auto_pipeline_OBJECTS)
 check_quiddity_create_remove_with_auto_pipeline_LDADD = $(LDADD)
-check_quiddity_create_remove_with_auto_pipeline_LINK = $(LIBTOOL) \
-	--tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
-	$(CXXLD) \
-	$(check_quiddity_create_remove_with_auto_pipeline_CXXFLAGS) \
-	$(CXXFLAGS) \
-	$(check_quiddity_create_remove_with_auto_pipeline_LDFLAGS) \
-	$(LDFLAGS) -o $@
-am_check_rtp_session_OBJECTS =  \
-	check_rtp_session-check_rtp_session.$(OBJEXT)
+am_check_rtp_session_OBJECTS = check_rtp_session.$(OBJEXT)
 check_rtp_session_OBJECTS = $(am_check_rtp_session_OBJECTS)
 check_rtp_session_LDADD = $(LDADD)
-check_rtp_session_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(check_rtp_session_CXXFLAGS) $(CXXFLAGS) \
-	$(check_rtp_session_LDFLAGS) $(LDFLAGS) -o $@
+am_check_signal_subscriber_OBJECTS =  \
+	check_signal_subscriber.$(OBJEXT)
+check_signal_subscriber_OBJECTS =  \
+	$(am_check_signal_subscriber_OBJECTS)
+check_signal_subscriber_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -98,11 +86,13 @@ CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 SOURCES = $(check_property_subscriber_SOURCES) \
 	$(check_quiddity_create_remove_SOURCES) \
 	$(check_quiddity_create_remove_with_auto_pipeline_SOURCES) \
-	$(check_rtp_session_SOURCES)
+	$(check_rtp_session_SOURCES) \
+	$(check_signal_subscriber_SOURCES)
 DIST_SOURCES = $(check_property_subscriber_SOURCES) \
 	$(check_quiddity_create_remove_SOURCES) \
 	$(check_quiddity_create_remove_with_auto_pipeline_SOURCES) \
-	$(check_rtp_session_SOURCES)
+	$(check_rtp_session_SOURCES) \
+	$(check_signal_subscriber_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 am__tty_colors = \
@@ -248,11 +238,7 @@ top_srcdir = @top_srcdir@
 AM_CFLAGS = \
     -I$(top_srcdir)
 
-TESTS = $(check_PROGRAMS)
-check_quiddity_create_remove_SOURCES = \
-    check_quiddity_create_remove.cpp
-
-check_quiddity_create_remove_CXXFLAGS = \
+AM_CXXFLAGS = \
     $(GLIB_CFLAGS) \
     $(GSOAP_CFLAGS) \
     $(GST_CFLAGS) \
@@ -260,71 +246,30 @@ check_quiddity_create_remove_CXXFLAGS = \
     $(SHMDATA_CFLAGS) \
     -I$(top_srcdir) 
 
-check_quiddity_create_remove_LDFLAGS = \
+AM_LDFLAGS = \
     $(GLIB_LIBS) \
     $(GSOAP_LIBS) \
     $(GST_LIBS) \
     $(JSONGLIB_LIBS) \
     $(SHMDATA_LIBS) \
     $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
+
+check_quiddity_create_remove_SOURCES = \
+    check_quiddity_create_remove.cpp
 
 check_quiddity_create_remove_with_auto_pipeline_SOURCES = \
     check_quiddity_create_remove_with_auto_pipeline.cpp
 
-check_quiddity_create_remove_with_auto_pipeline_CXXFLAGS = \
-    $(GLIB_CFLAGS) \
-    $(GSOAP_CFLAGS) \
-    $(GST_CFLAGS) \
-    $(JSONGLIB_CFLAGS) \
-    $(SHMDATA_CFLAGS) \
-    -I$(top_srcdir) 
-
-check_quiddity_create_remove_with_auto_pipeline_LDFLAGS = \
-    $(GLIB_LIBS) \
-    $(GSOAP_LIBS) \
-    $(GST_LIBS) \
-    $(JSONGLIB_LIBS) \
-    $(SHMDATA_LIBS) \
-    $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
-
 check_property_subscriber_SOURCES = \
     check_property_subscriber.cpp
-
-check_property_subscriber_CXXFLAGS = \
-    $(GLIB_CFLAGS) \
-    $(GSOAP_CFLAGS) \
-    $(GST_CFLAGS) \
-    $(JSONGLIB_CFLAGS) \
-    $(SHMDATA_CFLAGS) \
-    -I$(top_srcdir) 
-
-check_property_subscriber_LDFLAGS = \
-    $(GLIB_LIBS) \
-    $(GSOAP_LIBS) \
-    $(GST_LIBS) \
-    $(JSONGLIB_LIBS) \
-    $(SHMDATA_LIBS) \
-    $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
 
 check_rtp_session_SOURCES = \
     check_rtp_session.cpp
 
-check_rtp_session_CXXFLAGS = \
-    $(GLIB_CFLAGS) \
-    $(GSOAP_CFLAGS) \
-    $(GST_CFLAGS) \
-    $(JSONGLIB_CFLAGS) \
-    $(SHMDATA_CFLAGS) \
-    -I$(top_srcdir) 
+check_signal_subscriber_SOURCES = \
+    check_signal_subscriber.cpp
 
-check_rtp_session_LDFLAGS = \
-    $(GLIB_LIBS) \
-    $(GSOAP_LIBS) \
-    $(GST_LIBS) \
-    $(JSONGLIB_LIBS) \
-    $(SHMDATA_LIBS) \
-    $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
-
+TESTS = $(check_PROGRAMS)
 all: all-am
 
 .SUFFIXES:
@@ -370,16 +315,19 @@ clean-checkPROGRAMS:
 	rm -f $$list
 check_property_subscriber$(EXEEXT): $(check_property_subscriber_OBJECTS) $(check_property_subscriber_DEPENDENCIES) $(EXTRA_check_property_subscriber_DEPENDENCIES) 
 	@rm -f check_property_subscriber$(EXEEXT)
-	$(check_property_subscriber_LINK) $(check_property_subscriber_OBJECTS) $(check_property_subscriber_LDADD) $(LIBS)
+	$(CXXLINK) $(check_property_subscriber_OBJECTS) $(check_property_subscriber_LDADD) $(LIBS)
 check_quiddity_create_remove$(EXEEXT): $(check_quiddity_create_remove_OBJECTS) $(check_quiddity_create_remove_DEPENDENCIES) $(EXTRA_check_quiddity_create_remove_DEPENDENCIES) 
 	@rm -f check_quiddity_create_remove$(EXEEXT)
-	$(check_quiddity_create_remove_LINK) $(check_quiddity_create_remove_OBJECTS) $(check_quiddity_create_remove_LDADD) $(LIBS)
+	$(CXXLINK) $(check_quiddity_create_remove_OBJECTS) $(check_quiddity_create_remove_LDADD) $(LIBS)
 check_quiddity_create_remove_with_auto_pipeline$(EXEEXT): $(check_quiddity_create_remove_with_auto_pipeline_OBJECTS) $(check_quiddity_create_remove_with_auto_pipeline_DEPENDENCIES) $(EXTRA_check_quiddity_create_remove_with_auto_pipeline_DEPENDENCIES) 
 	@rm -f check_quiddity_create_remove_with_auto_pipeline$(EXEEXT)
-	$(check_quiddity_create_remove_with_auto_pipeline_LINK) $(check_quiddity_create_remove_with_auto_pipeline_OBJECTS) $(check_quiddity_create_remove_with_auto_pipeline_LDADD) $(LIBS)
+	$(CXXLINK) $(check_quiddity_create_remove_with_auto_pipeline_OBJECTS) $(check_quiddity_create_remove_with_auto_pipeline_LDADD) $(LIBS)
 check_rtp_session$(EXEEXT): $(check_rtp_session_OBJECTS) $(check_rtp_session_DEPENDENCIES) $(EXTRA_check_rtp_session_DEPENDENCIES) 
 	@rm -f check_rtp_session$(EXEEXT)
-	$(check_rtp_session_LINK) $(check_rtp_session_OBJECTS) $(check_rtp_session_LDADD) $(LIBS)
+	$(CXXLINK) $(check_rtp_session_OBJECTS) $(check_rtp_session_LDADD) $(LIBS)
+check_signal_subscriber$(EXEEXT): $(check_signal_subscriber_OBJECTS) $(check_signal_subscriber_DEPENDENCIES) $(EXTRA_check_signal_subscriber_DEPENDENCIES) 
+	@rm -f check_signal_subscriber$(EXEEXT)
+	$(CXXLINK) $(check_signal_subscriber_OBJECTS) $(check_signal_subscriber_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -387,10 +335,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_property_subscriber-check_property_subscriber.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_quiddity_create_remove-check_quiddity_create_remove.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_rtp_session-check_rtp_session.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_property_subscriber.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_quiddity_create_remove.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_rtp_session.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_signal_subscriber.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -412,62 +361,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
-
-check_property_subscriber-check_property_subscriber.o: check_property_subscriber.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_property_subscriber_CXXFLAGS) $(CXXFLAGS) -MT check_property_subscriber-check_property_subscriber.o -MD -MP -MF $(DEPDIR)/check_property_subscriber-check_property_subscriber.Tpo -c -o check_property_subscriber-check_property_subscriber.o `test -f 'check_property_subscriber.cpp' || echo '$(srcdir)/'`check_property_subscriber.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_property_subscriber-check_property_subscriber.Tpo $(DEPDIR)/check_property_subscriber-check_property_subscriber.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_property_subscriber.cpp' object='check_property_subscriber-check_property_subscriber.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_property_subscriber_CXXFLAGS) $(CXXFLAGS) -c -o check_property_subscriber-check_property_subscriber.o `test -f 'check_property_subscriber.cpp' || echo '$(srcdir)/'`check_property_subscriber.cpp
-
-check_property_subscriber-check_property_subscriber.obj: check_property_subscriber.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_property_subscriber_CXXFLAGS) $(CXXFLAGS) -MT check_property_subscriber-check_property_subscriber.obj -MD -MP -MF $(DEPDIR)/check_property_subscriber-check_property_subscriber.Tpo -c -o check_property_subscriber-check_property_subscriber.obj `if test -f 'check_property_subscriber.cpp'; then $(CYGPATH_W) 'check_property_subscriber.cpp'; else $(CYGPATH_W) '$(srcdir)/check_property_subscriber.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_property_subscriber-check_property_subscriber.Tpo $(DEPDIR)/check_property_subscriber-check_property_subscriber.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_property_subscriber.cpp' object='check_property_subscriber-check_property_subscriber.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_property_subscriber_CXXFLAGS) $(CXXFLAGS) -c -o check_property_subscriber-check_property_subscriber.obj `if test -f 'check_property_subscriber.cpp'; then $(CYGPATH_W) 'check_property_subscriber.cpp'; else $(CYGPATH_W) '$(srcdir)/check_property_subscriber.cpp'; fi`
-
-check_quiddity_create_remove-check_quiddity_create_remove.o: check_quiddity_create_remove.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_CXXFLAGS) $(CXXFLAGS) -MT check_quiddity_create_remove-check_quiddity_create_remove.o -MD -MP -MF $(DEPDIR)/check_quiddity_create_remove-check_quiddity_create_remove.Tpo -c -o check_quiddity_create_remove-check_quiddity_create_remove.o `test -f 'check_quiddity_create_remove.cpp' || echo '$(srcdir)/'`check_quiddity_create_remove.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_quiddity_create_remove-check_quiddity_create_remove.Tpo $(DEPDIR)/check_quiddity_create_remove-check_quiddity_create_remove.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_quiddity_create_remove.cpp' object='check_quiddity_create_remove-check_quiddity_create_remove.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_CXXFLAGS) $(CXXFLAGS) -c -o check_quiddity_create_remove-check_quiddity_create_remove.o `test -f 'check_quiddity_create_remove.cpp' || echo '$(srcdir)/'`check_quiddity_create_remove.cpp
-
-check_quiddity_create_remove-check_quiddity_create_remove.obj: check_quiddity_create_remove.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_CXXFLAGS) $(CXXFLAGS) -MT check_quiddity_create_remove-check_quiddity_create_remove.obj -MD -MP -MF $(DEPDIR)/check_quiddity_create_remove-check_quiddity_create_remove.Tpo -c -o check_quiddity_create_remove-check_quiddity_create_remove.obj `if test -f 'check_quiddity_create_remove.cpp'; then $(CYGPATH_W) 'check_quiddity_create_remove.cpp'; else $(CYGPATH_W) '$(srcdir)/check_quiddity_create_remove.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_quiddity_create_remove-check_quiddity_create_remove.Tpo $(DEPDIR)/check_quiddity_create_remove-check_quiddity_create_remove.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_quiddity_create_remove.cpp' object='check_quiddity_create_remove-check_quiddity_create_remove.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_CXXFLAGS) $(CXXFLAGS) -c -o check_quiddity_create_remove-check_quiddity_create_remove.obj `if test -f 'check_quiddity_create_remove.cpp'; then $(CYGPATH_W) 'check_quiddity_create_remove.cpp'; else $(CYGPATH_W) '$(srcdir)/check_quiddity_create_remove.cpp'; fi`
-
-check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.o: check_quiddity_create_remove_with_auto_pipeline.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_with_auto_pipeline_CXXFLAGS) $(CXXFLAGS) -MT check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.o -MD -MP -MF $(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.Tpo -c -o check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.o `test -f 'check_quiddity_create_remove_with_auto_pipeline.cpp' || echo '$(srcdir)/'`check_quiddity_create_remove_with_auto_pipeline.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.Tpo $(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_quiddity_create_remove_with_auto_pipeline.cpp' object='check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_with_auto_pipeline_CXXFLAGS) $(CXXFLAGS) -c -o check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.o `test -f 'check_quiddity_create_remove_with_auto_pipeline.cpp' || echo '$(srcdir)/'`check_quiddity_create_remove_with_auto_pipeline.cpp
-
-check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.obj: check_quiddity_create_remove_with_auto_pipeline.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_with_auto_pipeline_CXXFLAGS) $(CXXFLAGS) -MT check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.obj -MD -MP -MF $(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.Tpo -c -o check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.obj `if test -f 'check_quiddity_create_remove_with_auto_pipeline.cpp'; then $(CYGPATH_W) 'check_quiddity_create_remove_with_auto_pipeline.cpp'; else $(CYGPATH_W) '$(srcdir)/check_quiddity_create_remove_with_auto_pipeline.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.Tpo $(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_quiddity_create_remove_with_auto_pipeline.cpp' object='check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_quiddity_create_remove_with_auto_pipeline_CXXFLAGS) $(CXXFLAGS) -c -o check_quiddity_create_remove_with_auto_pipeline-check_quiddity_create_remove_with_auto_pipeline.obj `if test -f 'check_quiddity_create_remove_with_auto_pipeline.cpp'; then $(CYGPATH_W) 'check_quiddity_create_remove_with_auto_pipeline.cpp'; else $(CYGPATH_W) '$(srcdir)/check_quiddity_create_remove_with_auto_pipeline.cpp'; fi`
-
-check_rtp_session-check_rtp_session.o: check_rtp_session.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_rtp_session_CXXFLAGS) $(CXXFLAGS) -MT check_rtp_session-check_rtp_session.o -MD -MP -MF $(DEPDIR)/check_rtp_session-check_rtp_session.Tpo -c -o check_rtp_session-check_rtp_session.o `test -f 'check_rtp_session.cpp' || echo '$(srcdir)/'`check_rtp_session.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_rtp_session-check_rtp_session.Tpo $(DEPDIR)/check_rtp_session-check_rtp_session.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_rtp_session.cpp' object='check_rtp_session-check_rtp_session.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_rtp_session_CXXFLAGS) $(CXXFLAGS) -c -o check_rtp_session-check_rtp_session.o `test -f 'check_rtp_session.cpp' || echo '$(srcdir)/'`check_rtp_session.cpp
-
-check_rtp_session-check_rtp_session.obj: check_rtp_session.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_rtp_session_CXXFLAGS) $(CXXFLAGS) -MT check_rtp_session-check_rtp_session.obj -MD -MP -MF $(DEPDIR)/check_rtp_session-check_rtp_session.Tpo -c -o check_rtp_session-check_rtp_session.obj `if test -f 'check_rtp_session.cpp'; then $(CYGPATH_W) 'check_rtp_session.cpp'; else $(CYGPATH_W) '$(srcdir)/check_rtp_session.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/check_rtp_session-check_rtp_session.Tpo $(DEPDIR)/check_rtp_session-check_rtp_session.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='check_rtp_session.cpp' object='check_rtp_session-check_rtp_session.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(check_rtp_session_CXXFLAGS) $(CXXFLAGS) -c -o check_rtp_session-check_rtp_session.obj `if test -f 'check_rtp_session.cpp'; then $(CYGPATH_W) 'check_rtp_session.cpp'; else $(CYGPATH_W) '$(srcdir)/check_rtp_session.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

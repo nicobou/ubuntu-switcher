@@ -45,6 +45,10 @@ namespace switcher
    GstPad *main_pad_;
    GstCaps *rtpgstcaps_;
    bool discard_next_uncomplete_buffer_;
+   std::string runtime_name_;
+   void init_uridecodebin ();
+   void destroy_uridecodebin ();
+
    static void uridecodebin_pad_added_cb (GstElement* object, GstPad* pad, gpointer user_data);
    static gboolean to_shmdata_wrapped (gpointer uri, gpointer user_data);
    static void no_more_pads_cb (GstElement* object, gpointer user_data);
@@ -57,6 +61,11 @@ namespace switcher
    static gboolean gstrtpdepay_buffer_probe_cb (GstPad * pad, GstMiniObject * mini_obj, gpointer user_data);
    static gboolean gstrtpdepay_event_probe_cb (GstPad *pad, GstEvent * event, gpointer user_data);
    void pad_to_shmdata_writer (GstElement *bin, GstPad *pad);
+
+   static gboolean play_wrapped (gpointer unused, gpointer user_data);
+   static gboolean pause_wrapped (gpointer unused, gpointer user_data);
+   static gboolean seek_wrapped (gdouble position, gpointer user_data);
+   static gboolean speed_wrapped (gdouble speed, gpointer user_data);
    
    /* static GValueArray *autoplug_sort_cb (GstElement *bin, */
    /* 					 GstPad *pad, */

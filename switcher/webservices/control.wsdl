@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="control"
+ targetNamespace="http://localhost:8080/switcher-control.wsdl"
+ xmlns:tns="http://localhost:8080/switcher-control.wsdl"
+ xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+ xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:switcher="urn:control"
+ xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+ xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+ xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+ <schema targetNamespace="urn:control"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:switcher="urn:control"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="unqualified"
+  attributeFormDefault="unqualified">
+  <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+ </schema>
+
+</types>
+
+<message name="addRequest">
+ <part name="a" type="xsd:double"/><!-- switcher__add::a -->
+ <part name="b" type="xsd:double"/><!-- switcher__add::b -->
+</message>
+
+<message name="addResponse">
+ <part name="result" type="xsd:double"/><!-- switcher__add::result -->
+</message>
+
+<message name="subRequest">
+ <part name="a" type="xsd:double"/><!-- switcher__sub::a -->
+ <part name="b" type="xsd:double"/><!-- switcher__sub::b -->
+</message>
+
+<message name="subResponse">
+ <part name="result" type="xsd:double"/><!-- switcher__sub::result -->
+</message>
+
+<message name="mulRequest">
+ <part name="a" type="xsd:double"/><!-- switcher__mul::a -->
+ <part name="b" type="xsd:double"/><!-- switcher__mul::b -->
+</message>
+
+<message name="mulResponse">
+ <part name="result" type="xsd:double"/><!-- switcher__mul::result -->
+</message>
+
+<message name="divRequest">
+ <part name="a" type="xsd:double"/><!-- switcher__div::a -->
+ <part name="b" type="xsd:double"/><!-- switcher__div::b -->
+</message>
+
+<message name="divResponse">
+ <part name="result" type="xsd:double"/><!-- switcher__div::result -->
+</message>
+
+<message name="powRequest">
+ <part name="a" type="xsd:double"/><!-- switcher__pow::a -->
+ <part name="b" type="xsd:double"/><!-- switcher__pow::b -->
+</message>
+
+<message name="powResponse">
+ <part name="result" type="xsd:double"/><!-- switcher__pow::result -->
+</message>
+
+<message name="get-factory-capabilitiesRequest">
+</message>
+
+<message name="get-factory-capabilitiesResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_factory_capabilities::result -->
+</message>
+
+<message name="get-classes-docRequest">
+</message>
+
+<message name="get-classes-docResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_classes_doc::result -->
+</message>
+
+<message name="get-quiddity-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_quiddity_description::quiddity_name -->
+</message>
+
+<message name="get-quiddity-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_quiddity_description::result -->
+</message>
+
+<message name="get-quiddities-descriptionRequest">
+</message>
+
+<message name="get-quiddities-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_quiddities_description::result -->
+</message>
+
+<message name="get-class-docRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_class_doc::class_name -->
+</message>
+
+<message name="get-class-docResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_class_doc::result -->
+</message>
+
+<message name="get-quiddity-namesRequest">
+</message>
+
+<message name="get-quiddity-namesResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_quiddity_names::result -->
+</message>
+
+<message name="get-properties-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_properties_description::quiddity_name -->
+</message>
+
+<message name="get-properties-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_properties_description::result -->
+</message>
+
+<message name="get-property-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_property_description::quiddity_name -->
+ <part name="property-name" type="xsd:string"/><!-- switcher__get_property_description::property_name -->
+</message>
+
+<message name="get-property-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_property_description::result -->
+</message>
+
+<message name="get-properties-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_properties_description_by_class::class_name -->
+</message>
+
+<message name="get-properties-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_properties_description_by_class::result -->
+</message>
+
+<message name="get-property-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_property_description_by_class::class_name -->
+ <part name="property-name" type="xsd:string"/><!-- switcher__get_property_description_by_class::property_name -->
+</message>
+
+<message name="get-property-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_property_description_by_class::result -->
+</message>
+
+<message name="set-property">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__set_property::quiddity_name -->
+ <part name="property-name" type="xsd:string"/><!-- switcher__set_property::property_name -->
+ <part name="property-value" type="xsd:string"/><!-- switcher__set_property::property_value -->
+</message>
+
+<message name="get-propertyRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_property::quiddity_name -->
+ <part name="property-name" type="xsd:string"/><!-- switcher__get_property::property_name -->
+</message>
+
+<message name="get-propertyResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_property::result -->
+</message>
+
+<message name="create-quiddityRequest">
+ <part name="quiddity-class" type="xsd:string"/><!-- switcher__create_quiddity::quiddity_class -->
+</message>
+
+<message name="create-quiddityResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__create_quiddity::result -->
+</message>
+
+<message name="create-named-quiddityRequest">
+ <part name="quiddity-class" type="xsd:string"/><!-- switcher__create_named_quiddity::quiddity_class -->
+ <part name="nick-name" type="xsd:string"/><!-- switcher__create_named_quiddity::nick_name -->
+</message>
+
+<message name="create-named-quiddityResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__create_named_quiddity::result -->
+</message>
+
+<message name="delete-quiddity">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__delete_quiddity::quiddity_name -->
+</message>
+
+<message name="get-methods-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_methods_description::quiddity_name -->
+</message>
+
+<message name="get-methods-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_methods_description::result -->
+</message>
+
+<message name="get-method-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_method_description::quiddity_name -->
+ <part name="method-name" type="xsd:string"/><!-- switcher__get_method_description::method_name -->
+</message>
+
+<message name="get-method-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_method_description::result -->
+</message>
+
+<message name="get-methods-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_methods_description_by_class::class_name -->
+</message>
+
+<message name="get-methods-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_methods_description_by_class::result -->
+</message>
+
+<message name="get-method-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_method_description_by_class::class_name -->
+ <part name="method-name" type="xsd:string"/><!-- switcher__get_method_description_by_class::method_name -->
+</message>
+
+<message name="get-method-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_method_description_by_class::result -->
+</message>
+
+<message name="invoke-methodRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__invoke_method::quiddity_name -->
+ <part name="method-name" type="xsd:string"/><!-- switcher__invoke_method::method_name -->
+ <part name="args" type="xsd:string"/><!-- switcher__invoke_method::args -->
+</message>
+
+<message name="invoke-methodResponse">
+ <part name="result" type="xsd:boolean"/><!-- switcher__invoke_method::result -->
+</message>
+
+<message name="get-signals-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_signals_description::quiddity_name -->
+</message>
+
+<message name="get-signals-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signals_description::result -->
+</message>
+
+<message name="get-signal-descriptionRequest">
+ <part name="quiddity-name" type="xsd:string"/><!-- switcher__get_signal_description::quiddity_name -->
+ <part name="signal-name" type="xsd:string"/><!-- switcher__get_signal_description::signal_name -->
+</message>
+
+<message name="get-signal-descriptionResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signal_description::result -->
+</message>
+
+<message name="get-signals-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_signals_description_by_class::class_name -->
+</message>
+
+<message name="get-signals-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signals_description_by_class::result -->
+</message>
+
+<message name="saveRequest">
+ <part name="file-name" type="xsd:string"/><!-- switcher__save::file_name -->
+</message>
+
+<message name="saveResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__save::result -->
+</message>
+
+<message name="loadRequest">
+ <part name="file-name" type="xsd:string"/><!-- switcher__load::file_name -->
+</message>
+
+<message name="loadResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__load::result -->
+</message>
+
+<message name="runRequest">
+ <part name="file-name" type="xsd:string"/><!-- switcher__run::file_name -->
+</message>
+
+<message name="runResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__run::result -->
+</message>
+
+<message name="get-signal-description-by-classRequest">
+ <part name="class-name" type="xsd:string"/><!-- switcher__get_signal_description_by_class::class_name -->
+ <part name="signal-name" type="xsd:string"/><!-- switcher__get_signal_description_by_class::signal_name -->
+</message>
+
+<message name="get-signal-description-by-classResponse">
+ <part name="result" type="xsd:string"/><!-- switcher__get_signal_description_by_class::result -->
+</message>
+
+<portType name="controlPortType">
+ <operation name="add">
+  <documentation>Sums two values</documentation>
+  <input message="tns:addRequest"/>
+  <output message="tns:addResponse"/>
+ </operation>
+ <operation name="sub">
+  <documentation>Subtracts two values</documentation>
+  <input message="tns:subRequest"/>
+  <output message="tns:subResponse"/>
+ </operation>
+ <operation name="mul">
+  <documentation>Multiplies two values</documentation>
+  <input message="tns:mulRequest"/>
+  <output message="tns:mulResponse"/>
+ </operation>
+ <operation name="div">
+  <documentation>Divides two values</documentation>
+  <input message="tns:divRequest"/>
+  <output message="tns:divResponse"/>
+ </operation>
+ <operation name="pow">
+  <documentation>Raises a to b</documentation>
+  <input message="tns:powRequest"/>
+  <output message="tns:powResponse"/>
+ </operation>
+ <operation name="get-factory-capabilities">
+  <documentation>Service definition of function switcher__get_factory_capabilities</documentation>
+  <input message="tns:get-factory-capabilitiesRequest"/>
+  <output message="tns:get-factory-capabilitiesResponse"/>
+ </operation>
+ <operation name="get-classes-doc">
+  <documentation>Service definition of function switcher__get_classes_doc</documentation>
+  <input message="tns:get-classes-docRequest"/>
+  <output message="tns:get-classes-docResponse"/>
+ </operation>
+ <operation name="get-quiddity-description">
+  <documentation>Service definition of function switcher__get_quiddity_description</documentation>
+  <input message="tns:get-quiddity-descriptionRequest"/>
+  <output message="tns:get-quiddity-descriptionResponse"/>
+ </operation>
+ <operation name="get-quiddities-description">
+  <documentation>Service definition of function switcher__get_quiddities_description</documentation>
+  <input message="tns:get-quiddities-descriptionRequest"/>
+  <output message="tns:get-quiddities-descriptionResponse"/>
+ </operation>
+ <operation name="get-class-doc">
+  <documentation>Service definition of function switcher__get_class_doc</documentation>
+  <input message="tns:get-class-docRequest"/>
+  <output message="tns:get-class-docResponse"/>
+ </operation>
+ <operation name="get-quiddity-names">
+  <documentation>Service definition of function switcher__get_quiddity_names</documentation>
+  <input message="tns:get-quiddity-namesRequest"/>
+  <output message="tns:get-quiddity-namesResponse"/>
+ </operation>
+ <operation name="get-properties-description">
+  <documentation>Service definition of function switcher__get_properties_description</documentation>
+  <input message="tns:get-properties-descriptionRequest"/>
+  <output message="tns:get-properties-descriptionResponse"/>
+ </operation>
+ <operation name="get-property-description">
+  <documentation>Service definition of function switcher__get_property_description</documentation>
+  <input message="tns:get-property-descriptionRequest"/>
+  <output message="tns:get-property-descriptionResponse"/>
+ </operation>
+ <operation name="get-properties-description-by-class">
+  <documentation>Service definition of function switcher__get_properties_description_by_class</documentation>
+  <input message="tns:get-properties-description-by-classRequest"/>
+  <output message="tns:get-properties-description-by-classResponse"/>
+ </operation>
+ <operation name="get-property-description-by-class">
+  <documentation>Service definition of function switcher__get_property_description_by_class</documentation>
+  <input message="tns:get-property-description-by-classRequest"/>
+  <output message="tns:get-property-description-by-classResponse"/>
+ </operation>
+ <operation name="set-property">
+  <documentation>Service definition of function switcher__set_property</documentation>
+  <input message="tns:set-property"/>
+ </operation>
+ <operation name="get-property">
+  <documentation>Service definition of function switcher__get_property</documentation>
+  <input message="tns:get-propertyRequest"/>
+  <output message="tns:get-propertyResponse"/>
+ </operation>
+ <operation name="create-quiddity">
+  <documentation>Service definition of function switcher__create_quiddity</documentation>
+  <input message="tns:create-quiddityRequest"/>
+  <output message="tns:create-quiddityResponse"/>
+ </operation>
+ <operation name="create-named-quiddity">
+  <documentation>Service definition of function switcher__create_named_quiddity</documentation>
+  <input message="tns:create-named-quiddityRequest"/>
+  <output message="tns:create-named-quiddityResponse"/>
+ </operation>
+ <operation name="delete-quiddity">
+  <documentation>Service definition of function switcher__delete_quiddity</documentation>
+  <input message="tns:delete-quiddity"/>
+ </operation>
+ <operation name="get-methods-description">
+  <documentation>Service definition of function switcher__get_methods_description</documentation>
+  <input message="tns:get-methods-descriptionRequest"/>
+  <output message="tns:get-methods-descriptionResponse"/>
+ </operation>
+ <operation name="get-method-description">
+  <documentation>Service definition of function switcher__get_method_description</documentation>
+  <input message="tns:get-method-descriptionRequest"/>
+  <output message="tns:get-method-descriptionResponse"/>
+ </operation>
+ <operation name="get-methods-description-by-class">
+  <documentation>Service definition of function switcher__get_methods_description_by_class</documentation>
+  <input message="tns:get-methods-description-by-classRequest"/>
+  <output message="tns:get-methods-description-by-classResponse"/>
+ </operation>
+ <operation name="get-method-description-by-class">
+  <documentation>Service definition of function switcher__get_method_description_by_class</documentation>
+  <input message="tns:get-method-description-by-classRequest"/>
+  <output message="tns:get-method-description-by-classResponse"/>
+ </operation>
+ <operation name="invoke-method">
+  <documentation>Service definition of function switcher__invoke_method</documentation>
+  <input message="tns:invoke-methodRequest"/>
+  <output message="tns:invoke-methodResponse"/>
+ </operation>
+ <operation name="get-signals-description">
+  <documentation>Service definition of function switcher__get_signals_description</documentation>
+  <input message="tns:get-signals-descriptionRequest"/>
+  <output message="tns:get-signals-descriptionResponse"/>
+ </operation>
+ <operation name="get-signal-description">
+  <documentation>Service definition of function switcher__get_signal_description</documentation>
+  <input message="tns:get-signal-descriptionRequest"/>
+  <output message="tns:get-signal-descriptionResponse"/>
+ </operation>
+ <operation name="get-signals-description-by-class">
+  <documentation>Service definition of function switcher__get_signals_description_by_class</documentation>
+  <input message="tns:get-signals-description-by-classRequest"/>
+  <output message="tns:get-signals-description-by-classResponse"/>
+ </operation>
+ <operation name="save">
+  <documentation>Service definition of function switcher__save</documentation>
+  <input message="tns:saveRequest"/>
+  <output message="tns:saveResponse"/>
+ </operation>
+ <operation name="load">
+  <documentation>Service definition of function switcher__load</documentation>
+  <input message="tns:loadRequest"/>
+  <output message="tns:loadResponse"/>
+ </operation>
+ <operation name="run">
+  <documentation>Service definition of function switcher__run</documentation>
+  <input message="tns:runRequest"/>
+  <output message="tns:runResponse"/>
+ </operation>
+ <operation name="get-signal-description-by-class">
+  <documentation>Service definition of function switcher__get_signal_description_by_class</documentation>
+  <input message="tns:get-signal-description-by-classRequest"/>
+  <output message="tns:get-signal-description-by-classResponse"/>
+ </operation>
+</portType>
+
+<binding name="control" type="tns:controlPortType">
+ <SOAP:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+ <operation name="add">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="sub">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="mul">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="div">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="pow">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-factory-capabilities">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-classes-doc">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-quiddity-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-quiddities-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-class-doc">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-quiddity-names">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-properties-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-property-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-properties-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-property-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="set-property">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+ </operation>
+ <operation name="get-property">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="create-quiddity">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="create-named-quiddity">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="delete-quiddity">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+ </operation>
+ <operation name="get-methods-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-method-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-methods-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-method-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="invoke-method">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-signals-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-signal-description">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-signals-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="save">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="load">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="run">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+ <operation name="get-signal-description-by-class">
+  <SOAP:operation style="rpc" soapAction=""/>
+  <input>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </input>
+  <output>
+     <SOAP:body use="encoded" namespace="urn:control" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </output>
+ </operation>
+</binding>
+
+<service name="control">
+ <documentation>save history   </documentation>
+ <port name="control" binding="tns:control">
+  <SOAP:address location="http://localhost:8080/switcher-control.cgi"/>
+ </port>
+</service>
+
+</definitions>

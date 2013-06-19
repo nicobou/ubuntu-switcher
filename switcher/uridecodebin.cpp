@@ -29,8 +29,10 @@ namespace switcher
   
   Uridecodebin::~Uridecodebin ()
   {
-    gst_element_set_state (uridecodebin_,GST_STATE_NULL);
-    gst_element_get_state (uridecodebin_, NULL, NULL, GST_CLOCK_TIME_NONE);
+    destroy_uridecodebin ();
+    QuiddityManager_Impl::ptr manager = manager_impl_.lock ();
+    if ((bool) manager && g_strcmp0 ("",runtime_name_.c_str ()) != 0)
+     	manager->remove_without_hook (runtime_name_);
   }
   
   bool
@@ -39,12 +41,84 @@ namespace switcher
     if (!GstUtils::make_element ("uridecodebin",&uridecodebin_))
       return false;
 
+    //set the name before registering properties
+    set_name (gst_element_get_name (uridecodebin_));
+    
+    destroy_uridecodebin ();
+   
+    //registering add_data_stream
+    register_method("to_shmdata",
+		    (void *)&to_shmdata_wrapped, 
+		    Method::make_arg_type_description (G_TYPE_STRING, NULL),
+		    (gpointer)this);
+    set_method_description ("to_shmdata", 
+			    "decode streams from an uri and write them to shmdatas", 
+			    Method::make_arg_description ("uri", 
+							  "the uri to decode",
+							  NULL));
+    //registering play
+    register_method("play",
+		    (void *)&play_wrapped, 
+		    Method::make_arg_type_description (G_TYPE_NONE, NULL),
+		    (gpointer)this);
+    set_method_description ((char *)"play", 
+			    (char *)"activate the runtime", 
+			    Method::make_arg_description ("none",
+							  NULL));
+
+    //registering pause
+    register_method("pause",
+		    (void *)&pause_wrapped, 
+		    Method::make_arg_type_description (G_TYPE_NONE, NULL),
+		    (gpointer)this);
+    set_method_description ((char *)"pause", 
+			    (char *)"pause the runtime", 
+			    Method::make_arg_description ((char *)"none",
+							  NULL));
+
+     //registering seek
+    register_method("seek",
+		    (void *)&seek_wrapped, 
+		    Method::make_arg_type_description (G_TYPE_DOUBLE, NULL),
+		    (gpointer)this);
+    set_method_description ((char *)"seek", 
+			    (char *)"seek the runtime", 
+			    Method::make_arg_description ((char *)"position",
+							  (char *)"position in milliseconds",
+							  NULL));
+
+    //registering speed
+    register_method("speed",
+		    (void *)&speed_wrapped, 
+		    Method::make_arg_type_description (G_TYPE_DOUBLE, NULL),
+		    (gpointer)this);
+    set_method_description ((char *)"speed", 
+			    (char *)"controle speed of runtime", 
+			    Method::make_arg_description ((char *)"speed",
+							  (char *)"1.0 is normal speed, 0.5 is half the speed and 2.0 is double speed",
+							  NULL));
+    return true;
+  }
+  
+  QuiddityDocumentation 
+  Uridecodebin::get_documentation ()
+  {
+    return doc_;
+  }
+
+  void 
+  Uridecodebin::init_uridecodebin ()
+  {
+    if (!GstUtils::make_element ("uridecodebin",&uridecodebin_))
+      {
+	g_warning (" Uridecodebin::init_uridecodebin, cannot create uridecodebin");
+	return;
+      }
+    
+    media_counters_.clear ();
     main_pad_ = NULL;
     discard_next_uncomplete_buffer_ = false;
     rtpgstcaps_ = gst_caps_from_string ("application/x-rtp, media=(string)application");
-
-    //set the name before registering properties
-    set_name (gst_element_get_name (uridecodebin_));
     
     g_signal_connect (G_OBJECT (uridecodebin_), 
 		      "pad-added", 
@@ -58,7 +132,6 @@ namespace switcher
 		      "source-setup",  
 		      (GCallback) Uridecodebin::source_setup_cb ,  
 		      (gpointer) this);      
-
 
     // g_signal_connect (G_OBJECT (uridecodebin_),  
     // 		      "pad-removed",  
@@ -103,25 +176,18 @@ namespace switcher
        		  "async-handling",TRUE, 
        		  //"buffer-duration",9223372036854775807, 
        		  NULL); 
-    
-   
-    //registering add_data_stream
-    register_method("to_shmdata",
-		    (void *)&to_shmdata_wrapped, 
-		    Method::make_arg_type_description (G_TYPE_STRING, NULL),
-		    (gpointer)this);
-    set_method_description ("to_shmdata", 
-			    "decode streams from an uri and write them to shmdatas", 
-			    Method::make_arg_description ("uri", 
-							  "the uri to decode",
-							  NULL));
-    return true;
   }
-  
-  QuiddityDocumentation 
-  Uridecodebin::get_documentation ()
+
+  void 
+  Uridecodebin::destroy_uridecodebin ()
   {
-    return doc_;
+    GstUtils::clean_element (uridecodebin_);
+    // if (G_IS_OBJECT (uridecodebin_))
+    //   {
+    // 	gst_element_set_state (uridecodebin_,GST_STATE_NULL);
+    // 	gst_element_get_state (uridecodebin_, NULL, NULL, GST_CLOCK_TIME_NONE);
+    // 	gst_object_unref (uridecodebin_);
+    //   }
   }
 
   void 
@@ -234,8 +300,11 @@ namespace switcher
       if (pad == context->main_pad_)
 	{
 	  //g_print ("main pad !@! \n");
-	  g_idle_add ((GSourceFunc) rewind,   
-	  	    (gpointer)context);   
+	  GstUtils::g_idle_add_full_with_context (context->get_g_main_context (),
+						  G_PRIORITY_DEFAULT_IDLE,
+						  (GSourceFunc) rewind,   
+						  (gpointer)context,
+						  NULL);   
 	}
       return FALSE;
     }  
@@ -435,7 +504,25 @@ namespace switcher
   bool
   Uridecodebin::to_shmdata (std::string uri)
   {
-    g_debug ("to_shmdata set uri %s", uri.c_str ());
+    destroy_uridecodebin ();
+    QuiddityManager_Impl::ptr manager = manager_impl_.lock ();
+    if ((bool) manager)
+      {
+	manager->remove_without_hook (runtime_name_);
+	runtime_name_ = manager->create_without_hook ("runtime");
+	Quiddity::ptr quidd = manager->get_quiddity (runtime_name_);
+	Runtime::ptr runtime = std::dynamic_pointer_cast<Runtime> (quidd);
+	if(runtime)
+	  set_runtime(runtime);
+	else
+	  g_warning ("Uridecodebin::to_shmdata: unable to use a custom runtime");
+      }
+    else
+      return false;
+    
+    reset_bin ();
+    init_uridecodebin ();
+    g_debug ("------------------------- to_shmdata set uri %s", uri.c_str ());
     g_object_set (G_OBJECT (uridecodebin_), "uri", uri.c_str (), NULL); 
 
     gst_bin_add (GST_BIN (bin_), uridecodebin_);
@@ -444,5 +531,64 @@ namespace switcher
     return true;
   }
 
+  gboolean
+  Uridecodebin::play_wrapped (gpointer unused, gpointer user_data)
+  {
+    Uridecodebin *context = static_cast<Uridecodebin *>(user_data);
+    QuiddityManager_Impl::ptr manager = context->manager_impl_.lock ();
+    if (! (bool) manager)
+      return FALSE;
+    Quiddity::ptr quidd = manager->get_quiddity (context->runtime_name_);
+    Runtime::ptr runtime = std::dynamic_pointer_cast<Runtime> (quidd);
+    if(!runtime)
+      return FALSE;
+    runtime->play ();
+    return TRUE;
+  }
+  
+  gboolean
+  Uridecodebin::pause_wrapped (gpointer unused, gpointer user_data)
+  {
+    Uridecodebin *context = static_cast<Uridecodebin *>(user_data);
+    QuiddityManager_Impl::ptr manager = context->manager_impl_.lock ();
+    if (! (bool) manager)
+      return FALSE;
+    Quiddity::ptr quidd = manager->get_quiddity (context->runtime_name_);
+    Runtime::ptr runtime = std::dynamic_pointer_cast<Runtime> (quidd);
+    if(!runtime)
+      return FALSE;
+    runtime->pause ();
+    return TRUE;
+  }
+
+  gboolean
+  Uridecodebin::seek_wrapped (gdouble position, gpointer user_data)
+  {
+    Uridecodebin *context = static_cast<Uridecodebin *>(user_data);
+    QuiddityManager_Impl::ptr manager = context->manager_impl_.lock ();
+    if (! (bool) manager)
+      return FALSE;
+    Quiddity::ptr quidd = manager->get_quiddity (context->runtime_name_);
+    Runtime::ptr runtime = std::dynamic_pointer_cast<Runtime> (quidd);
+    if(!runtime)
+      return FALSE;
+    runtime->seek (position);
+    return TRUE;
+  }
+
+  gboolean
+  Uridecodebin::speed_wrapped (gdouble speed, gpointer user_data)
+  {
+    Uridecodebin *context = static_cast<Uridecodebin *>(user_data);
+    QuiddityManager_Impl::ptr manager = context->manager_impl_.lock ();
+    if (! (bool) manager)
+      return FALSE;
+    Quiddity::ptr quidd = manager->get_quiddity (context->runtime_name_);
+    Runtime::ptr runtime = std::dynamic_pointer_cast<Runtime> (quidd);
+    if(!runtime)
+      return FALSE;
+    runtime->speed (speed);
+    return TRUE;
+  }
 
 }

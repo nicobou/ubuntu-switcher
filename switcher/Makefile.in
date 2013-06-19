@@ -81,22 +81,23 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_LIBADD =
 am_libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS = aac.lo \
 	aravis-genicam.lo audio-sink.lo audio-source.lo \
 	audio-test-source.lo base-sink.lo base-source.lo \
-	custom-property-helper.lo decodebin2.lo deinterleave.lo \
-	fake-shmdata-writer.lo file-sdp.lo fakesink.lo \
+	custom-property-helper.lo create-remove-spy.lo decodebin2.lo \
+	deinterleave.lo fake-shmdata-writer.lo file-sdp.lo fakesink.lo \
 	gobject-custom-property.lo gobject-wrapper.lo \
 	gst-element-cleaner.lo gst-parse-to-bin-src.lo \
 	gst-video-parse-to-bin-src.lo gst-utils.lo h264.lo http-sdp.lo \
-	json-builder.lo logger.lo method.lo osc-ctrl-server.lo \
-	property.lo pulse-sink.lo quiddity-command.lo \
-	quiddity-documentation.lo quiddity-life-manager.lo \
+	http-sdp-dec.lo json-builder.lo logger.lo method.lo \
+	osc-ctrl-server.lo property.lo pulse-sink.lo \
+	quiddity-command.lo quiddity-documentation.lo \
 	quiddity-manager-wrapper.lo quiddity-manager.lo \
-	quiddity-property-subscriber.lo quiddity.lo rtp-destination.lo \
+	quiddity-manager-impl.lo quiddity-property-subscriber.lo \
+	quiddity-signal-subscriber.lo quiddity.lo rtp-destination.lo \
 	rtp-session.lo runtime.lo segment.lo shmdata-from-gdp-file.lo \
 	shmdata-reader.lo shmdata-to-file.lo shmdata-writer.lo \
-	soap-ctrl-server.lo udpsink.lo uridecodebin.lo uris.lo \
-	video-rate.lo video-sink.lo video-source.lo \
-	video-test-source.lo vorbis.lo soapC.lo soapcontrolProxy.lo \
-	soapcontrolService.lo xvimagesink.lo
+	signal-string.lo soap-ctrl-client.lo soap-ctrl-server.lo \
+	udpsink.lo uridecodebin.lo uris.lo video-rate.lo video-sink.lo \
+	video-source.lo video-test-source.lo vorbis.lo soapC.lo \
+	soapcontrolProxy.lo soapcontrolService.lo xvimagesink.lo
 libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS =  \
 	$(am_libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS)
 libswitcher_@LIBSWITCHER_API_VERSION@_la_LINK = $(LIBTOOL) --tag=CXX \
@@ -290,6 +291,7 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
     base-sink.cpp \
     base-source.cpp \
     custom-property-helper.cpp \
+    create-remove-spy.cpp \
     decodebin2.cpp \
     deinterleave.cpp \
     fake-shmdata-writer.cpp \
@@ -303,6 +305,7 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
     gst-utils.cpp \
     h264.cpp \
     http-sdp.cpp \
+    http-sdp-dec.cpp \
     json-builder.cpp \
     logger.cpp \
     method.cpp \
@@ -311,10 +314,11 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
     pulse-sink.cpp \
     quiddity-command.cpp \
     quiddity-documentation.cpp \
-    quiddity-life-manager.cpp \
     quiddity-manager-wrapper.cpp \
     quiddity-manager.cpp \
+    quiddity-manager-impl.cpp \
     quiddity-property-subscriber.cpp \
+    quiddity-signal-subscriber.cpp \
     quiddity.cpp \
     rtp-destination.cpp \
     rtp-session.cpp \
@@ -324,6 +328,8 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
     shmdata-reader.cpp \
     shmdata-to-file.cpp \
     shmdata-writer.cpp \
+    signal-string.cpp \
+    soap-ctrl-client.cpp \
     soap-ctrl-server.cpp \
     udpsink.cpp \
     uridecodebin.cpp \
@@ -360,6 +366,7 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     audio-test-source.h \
     base-sink.h \
     base-source.h \
+    create-remove-spy.h \
     creator.h \
     ctrl-webservice-definition.h \
     custom-property-helper.h \
@@ -378,6 +385,7 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     hash-table.h \
     hash-table_spec.h \
     http-sdp.h \
+    http-sdp-dec.h \
     json-builder.h \
     logger.h \
     method.h \
@@ -386,10 +394,11 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     pulse-sink.h \
     quiddity-command.h \
     quiddity-documentation.h \
-    quiddity-life-manager.h \
     quiddity-manager-wrapper.h \
     quiddity-manager.h \
+    quiddity-manager-impl.h \
     quiddity-property-subscriber.h \
+    quiddity-signal-subscriber.h \
     quiddity.h \
     rtp-destination.h \
     rtp-session.h \
@@ -399,6 +408,8 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     shmdata-reader.h \
     shmdata-to-file.h \
     shmdata-writer.h \
+    signal-string.h \
+    soap-ctrl-client.h \
     soap-ctrl-server.h \
     string-map.h \
     string-map_spec.h \
@@ -513,6 +524,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio-test-source.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/base-sink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/base-source.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/create-remove-spy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/custom-property-helper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decodebin2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/deinterleave.Plo@am__quote@
@@ -526,6 +538,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-video-parse-to-bin-src.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/h264.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/http-sdp-dec.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/http-sdp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/json-builder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logger.Plo@am__quote@
@@ -535,10 +548,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pulse-sink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-command.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-documentation.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-life-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-manager-impl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-manager-wrapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-manager.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-property-subscriber.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-signal-subscriber.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rtp-destination.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rtp-session.Plo@am__quote@
@@ -548,6 +562,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-reader.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-to-file.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-writer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signal-string.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soap-ctrl-client.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soap-ctrl-server.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soapC.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soapcontrolProxy.Plo@am__quote@
