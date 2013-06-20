@@ -1,3 +1,9 @@
+switcher (0.2.2-1~raring~ppa1) raring; urgency=low
+
+  * v0.2.2 packaging for raring.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 20 Jun 2013 13:37:05 -0400
+
 switcher (0.2.2-1~precise~ppa1) precise; urgency=low
 
   * Initial packaging.
