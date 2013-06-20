@@ -431,12 +431,15 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
 #######       but did not find anything else. See:
 #######       http://stackoverflow.com/questions/6340524/gsoap-linking-error
 BUILT_SOURCES = \
-    $(srcdir)/webservices/soapC.cpp \
-    $(srcdir)/webservices/soapcontrolProxy.cpp \
-    $(srcdir)/webservices/soapcontrolService.cpp
+    webservices/soapC.cpp \
+    webservices/soapcontrolProxy.cpp \
+    webservices/soapcontrolService.cpp
 
-EXTRA_DIST = \
-    $(srcdir)/webservices/*
+CLEANFILES = \
+    webservices/*
+
+DISTCLEANFILES = \
+    webservices/*
 
 @HAVE_OSX_FALSE@gsoap_INCLUDE = /usr/share/gsoap/import/
 
@@ -757,10 +760,12 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -768,7 +773,7 @@ maintainer-clean-generic:
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
-clean-am: clean-generic clean-libLTLIBRARIES clean-libtool clean-local \
+clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -841,7 +846,7 @@ uninstall-am: uninstall-libLTLIBRARIES \
 .MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libLTLIBRARIES clean-libtool clean-local ctags distclean \
+	clean-libLTLIBRARIES clean-libtool ctags distclean \
 	distclean-compile distclean-generic distclean-libtool \
 	distclean-tags distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am install-dvi \
@@ -858,23 +863,17 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-libswitcher_@LIBSWITCHER_API_VERSION@_la_includeHEADERS
 
 
-$(srcdir)/webservices/soapC.cpp: $(srcdir)/ctrl-webservice-definition.h 
-	mkdir -p $(srcdir)/webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i -d $(srcdir)/webservices $(srcdir)/ctrl-webservice-definition.h
+webservices/soapC.cpp: Makefile
+	mkdir -p webservices
+	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.h
 
-$(srcdir)/webservices/soapcontrolProxy.cpp: $(srcdir)/ctrl-webservice-definition.h 
-	mkdir -p $(srcdir)/webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i -d $(srcdir)/webservices $(srcdir)/ctrl-webservice-definition.h
+$(srcdir)/webservices/soapcontrolProxy.cpp: Makefile
+	mkdir -p webservices
+	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.h
 
-$(srcdir)/webservices/soapcontrolService.cpp: $(srcdir)/ctrl-webservice-definition.h 
-	mkdir -p $(srcdir)/webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i  -d $(srcdir)/webservices $(srcdir)/ctrl-webservice-definition.h
-
-####### end webservice code generation 
-
-# cleaning generated files for webservices
-clean-local:
-	-rm -f webservices/*
+$(srcdir)/webservices/soapcontrolService.cpp: Makefile
+	mkdir -p webservices
+	soapcpp2 -I $(gsoap_INCLUDE) -i  -d webservices $(srcdir)/ctrl-webservice-definition.h
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
