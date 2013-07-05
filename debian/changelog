@@ -1,3 +1,9 @@
+switcher (0.2.2-1~quantal~ppa1) quantal; urgency=low
+
+  * v0.2.2 package for Quantal.
+
+ -- Michal Seta <mis@artengine.ca>  Fri, 05 Jul 2013 17:52:28 -0400
+
 switcher (0.2.2-1~raring~ppa1) raring; urgency=low
 
   * v0.2.2 packaging for raring.
