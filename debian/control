@@ -86,6 +86,11 @@ Architecture: any
 Depends:
  libswitcher-0.4-0 (= ${binary:Version}),
  libswitcher-0.4-plugins (= ${binary:Version}),
+ gsoap,
+ libgtk2.0-0,
+ liblo7,
+ libportmidi0,
+ libpulse0
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
@@ -93,27 +98,8 @@ Description: Switcher for audio, video, data and network streams.
  signal routing, switching and mixing features. It was created at the 
  Society for Arts and Technology (SAT) to give to artists a powerful tool for 
  telepresence in contexts of live arts and new media installations.
+ This package includes plugins for Switcher, including gtk fullscreen window, 
+ control from OSC and soap, midi support, pulse audio and v4l2.
  .
- This package contains the binary shared libraries.
-
-Package: libswitcher-0.4-plugins
-Section: net
-Architecture: all
-Provides: libswitcher-plugins
-Replaces: libswitcher-plugins
-Conflicts: libswitcher-plugins
-Suggests: libswitcher-0.4-doc
-Depends: 
- ${shlibs:Depends},
- ${misc:Depends},
- libswitcher-0.4-0,
- gsoap,
- libgtk2.0-0,
- liblo7,
- libportmidi0,
- libpulse0
-Description: Plugins for Switcher, including gtk fullscreen window, 
- control from OSC and soap, midi support, pulse audio and v4l2. 
- .
- This package contains the binary shared libraries.
+ This package contains the binary and shared libraries.
 
