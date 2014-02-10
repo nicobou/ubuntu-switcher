@@ -1,20 +1,22 @@
 /*
  * Copyright (C) 2012-2013 Nicolas Bouillot (http://www.nicolasbouillot.net)
  *
- * This file is part of switcher.
+ * This file is part of libswitcher.
  *
- * switcher is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * libswitcher is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
  *
- * switcher is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with switcher.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #include "http-sdp-dec.h"
@@ -24,49 +26,54 @@
 
 namespace switcher
 {
-  QuiddityDocumentation HTTPSDPDec::doc_ ("http sdp decoding", "httpsdpdec", 
-					    "decode an sdp-described stream deliver through http and make shmdatas");
+  SWITCHER_MAKE_QUIDDITY_DOCUMENTATION(HTTPSDPDec,
+				       "HTTP/SDP Decoder",
+				       "network source", 
+				       "decode an sdp-described stream deliver through http and make shmdatas",
+				       "LGPL",
+				       "httpsdpdec", 
+				       "Nicolas Bouillot");
   
+  HTTPSDPDec::HTTPSDPDec () :
+    souphttpsrc_ (NULL),
+    sdpdemux_ (NULL),
+    decodebins_ (),
+    media_counters_ (),
+    main_pad_ (NULL),
+    rtpgstcaps_ (NULL),
+    discard_next_uncomplete_buffer_ (false),
+    on_error_command_ (NULL)
+  {}
+
   HTTPSDPDec::~HTTPSDPDec ()
   {
     destroy_httpsdpdec ();
-    QuiddityManager_Impl::ptr manager = manager_impl_.lock ();
-     if ((bool) manager && g_strcmp0 ("",runtime_name_.c_str ()) != 0)
-      	manager->remove_without_hook (runtime_name_);
   }
   
   bool
-  HTTPSDPDec::init() 
+  HTTPSDPDec::init_segment () 
   { 
-    GstElement *decodebin;
+    GstElement *decodebin = NULL;
     if (!GstUtils::make_element ("souphttpsrc", &souphttpsrc_)
 	|| !GstUtils::make_element ("sdpdemux", &sdpdemux_)
 	|| !GstUtils::make_element ("decodebin2", &decodebin))
       return false;
-    
     decodebins_.push_back (decodebin);
-    //set the name before registering properties
-    set_name (gst_element_get_name (souphttpsrc_));
-    
     destroy_httpsdpdec ();
-   
-    //registering add_data_stream
-    register_method("to_shmdata",
-		    (void *)&to_shmdata_wrapped, 
+ 
+    install_method ("To Shmdata",
+		    "to_shmdata", 
+		    "get raw streams from an sdp description distributed over http and write them to shmdatas", 
+		    "success or fail",
+		    Method::make_arg_description ("URL",
+						  "url", 
+						  "the url to the sdp file",
+						  NULL),
+		    (Method::method_ptr) &to_shmdata_wrapped, 
+		    G_TYPE_BOOLEAN,
 		    Method::make_arg_type_description (G_TYPE_STRING, NULL),
-		    (gpointer)this);
-    set_method_description ("to_shmdata", 
-			    "decode streams from an sdp file delivered through http and write them to shmdatas", 
-			    Method::make_arg_description ("uri", 
-							  "the uri to decode",
-							  NULL));
+		    this);
     return true;
-  }
-  
-  QuiddityDocumentation 
-  HTTPSDPDec::get_documentation ()
-  {
-    return doc_;
   }
 
   void 
@@ -75,12 +82,13 @@ namespace switcher
     if (!GstUtils::make_element ("souphttpsrc", &souphttpsrc_)
 	|| !GstUtils::make_element ("sdpdemux", &sdpdemux_))
       {
-	g_warning (" HTTPSDPDec::init_httpsdpdec, cannot create httpsdpdec elements");
+	g_warning ("HTTPSDPDec::init_httpsdpdec, cannot create httpsdpdec elements");
 	return;
       }
 
     media_counters_.clear ();
     main_pad_ = NULL;
+    
     discard_next_uncomplete_buffer_ = false;
     rtpgstcaps_ = gst_caps_from_string ("application/x-rtp, media=(string)application");
 
@@ -97,30 +105,45 @@ namespace switcher
   void 
   HTTPSDPDec::destroy_httpsdpdec ()
   {
-    GstUtils::clean_element (souphttpsrc_);
-    GstUtils::clean_element (sdpdemux_);
+    if (NULL != souphttpsrc_)
+      GstUtils::clean_element (souphttpsrc_);
+    souphttpsrc_ = NULL;
+    if (NULL != sdpdemux_)
+      GstUtils::clean_element (sdpdemux_);
+    sdpdemux_ = NULL;
+    clean_on_error_command ();
   }
 
   void 
-  HTTPSDPDec::no_more_pads_cb (GstElement* object, gpointer user_data)   
+  HTTPSDPDec::clean_on_error_command ()
+  {
+    if (on_error_command_ != NULL)
+      {
+	delete on_error_command_;
+	on_error_command_ = NULL;
+      }
+  }
+
+  void 
+  HTTPSDPDec::no_more_pads_cb (GstElement */*object*/, gpointer /*user_data*/)   
   {   
   }
 
   void 
   HTTPSDPDec::unknown_type_cb (GstElement *bin, 
-			       GstPad *pad, 
+			       GstPad */*pad*/, 
 			       GstCaps *caps, 
-			       gpointer user_data)
+			       gpointer /*user_data*/)
   {
     g_debug ("HTTPSDPDec unknown type: %s (%s)\n", gst_caps_to_string (caps), gst_element_get_name (bin));
   }
 
   int 
-  HTTPSDPDec::autoplug_select_cb (GstElement *bin, 
-				    GstPad *pad, 
-				    GstCaps *caps, 
-				    GstElementFactory *factory, 
-				    gpointer user_data)
+  HTTPSDPDec::autoplug_select_cb (GstElement */*bin*/, 
+				  GstPad *pad, 
+				  GstCaps */*caps*/, 
+				  GstElementFactory *factory, 
+				  gpointer /*user_data*/)
   {
     //g_print ("\n --- httpsdpdec autoplug select %s, (factory %s)\n\n",  gst_caps_to_string (caps), GST_OBJECT_NAME (factory));
     //     typedef enum {
@@ -177,11 +200,10 @@ namespace switcher
   HTTPSDPDec::rewind (gpointer user_data)
   {
     HTTPSDPDec *context = static_cast<HTTPSDPDec *>(user_data);
-
     GstQuery *query;
     gboolean res;
     query = gst_query_new_segment (GST_FORMAT_TIME);
-    res = gst_element_query (context->runtime_->get_pipeline (), query);
+    res = gst_element_query (context->get_pipeline (), query);
     gdouble rate = -2.0;
     gint64 start_value = -2.0;
     gint64 stop_value = -2.0;
@@ -196,7 +218,6 @@ namespace switcher
       g_debug ("duration query failed...");
     }
     gst_query_unref (query);
-    
     gboolean ret;
     ret = gst_element_seek (GST_ELEMENT (gst_pad_get_parent (context->main_pad_)),
 			    rate,  
@@ -209,8 +230,7 @@ namespace switcher
 			    GST_SEEK_TYPE_NONE,  
 			    GST_CLOCK_TIME_NONE);  
     if (!ret)
-      g_warning ("looping error\n");
-   
+      g_debug ("looping error\n");
     g_debug ("finish looping");
     return FALSE;
   }
@@ -242,13 +262,8 @@ namespace switcher
       {
 	return FALSE;
       }
-    
-    //g_print ("event probed (%s)\n", GST_EVENT_TYPE_NAME(event));
-    
-
     return TRUE; 
   }
-
 
   void
   HTTPSDPDec::pad_to_shmdata_writer (GstElement *bin, GstPad *pad)
@@ -275,7 +290,7 @@ namespace switcher
     GstUtils::link_static_to_request (pad, funnel);
     gst_element_link (funnel, identity);
 
-     //GstUtils::wait_state_changed (bin);
+    //GstUtils::wait_state_changed (bin);
      GstUtils::sync_state_with_parent (identity);
      GstUtils::sync_state_with_parent (funnel);
     
@@ -289,17 +304,19 @@ namespace switcher
      //giving a name to the stream
      gchar **padname_splitted = g_strsplit_set (padname, "/",-1);
      //counting 
-     int count = 0;
-     if (media_counters_.contains (std::string (padname_splitted[0])))
-       {
-	 count = media_counters_. lookup (std::string (padname_splitted[0]));
-	 //g_print ("------------- count %d\n", count);
-	 count = count+1;
-       }
-     media_counters_.replace (std::string (padname_splitted[0]), count);
-
+    int count = 0;
+    auto it = media_counters_.find (std::string (padname_splitted[0]));
+    if (media_counters_.end () != it)
+	count = ++(it->second);
+    else
+      {
+	std::string media_type ("unknown");
+	if (NULL != padname_splitted[0])
+	  media_type = padname_splitted[0];
+	media_counters_[media_type] = count;
+      }
      gchar media_name[256];
-     g_sprintf (media_name,"%s_%d",padname_splitted[0],count);
+     g_sprintf (media_name,"%s-%d",padname_splitted[0],count);
      g_debug ("httpsdpdec: new media %s %d\n",media_name, count );
      g_strfreev(padname_splitted);
 
@@ -321,19 +338,18 @@ namespace switcher
      	       connector_name.c_str ());
   }
 
-
   gboolean 
-  HTTPSDPDec::gstrtpdepay_buffer_probe_cb (GstPad * pad, GstMiniObject * mini_obj, gpointer user_data)
+  HTTPSDPDec::gstrtpdepay_buffer_probe_cb (GstPad */*pad*/, 
+					   GstMiniObject */*mini_obj*/, 
+					   gpointer user_data)
   {
     HTTPSDPDec *context = static_cast<HTTPSDPDec *>(user_data);
-    
     /* if (GST_IS_BUFFER (mini_obj)) */
     /*   { */
     /*     GstBuffer *buffer = GST_BUFFER_CAST (mini_obj); */
     /*     g_print ("data size %d \n", */
     /* 	       GST_BUFFER_SIZE (buffer)); */
     /*   } */
-    
     if (context->discard_next_uncomplete_buffer_ == true)
       {
 	g_debug ("discarding uncomplete custom frame due to a network loss");
@@ -345,10 +361,11 @@ namespace switcher
   }
   
   gboolean
-  HTTPSDPDec::gstrtpdepay_event_probe_cb (GstPad *pad, GstEvent * event, gpointer user_data)
+  HTTPSDPDec::gstrtpdepay_event_probe_cb (GstPad */*pad*/,
+					  GstEvent *event, 
+					  gpointer user_data)
   {
     HTTPSDPDec *context = static_cast<HTTPSDPDec *>(user_data);
-
     if (GST_EVENT_TYPE (event) == GST_EVENT_CUSTOM_DOWNSTREAM) 
       {
 	const GstStructure *s;
@@ -360,16 +377,18 @@ namespace switcher
       }
     return TRUE; 
   }
-  
 
   void 
-  HTTPSDPDec::httpsdpdec_pad_added_cb (GstElement* object, GstPad *pad, gpointer user_data)   
+  HTTPSDPDec::httpsdpdec_pad_added_cb (GstElement */*object*/, 
+				       GstPad *pad, 
+				       gpointer user_data)   
   {   
     HTTPSDPDec *context = static_cast<HTTPSDPDec *>(user_data);
-
-    GstElement *decodebin;
+    GstElement *decodebin = NULL;
     GstUtils::make_element ("decodebin2", &decodebin);
-    gst_bin_add (GST_BIN (context->bin_), decodebin);
+    gst_bin_add_many (GST_BIN (context->bin_), 
+		      decodebin,
+		      NULL);
     GstPad *sinkpad = gst_element_get_static_pad (decodebin, "sink");
     GstUtils::check_pad_link_return (gst_pad_link (pad, sinkpad));
     g_signal_connect (G_OBJECT (decodebin), 
@@ -380,7 +399,6 @@ namespace switcher
      		      "autoplug-select",  
      		      (GCallback) HTTPSDPDec::autoplug_select_cb ,  
      		      (gpointer) context);      
-
     GstUtils::sync_state_with_parent (decodebin);
     context->decodebins_.push_back (decodebin); 
   }   
@@ -389,13 +407,13 @@ namespace switcher
   HTTPSDPDec::decodebin_pad_added_cb (GstElement* object, GstPad *pad, gpointer user_data)   
   {   
     HTTPSDPDec *context = static_cast<HTTPSDPDec *>(user_data);
-
-        if (gst_caps_can_intersect (context->rtpgstcaps_,
+    
+    if (gst_caps_can_intersect (context->rtpgstcaps_,
 				gst_pad_get_caps (pad)))
       {
 	//asking rtpbin to send an event when a packet is lost (do-lost property)
 	GstUtils::set_element_property_in_bin (object, "gstrtpbin", "do-lost", TRUE);
-
+	
 	g_message ("custom rtp stream found");
 	GstElement *rtpgstdepay;
 	GstUtils::make_element ("rtpgstdepay", &rtpgstdepay);
@@ -427,7 +445,9 @@ namespace switcher
   }
 
   void 
-  HTTPSDPDec::source_setup_cb (GstElement *httpsdpdec, GstElement *source, gpointer user_data)
+  HTTPSDPDec::source_setup_cb (GstElement */*httpsdpdec*/, 
+			       GstElement *source, 
+			       gpointer /*user_data*/)
   {
     //HTTPSDPDec *context = static_cast<HTTPSDPDec *>(user_data);
     g_debug ("source %s %s\n",  GST_ELEMENT_NAME(source), G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (source)));
@@ -449,25 +469,23 @@ namespace switcher
   HTTPSDPDec::to_shmdata (std::string uri)
   {
     destroy_httpsdpdec ();
-    QuiddityManager_Impl::ptr manager = manager_impl_.lock ();
-    if ((bool) manager)
-      {
-	if (g_strcmp0 ("",runtime_name_.c_str ()) != 0)
-	  manager->remove_without_hook (runtime_name_);
-	runtime_name_ = manager->create_without_hook ("runtime");
-	Quiddity::ptr quidd = manager->get_quiddity (runtime_name_);
-	Runtime::ptr runtime = std::dynamic_pointer_cast<Runtime> (quidd);
-	if(runtime)
-	  set_runtime(runtime);
-	else
-	  g_warning ("HTTPSDPDec::to_shmdata: unable to use a custom runtime");
-      }
-    else
-      return false;
-    
     reset_bin ();
     init_httpsdpdec ();
-    g_debug ("------------------------- to_shmdata set uri %s", uri.c_str ());
+    clean_on_error_command ();
+    on_error_command_ = new QuiddityCommand ();
+    on_error_command_->id_ = QuiddityCommand::invoke;
+    on_error_command_->time_ = 1000; // 1 second
+    on_error_command_->add_arg (get_nick_name ());
+    on_error_command_->add_arg ("to_shmdata");
+    std::vector<std::string> vect_arg;
+    vect_arg.push_back (uri);
+    on_error_command_->set_vector_arg (vect_arg);
+
+    g_object_set_data (G_OBJECT (sdpdemux_), 
+     		       "on-error-command",
+     		       (gpointer)on_error_command_);
+    
+    g_debug ("httpsdpdec: to_shmdata set uri %s", uri.c_str ());
 
     g_object_set (G_OBJECT (souphttpsrc_), "location", uri.c_str (), NULL); 
 
@@ -478,11 +496,9 @@ namespace switcher
     
     gst_element_link (souphttpsrc_, sdpdemux_);
 
-    GstUtils::wait_state_changed (bin_);
+    //GstUtils::wait_state_changed (bin_);
     GstUtils::sync_state_with_parent (souphttpsrc_);
     GstUtils::sync_state_with_parent (sdpdemux_);
     return true;
   }
-
-
 }

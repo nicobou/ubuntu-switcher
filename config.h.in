@@ -3,6 +3,9 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
+/* GTK not detected */
+#undef HAVE_GTK
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
@@ -11,6 +14,15 @@
 
 /* Apple Mac OS X operating system not detected */
 #undef HAVE_OSX
+
+/* Define to 1 if you have the <portmidi.h> header file. */
+#undef HAVE_PORTMIDI_H
+
+/* Define to 1 if you have the <porttime.h> header file. */
+#undef HAVE_PORTTIME_H
+
+/* python-dev detected */
+#undef HAVE_PYTHON
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
@@ -32,6 +44,9 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
+
+/* API version */
+#undef LIBSWITCHER_API_VERSION
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */

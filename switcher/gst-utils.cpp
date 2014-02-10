@@ -1,23 +1,26 @@
 /*
  * Copyright (C) 2012-2013 Nicolas Bouillot (http://www.nicolasbouillot.net)
  *
- * This file is part of switcher.
+ * This file is part of libswitcher.
  *
- * switcher is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * libswitcher is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
  *
- * switcher is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with switcher.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #include "gst-utils.h"
+#include <unistd.h>  //sleep
 
 namespace switcher
 {
@@ -90,25 +93,25 @@ namespace switcher
 	switch ( res )
 	  {
 	  case GST_PAD_LINK_WRONG_HIERARCHY:
-	    g_error ("GstUtils::check_pad_link_return - GST_PAD_LINK_WRONG_HIERARCHY");
+	    g_debug ("GstUtils::check_pad_link_return - GST_PAD_LINK_WRONG_HIERARCHY");
 	    break;
 	  case GST_PAD_LINK_WAS_LINKED:
-	    g_error ("GstUtils::check_pad_link_return - GST_PAD_LINK_WAS_LINKED");
+	    g_debug ("GstUtils::check_pad_link_return - GST_PAD_LINK_WAS_LINKED");
 	    break;
 	  case GST_PAD_LINK_WRONG_DIRECTION:
-	    g_error ("GstUtils::check_pad_link_return - GST_PAD_LINK_WRONG_DIRECTION");
+	    g_debug ("GstUtils::check_pad_link_return - GST_PAD_LINK_WRONG_DIRECTION");
 	    break;
 	  case GST_PAD_LINK_NOFORMAT:
-	    g_error ("GstUtils::check_pad_link_return - GST_PAD_LINK_NOFORMAT");
+	    g_debug ("GstUtils::check_pad_link_return - GST_PAD_LINK_NOFORMAT");
 	    break;
 	  case GST_PAD_LINK_NOSCHED:
-	    g_error ("GstUtils::check_pad_link_return - GST_PAD_LINK_NOSCHED");
+	    g_debug ("GstUtils::check_pad_link_return - GST_PAD_LINK_NOSCHED");
 	    break;
 	  case GST_PAD_LINK_REFUSED:
-	    g_error ("GstUtils::check_pad_link_return - GST_PAD_LINK_REFUSED");
+	    g_debug ("GstUtils::check_pad_link_return - GST_PAD_LINK_REFUSED");
 	    break;
 	  default:
-	    g_error ("GstUtils::check_pad_link_return - UNKNOWN ERROR");
+	    g_debug ("GstUtils::check_pad_link_return - UNKNOWN ERROR");
 	  }
 	return false;
       }
@@ -134,51 +137,36 @@ namespace switcher
   void
   GstUtils::clean_element (GstElement *element)
   {
-    if (element != NULL && GST_IS_ELEMENT (element))
+    if (element != NULL 
+	&& GST_IS_ELEMENT (element) 
+	&& GST_STATE_CHANGE_FAILURE != GST_STATE_RETURN (element))
       {
-	//g_debug ("START CLEANING");
-	 // if (GST_IS_BIN (element))
-	 //    {
-	 //      g_debug ("%d, %d, %d, state return %d",GST_STATE(element),GST_STATE_TARGET (element), GST_STATE_PENDING (element),GST_STATE_RETURN(element));
-	 //    }
+	if (GST_IS_BIN (element))
+	  g_debug ("%d, %d, %d, state return %d",GST_STATE(element),GST_STATE_TARGET (element), GST_STATE_PENDING (element),GST_STATE_RETURN(element));
 	
-	 GstIterator *pad_iter;
-	 pad_iter = gst_element_iterate_pads (element);
-	 gst_iterator_foreach (pad_iter, (GFunc) GstUtils::unlink_pad, element);
-	 gst_iterator_free (pad_iter);
-
-	 //g_debug ("CLEANING 1 %s",gst_element_get_name (element));
-	 
- 	 // if (GST_IS_BIN (element))
-	 //   {
-	 //     g_debug ("%d, %d, %d, state return %d",GST_STATE(element),GST_STATE_TARGET (element), GST_STATE_PENDING (element),GST_STATE_RETURN(element));
-	 //   }
-
-	 GstState state = GST_STATE_TARGET (element);
-	 if (state != GST_STATE_NULL)
-	   if (GST_STATE_CHANGE_ASYNC == gst_element_set_state (element, GST_STATE_NULL))
-	     //	       while (state != GST_STATE (element))
-	     while (GST_STATE (element) != GST_STATE_NULL)
-	       {
-		 gst_element_get_state (element, NULL, NULL, GST_CLOCK_TIME_NONE);//warning this may be blocking
-	       }
-
-	 // while (GST_STATE (element) != GST_STATE_NULL)
-	 //   {
-	 //     gst_element_get_state (element, NULL, NULL, GST_CLOCK_TIME_NONE);//warning this may be blocking
-	 //   }
-
-	 if (GST_IS_BIN (gst_element_get_parent (element)))
-	   gst_bin_remove (GST_BIN (gst_element_get_parent (element)), element);
+	GstIterator *pad_iter;
+	pad_iter = gst_element_iterate_pads (element);
+	gst_iterator_foreach (pad_iter, (GFunc) GstUtils::unlink_pad, element);
+	gst_iterator_free (pad_iter);
+	
+	GstState state = GST_STATE_TARGET (element);
+	if (state != GST_STATE_NULL)
+	  if (GST_STATE_CHANGE_ASYNC == gst_element_set_state (element, GST_STATE_NULL))
+	    while (GST_STATE (element) != GST_STATE_NULL)
+	      {
+		//warning this may be blocking
+		gst_element_get_state (element, NULL, NULL, GST_CLOCK_TIME_NONE);
+	      }
+	if (GST_IS_BIN (gst_element_get_parent (element)))
+	  gst_bin_remove (GST_BIN (gst_element_get_parent (element)), element);
       }
     
   }
   
-
   void
   GstUtils::wait_state_changed (GstElement *bin)
   {
-    g_debug ("GstUtils::wait_state_changed");
+
     if (!GST_IS_BIN (bin))
       {
 	g_warning ("GstUtils::wait_state_changed not a bin");
@@ -200,8 +188,7 @@ namespace switcher
 	  
 	  gst_element_get_state (bin, NULL, NULL, GST_CLOCK_TIME_NONE);//warning this may be blocking
 	}
-    g_debug ("GstUtils::wait_state_changed (done)");
-
+    g_value_unset (&val);
     return;
   }
 
@@ -237,7 +224,7 @@ namespace switcher
     if (!GST_IS_BIN (bin))
       return;
 
-    if (GST_BIN_CHILDREN (GST_BIN (bin)) > 0)
+    if (g_list_length (GST_BIN_CHILDREN (GST_BIN (bin))) > 0)
       {
 	GList *child = NULL, *children = GST_BIN_CHILDREN (GST_BIN (bin));
 	for (child = children; child != NULL; child = g_list_next (child)) 
@@ -323,4 +310,84 @@ namespace switcher
     
     return id;
   }
+
+
+  bool 
+  GstUtils::apply_property_value (GObject *g_object_master, 
+				  GObject *g_object_slave,
+				  const char *property_name)
+  {
+    if (g_object_master == NULL || g_object_slave == NULL)
+      return false;
+    
+    if (!G_IS_OBJECT (g_object_master) || !G_IS_OBJECT (g_object_slave))
+      return false;
+
+    GParamSpec *pspec_master = 
+      g_object_class_find_property (G_OBJECT_CLASS (G_OBJECT_GET_CLASS (g_object_master)),
+				    property_name);
+    if (pspec_master == NULL)
+      {
+	g_debug ("property %s not found for master ", property_name);
+	return false;
+      }
+
+    GParamSpec *pspec_slave = 
+      g_object_class_find_property (G_OBJECT_CLASS (G_OBJECT_GET_CLASS (g_object_slave)),
+				    property_name);
+    if (pspec_slave == NULL)
+      {
+	g_debug ("property %s, not found for slave", property_name);
+	  return false;
+      }
+    
+    if (pspec_master->value_type != pspec_slave->value_type)
+      {
+	g_debug ("master and slave properties has different type, canont apply");
+	return false;
+      }
+    
+    GValue val = G_VALUE_INIT;
+    g_value_init (&val, pspec_master->value_type);
+    
+    g_object_get_property (g_object_master,
+			   property_name,
+			   &val);
+    
+    g_object_set_property (g_object_slave,
+			   property_name,
+			   &val);
+    g_value_unset (&val);
+    return true;
+  }
+
+
+  void
+  GstUtils::element_factory_list_to_g_enum (GEnumValue *target_enum,
+					    GstElementFactoryListType type,
+					    GstRank minrank)
+  {
+     GList *element_list = gst_element_factory_list_get_elements (type, minrank);
+     GList *iter = element_list;
+     target_enum[0].value = 0;
+     target_enum[0].value_name = g_strdup ("None");
+     target_enum[0].value_nick = target_enum[0].value_name;
+     gint i = 1;
+     while (iter != NULL)
+       {
+     	target_enum[i].value = i;
+     	//FIXME this is leaking
+     	target_enum[i].value_name = g_strdup (gst_element_factory_get_longname ((GstElementFactory *)iter->data));
+     	target_enum[i].value_nick = g_strdup (gst_plugin_feature_get_name ((GstPluginFeature *)iter->data));
+     	iter = g_list_next (iter);
+     	i ++;
+       }
+     target_enum[i].value = 0;
+     target_enum[i].value_name = NULL;
+     target_enum[i].value_nick = NULL;
+     
+     gst_plugin_feature_list_free (element_list);
+    
+  }
+
 }
