@@ -35,6 +35,14 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = switcher$(EXEEXT) switcher-ctrl$(EXEEXT)
+
+#use gtk loop in order to block main (required for gtk working in OSX)
+@GTKBUILD_TRUE@am__append_1 = \
+@GTKBUILD_TRUE@    $(GTK_CFLAGS)
+
+@GTKBUILD_TRUE@am__append_2 = \
+@GTKBUILD_TRUE@    $(GTK_LIBS)
+
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -108,11 +116,15 @@ EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
+GMODULE_CFLAGS = @GMODULE_CFLAGS@
+GMODULE_LIBS = @GMODULE_LIBS@
 GREP = @GREP@
 GSOAP_CFLAGS = @GSOAP_CFLAGS@
 GSOAP_LIBS = @GSOAP_LIBS@
 GST_CFLAGS = @GST_CFLAGS@
 GST_LIBS = @GST_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 HAVE_PKGCONFIG = @HAVE_PKGCONFIG@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -153,14 +165,23 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
+PORTMIDI_CFLAGS = @PORTMIDI_CFLAGS@
+PORTMIDI_LIBS = @PORTMIDI_LIBS@
+PULSE_CFLAGS = @PULSE_CFLAGS@
+PULSE_LIBS = @PULSE_LIBS@
+PYTHON_CFLAGS = @PYTHON_CFLAGS@
+PYTHON_LIBS = @PYTHON_LIBS@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
+SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -217,23 +238,13 @@ top_srcdir = @top_srcdir@
 switcher_SOURCES = \
     main.cpp 
 
-switcher_CXXFLAGS = \
-    $(GLIB_CFLAGS) \
-    $(GSOAP_CFLAGS) \
-    $(GST_CFLAGS) \
-    $(JSONGLIB_CFLAGS) \
-    $(SHMDATA_CFLAGS) \
-    -DG_LOG_DOMAIN=\"switcher\" \
-    -I$(top_srcdir) 
-
-switcher_LDFLAGS = \
-    $(GLIB_LIBS) \
-    $(GSOAP_LIBS) \
-    $(GST_LIBS) \
-    $(JSONGLIB_LIBS) \
-    $(SHMDATA_LIBS) \
-    $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
-
+switcher_CXXFLAGS = $(GLIB_CFLAGS) $(GSOAP_CFLAGS) $(GST_CFLAGS) \
+	$(JSONGLIB_CFLAGS) $(SHMDATA_CFLAGS) \
+	-DG_LOG_DOMAIN=\"switcher\" -I$(top_srcdir) $(am__append_1)
+switcher_LDFLAGS = $(GLIB_LIBS) $(GSOAP_LIBS) $(GST_LIBS) \
+	$(JSONGLIB_LIBS) $(SHMDATA_LIBS) \
+	$(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la \
+	$(am__append_2)
 
 ############# control ##########################
 switcher_ctrl_SOURCES = \
@@ -242,14 +253,14 @@ switcher_ctrl_SOURCES = \
 switcher_ctrl_CXXFLAGS = \
     $(GLIB_CFLAGS) \
     $(GSOAP_CFLAGS) \
-    $(GST_CFLAGS) \
-    -I$(top_srcdir) 
+    -I$(top_srcdir) \
+    -I$(top_builddir)/plugins/gsoap/
 
 switcher_ctrl_LDFLAGS = \
     $(GLIB_LIBS) \
     $(GSOAP_LIBS) \
-    $(GST_LIBS) \
-    $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
+    $(top_builddir)/plugins/gsoap/soapC.o \
+    $(top_builddir)/plugins/gsoap/soapcontrolProxy.o
 
 all: all-am
 

@@ -33,10 +33,10 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-check_PROGRAMS = check_quiddity_create_remove$(EXEEXT) \
-	check_quiddity_create_remove_with_auto_pipeline$(EXEEXT) \
+check_PROGRAMS = check_description_by_class$(EXEEXT) \
+	check_fakesink$(EXEEXT) check_quiddity_create_remove$(EXEEXT) \
 	check_property_subscriber$(EXEEXT) check_rtp_session$(EXEEXT) \
-	check_signal_subscriber$(EXEEXT)
+	check_signal_subscriber$(EXEEXT) check_startable$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,6 +47,14 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
+am_check_description_by_class_OBJECTS =  \
+	check_description_by_class.$(OBJEXT)
+check_description_by_class_OBJECTS =  \
+	$(am_check_description_by_class_OBJECTS)
+check_description_by_class_LDADD = $(LDADD)
+am_check_fakesink_OBJECTS = check_fakesink.$(OBJEXT)
+check_fakesink_OBJECTS = $(am_check_fakesink_OBJECTS)
+check_fakesink_LDADD = $(LDADD)
 am_check_property_subscriber_OBJECTS =  \
 	check_property_subscriber.$(OBJEXT)
 check_property_subscriber_OBJECTS =  \
@@ -57,11 +65,6 @@ am_check_quiddity_create_remove_OBJECTS =  \
 check_quiddity_create_remove_OBJECTS =  \
 	$(am_check_quiddity_create_remove_OBJECTS)
 check_quiddity_create_remove_LDADD = $(LDADD)
-am_check_quiddity_create_remove_with_auto_pipeline_OBJECTS =  \
-	check_quiddity_create_remove_with_auto_pipeline.$(OBJEXT)
-check_quiddity_create_remove_with_auto_pipeline_OBJECTS =  \
-	$(am_check_quiddity_create_remove_with_auto_pipeline_OBJECTS)
-check_quiddity_create_remove_with_auto_pipeline_LDADD = $(LDADD)
 am_check_rtp_session_OBJECTS = check_rtp_session.$(OBJEXT)
 check_rtp_session_OBJECTS = $(am_check_rtp_session_OBJECTS)
 check_rtp_session_LDADD = $(LDADD)
@@ -70,6 +73,9 @@ am_check_signal_subscriber_OBJECTS =  \
 check_signal_subscriber_OBJECTS =  \
 	$(am_check_signal_subscriber_OBJECTS)
 check_signal_subscriber_LDADD = $(LDADD)
+am_check_startable_OBJECTS = check_startable.$(OBJEXT)
+check_startable_OBJECTS = $(am_check_startable_OBJECTS)
+check_startable_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -83,16 +89,16 @@ CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(check_property_subscriber_SOURCES) \
+SOURCES = $(check_description_by_class_SOURCES) \
+	$(check_fakesink_SOURCES) $(check_property_subscriber_SOURCES) \
 	$(check_quiddity_create_remove_SOURCES) \
-	$(check_quiddity_create_remove_with_auto_pipeline_SOURCES) \
 	$(check_rtp_session_SOURCES) \
-	$(check_signal_subscriber_SOURCES)
-DIST_SOURCES = $(check_property_subscriber_SOURCES) \
+	$(check_signal_subscriber_SOURCES) $(check_startable_SOURCES)
+DIST_SOURCES = $(check_description_by_class_SOURCES) \
+	$(check_fakesink_SOURCES) $(check_property_subscriber_SOURCES) \
 	$(check_quiddity_create_remove_SOURCES) \
-	$(check_quiddity_create_remove_with_auto_pipeline_SOURCES) \
 	$(check_rtp_session_SOURCES) \
-	$(check_signal_subscriber_SOURCES)
+	$(check_signal_subscriber_SOURCES) $(check_startable_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 am__tty_colors = \
@@ -129,11 +135,15 @@ EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
+GMODULE_CFLAGS = @GMODULE_CFLAGS@
+GMODULE_LIBS = @GMODULE_LIBS@
 GREP = @GREP@
 GSOAP_CFLAGS = @GSOAP_CFLAGS@
 GSOAP_LIBS = @GSOAP_LIBS@
 GST_CFLAGS = @GST_CFLAGS@
 GST_LIBS = @GST_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 HAVE_PKGCONFIG = @HAVE_PKGCONFIG@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -174,14 +184,23 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
+PORTMIDI_CFLAGS = @PORTMIDI_CFLAGS@
+PORTMIDI_LIBS = @PORTMIDI_LIBS@
+PULSE_CFLAGS = @PULSE_CFLAGS@
+PULSE_LIBS = @PULSE_LIBS@
+PYTHON_CFLAGS = @PYTHON_CFLAGS@
+PYTHON_LIBS = @PYTHON_LIBS@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
+SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -254,11 +273,11 @@ AM_LDFLAGS = \
     $(SHMDATA_LIBS) \
     $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
 
+check_description_by_class_SOURCES = \
+    check_description_by_class.cpp
+
 check_quiddity_create_remove_SOURCES = \
     check_quiddity_create_remove.cpp
-
-check_quiddity_create_remove_with_auto_pipeline_SOURCES = \
-    check_quiddity_create_remove_with_auto_pipeline.cpp
 
 check_property_subscriber_SOURCES = \
     check_property_subscriber.cpp
@@ -268,6 +287,12 @@ check_rtp_session_SOURCES = \
 
 check_signal_subscriber_SOURCES = \
     check_signal_subscriber.cpp
+
+check_startable_SOURCES = \
+    check_startable.cpp
+
+check_fakesink_SOURCES = \
+    check_fakesink.cpp
 
 TESTS = $(check_PROGRAMS)
 all: all-am
@@ -313,21 +338,27 @@ clean-checkPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+check_description_by_class$(EXEEXT): $(check_description_by_class_OBJECTS) $(check_description_by_class_DEPENDENCIES) $(EXTRA_check_description_by_class_DEPENDENCIES) 
+	@rm -f check_description_by_class$(EXEEXT)
+	$(CXXLINK) $(check_description_by_class_OBJECTS) $(check_description_by_class_LDADD) $(LIBS)
+check_fakesink$(EXEEXT): $(check_fakesink_OBJECTS) $(check_fakesink_DEPENDENCIES) $(EXTRA_check_fakesink_DEPENDENCIES) 
+	@rm -f check_fakesink$(EXEEXT)
+	$(CXXLINK) $(check_fakesink_OBJECTS) $(check_fakesink_LDADD) $(LIBS)
 check_property_subscriber$(EXEEXT): $(check_property_subscriber_OBJECTS) $(check_property_subscriber_DEPENDENCIES) $(EXTRA_check_property_subscriber_DEPENDENCIES) 
 	@rm -f check_property_subscriber$(EXEEXT)
 	$(CXXLINK) $(check_property_subscriber_OBJECTS) $(check_property_subscriber_LDADD) $(LIBS)
 check_quiddity_create_remove$(EXEEXT): $(check_quiddity_create_remove_OBJECTS) $(check_quiddity_create_remove_DEPENDENCIES) $(EXTRA_check_quiddity_create_remove_DEPENDENCIES) 
 	@rm -f check_quiddity_create_remove$(EXEEXT)
 	$(CXXLINK) $(check_quiddity_create_remove_OBJECTS) $(check_quiddity_create_remove_LDADD) $(LIBS)
-check_quiddity_create_remove_with_auto_pipeline$(EXEEXT): $(check_quiddity_create_remove_with_auto_pipeline_OBJECTS) $(check_quiddity_create_remove_with_auto_pipeline_DEPENDENCIES) $(EXTRA_check_quiddity_create_remove_with_auto_pipeline_DEPENDENCIES) 
-	@rm -f check_quiddity_create_remove_with_auto_pipeline$(EXEEXT)
-	$(CXXLINK) $(check_quiddity_create_remove_with_auto_pipeline_OBJECTS) $(check_quiddity_create_remove_with_auto_pipeline_LDADD) $(LIBS)
 check_rtp_session$(EXEEXT): $(check_rtp_session_OBJECTS) $(check_rtp_session_DEPENDENCIES) $(EXTRA_check_rtp_session_DEPENDENCIES) 
 	@rm -f check_rtp_session$(EXEEXT)
 	$(CXXLINK) $(check_rtp_session_OBJECTS) $(check_rtp_session_LDADD) $(LIBS)
 check_signal_subscriber$(EXEEXT): $(check_signal_subscriber_OBJECTS) $(check_signal_subscriber_DEPENDENCIES) $(EXTRA_check_signal_subscriber_DEPENDENCIES) 
 	@rm -f check_signal_subscriber$(EXEEXT)
 	$(CXXLINK) $(check_signal_subscriber_OBJECTS) $(check_signal_subscriber_LDADD) $(LIBS)
+check_startable$(EXEEXT): $(check_startable_OBJECTS) $(check_startable_DEPENDENCIES) $(EXTRA_check_startable_DEPENDENCIES) 
+	@rm -f check_startable$(EXEEXT)
+	$(CXXLINK) $(check_startable_OBJECTS) $(check_startable_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -335,11 +366,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_description_by_class.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_fakesink.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_property_subscriber.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_quiddity_create_remove.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_quiddity_create_remove_with_auto_pipeline.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_rtp_session.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_signal_subscriber.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_startable.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

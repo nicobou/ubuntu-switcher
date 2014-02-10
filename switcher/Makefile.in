@@ -78,26 +78,27 @@ am__installdirs = "$(DESTDIR)$(libdir)" \
 	"$(DESTDIR)$(libswitcher_@LIBSWITCHER_API_VERSION@_la_includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libswitcher_@LIBSWITCHER_API_VERSION@_la_LIBADD =
-am_libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS = aac.lo \
+am_libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS =  \
 	aravis-genicam.lo audio-sink.lo audio-source.lo \
 	audio-test-source.lo base-sink.lo base-source.lo \
-	custom-property-helper.lo create-remove-spy.lo decodebin2.lo \
-	deinterleave.lo fake-shmdata-writer.lo file-sdp.lo fakesink.lo \
+	categorizable.lo custom-property-helper.lo \
+	create-remove-spy.lo decodebin2.lo deinterleave.lo \
+	fake-shmdata-writer.lo file-sdp.lo fakesink.lo \
 	gobject-custom-property.lo gobject-wrapper.lo \
 	gst-element-cleaner.lo gst-parse-to-bin-src.lo \
-	gst-video-parse-to-bin-src.lo gst-utils.lo h264.lo http-sdp.lo \
-	http-sdp-dec.lo json-builder.lo logger.lo method.lo \
-	osc-ctrl-server.lo property.lo pulse-sink.lo \
+	gst-video-parse-to-bin-src.lo gst-utils.lo http-sdp.lo \
+	http-sdp-dec.lo jack-audio-source.lo jack-sink.lo jpegenc.lo \
+	json-builder.lo logger.lo method.lo plugin-loader.lo \
+	property.lo property-mapper.lo quiddity-basic-test.lo \
 	quiddity-command.lo quiddity-documentation.lo \
 	quiddity-manager-wrapper.lo quiddity-manager.lo \
 	quiddity-manager-impl.lo quiddity-property-subscriber.lo \
 	quiddity-signal-subscriber.lo quiddity.lo rtp-destination.lo \
 	rtp-session.lo runtime.lo segment.lo shmdata-from-gdp-file.lo \
 	shmdata-reader.lo shmdata-to-file.lo shmdata-writer.lo \
-	signal-string.lo soap-ctrl-client.lo soap-ctrl-server.lo \
-	udpsink.lo uridecodebin.lo uris.lo video-rate.lo video-sink.lo \
-	video-source.lo video-test-source.lo vorbis.lo soapC.lo \
-	soapcontrolProxy.lo soapcontrolService.lo xvimagesink.lo
+	signal-string.lo startable-quiddity.lo string-dictionary.lo \
+	udpsink.lo uridecodebin.lo video-rate.lo video-sink.lo \
+	video-source.lo video-test-source.lo vorbis.lo xvimagesink.lo
 libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS =  \
 	$(am_libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS)
 libswitcher_@LIBSWITCHER_API_VERSION@_la_LINK = $(LIBTOOL) --tag=CXX \
@@ -155,11 +156,15 @@ EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
+GMODULE_CFLAGS = @GMODULE_CFLAGS@
+GMODULE_LIBS = @GMODULE_LIBS@
 GREP = @GREP@
 GSOAP_CFLAGS = @GSOAP_CFLAGS@
 GSOAP_LIBS = @GSOAP_LIBS@
 GST_CFLAGS = @GST_CFLAGS@
 GST_LIBS = @GST_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 HAVE_PKGCONFIG = @HAVE_PKGCONFIG@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -200,14 +205,23 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
+PORTMIDI_CFLAGS = @PORTMIDI_CFLAGS@
+PORTMIDI_LIBS = @PORTMIDI_LIBS@
+PULSE_CFLAGS = @PULSE_CFLAGS@
+PULSE_LIBS = @PULSE_LIBS@
+PYTHON_CFLAGS = @PYTHON_CFLAGS@
+PYTHON_LIBS = @PYTHON_LIBS@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
+SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -263,33 +277,33 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CXXFLAGS = \
     $(GLIB_CFLAGS) \
-    $(GSOAP_CFLAGS) \
     $(GST_CFLAGS) \
+    $(GMODULE_CFLAGS) \
     $(JSONGLIB_CFLAGS) \
-    $(LIBLO_CFLAGS) \
+    $(PYTHON_CFLAGS) \
     $(SHMDATA_CFLAGS) \
     -DG_LOG_DOMAIN=\"switcher\" \
-    -I$(top_srcdir)/switcher/webservices
+    -I$(top_srcdir) 
 
 AM_LIBS = \
     $(GLIB_LIBS) \
-    $(GSOAP_LIBS) \
     $(GST_LIBS) \
+    $(GMODULE_LIBS) \
     $(JSONGLIB_LIBS) \
-    $(LIBLO_LIBS) \
+    $(PYTHON_LIBS) \
     $(SHMDATA_LIBS)
 
 lib_LTLIBRARIES = \
     libswitcher-@LIBSWITCHER_API_VERSION@.la
 
 libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
-    aac.cpp \
     aravis-genicam.cpp \
     audio-sink.cpp \
     audio-source.cpp \
     audio-test-source.cpp \
     base-sink.cpp \
     base-source.cpp \
+    categorizable.cpp \
     custom-property-helper.cpp \
     create-remove-spy.cpp \
     decodebin2.cpp \
@@ -303,15 +317,18 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
     gst-parse-to-bin-src.cpp \
     gst-video-parse-to-bin-src.cpp \
     gst-utils.cpp \
-    h264.cpp \
     http-sdp.cpp \
     http-sdp-dec.cpp \
+    jack-audio-source.cpp \
+    jack-sink.cpp \
+    jpegenc.cpp \
     json-builder.cpp \
     logger.cpp \
     method.cpp \
-    osc-ctrl-server.cpp \
+    plugin-loader.cpp \
     property.cpp \
-    pulse-sink.cpp \
+    property-mapper.cpp \
+    quiddity-basic-test.cpp \
     quiddity-command.cpp \
     quiddity-documentation.cpp \
     quiddity-manager-wrapper.cpp \
@@ -329,27 +346,23 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
     shmdata-to-file.cpp \
     shmdata-writer.cpp \
     signal-string.cpp \
-    soap-ctrl-client.cpp \
-    soap-ctrl-server.cpp \
+    startable-quiddity.cpp \
+    string-dictionary.cpp \
     udpsink.cpp \
     uridecodebin.cpp \
-    uris.cpp \
     video-rate.cpp \
     video-sink.cpp \
     video-source.cpp \
     video-test-source.cpp \
     vorbis.cpp \
-    webservices/soapC.cpp \
-    webservices/soapcontrolProxy.cpp \
-    webservices/soapcontrolService.cpp \
     xvimagesink.cpp
 
 libswitcher_@LIBSWITCHER_API_VERSION@_la_LDFLAGS = \
     $(GLIB_LIBS) \
-    $(GSOAP_LIBS) \
     $(GST_LIBS) \
+    $(GMODULE_LIBS) \
     $(JSONGLIB_LIBS) \
-    $(LIBLO_LIBS) \
+    $(PYTHON_LIBS) \
     $(SHMDATA_LIBS) \
     -version-info $(LIBSWITCHER_SO_VERSION)
 
@@ -357,7 +370,6 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
 
 libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
-    aac.h \
     abstract-factory.h \
     abstract-factory_spec.h \
     aravis-genicam.h \
@@ -366,9 +378,9 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     audio-test-source.h \
     base-sink.h \
     base-source.h \
+    categorizable.h \
     create-remove-spy.h \
     creator.h \
-    ctrl-webservice-definition.h \
     custom-property-helper.h \
     decodebin2.h \
     deinterleave.h \
@@ -381,17 +393,20 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     gst-parse-to-bin-src.h \
     gst-video-parse-to-bin-src.h \
     gst-utils.h \
-    h264.h \
     hash-table.h \
     hash-table_spec.h \
     http-sdp.h \
     http-sdp-dec.h \
+    jack-audio-source.h \
+    jack-sink.h \
+    jpegenc.h \
     json-builder.h \
     logger.h \
     method.h \
-    osc-ctrl-server.h \
+    plugin-loader.h \
     property.h \
-    pulse-sink.h \
+    property-mapper.h \
+    quiddity-basic-test.h \
     quiddity-command.h \
     quiddity-documentation.h \
     quiddity-manager-wrapper.h \
@@ -409,13 +424,10 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     shmdata-to-file.h \
     shmdata-writer.h \
     signal-string.h \
-    soap-ctrl-client.h \
-    soap-ctrl-server.h \
-    string-map.h \
-    string-map_spec.h \
+    startable-quiddity.h \
+    string-dictionary.h \
     udpsink.h \
     uridecodebin.h \
-    uris.h \
     video-rate.h \
     video-sink.h \
     video-source.h \
@@ -423,30 +435,7 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
     vorbis.h \
     xvimagesink.h
 
-
-####### webservice code generation into the "webservices" directory
-####### note: soapcpp2 -q <namespace> -d <directory-where-goes-generated-cpp>
-####### note: webservices/stdsoap2.cpp comes from gsoap sources and 
-#######       is required here for linking. Maybe a better solution exists
-#######       but did not find anything else. See:
-#######       http://stackoverflow.com/questions/6340524/gsoap-linking-error
-BUILT_SOURCES = \
-    webservices/soapC.cpp \
-    webservices/soapcontrolProxy.cpp \
-    webservices/soapcontrolService.cpp
-
-CLEANFILES = \
-    webservices/*
-
-DISTCLEANFILES = \
-    webservices/*
-
-@HAVE_OSX_FALSE@gsoap_INCLUDE = /usr/share/gsoap/import/
-
-####### On OSX, gsoap is not installed in /usr (if installed through MacPorts)
-@HAVE_OSX_TRUE@gsoap_INCLUDE = /opt/local/share/gsoap/import/
-all: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) all-am
+all: all-am
 
 .SUFFIXES:
 .SUFFIXES: .cpp .lo .o .obj
@@ -520,13 +509,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aac.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aravis-genicam.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio-sink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio-source.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio-test-source.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/base-sink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/base-source.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/categorizable.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/create-remove-spy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/custom-property-helper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decodebin2.Plo@am__quote@
@@ -540,15 +529,18 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-parse-to-bin-src.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-video-parse-to-bin-src.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/h264.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/http-sdp-dec.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/http-sdp.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jack-audio-source.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jack-sink.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jpegenc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/json-builder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logger.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/method.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/osc-ctrl-server.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin-loader.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/property-mapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/property.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pulse-sink.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-basic-test.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-command.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-documentation.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity-manager-impl.Plo@am__quote@
@@ -566,14 +558,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-to-file.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-writer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signal-string.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soap-ctrl-client.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soap-ctrl-server.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soapC.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soapcontrolProxy.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soapcontrolService.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/startable-quiddity.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string-dictionary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udpsink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uridecodebin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uris.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video-rate.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video-sink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video-source.Plo@am__quote@
@@ -601,27 +589,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
-
-soapC.lo: webservices/soapC.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT soapC.lo -MD -MP -MF $(DEPDIR)/soapC.Tpo -c -o soapC.lo `test -f 'webservices/soapC.cpp' || echo '$(srcdir)/'`webservices/soapC.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/soapC.Tpo $(DEPDIR)/soapC.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='webservices/soapC.cpp' object='soapC.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o soapC.lo `test -f 'webservices/soapC.cpp' || echo '$(srcdir)/'`webservices/soapC.cpp
-
-soapcontrolProxy.lo: webservices/soapcontrolProxy.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT soapcontrolProxy.lo -MD -MP -MF $(DEPDIR)/soapcontrolProxy.Tpo -c -o soapcontrolProxy.lo `test -f 'webservices/soapcontrolProxy.cpp' || echo '$(srcdir)/'`webservices/soapcontrolProxy.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/soapcontrolProxy.Tpo $(DEPDIR)/soapcontrolProxy.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='webservices/soapcontrolProxy.cpp' object='soapcontrolProxy.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o soapcontrolProxy.lo `test -f 'webservices/soapcontrolProxy.cpp' || echo '$(srcdir)/'`webservices/soapcontrolProxy.cpp
-
-soapcontrolService.lo: webservices/soapcontrolService.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT soapcontrolService.lo -MD -MP -MF $(DEPDIR)/soapcontrolService.Tpo -c -o soapcontrolService.lo `test -f 'webservices/soapcontrolService.cpp' || echo '$(srcdir)/'`webservices/soapcontrolService.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/soapcontrolService.Tpo $(DEPDIR)/soapcontrolService.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='webservices/soapcontrolService.cpp' object='soapcontrolService.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o soapcontrolService.lo `test -f 'webservices/soapcontrolService.cpp' || echo '$(srcdir)/'`webservices/soapcontrolService.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -730,15 +697,13 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
-check: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) check-am
+check: check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libswitcher_@LIBSWITCHER_API_VERSION@_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) install-am
+install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -760,17 +725,14 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
-	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
@@ -843,7 +805,7 @@ ps-am:
 uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-libswitcher_@LIBSWITCHER_API_VERSION@_la_includeHEADERS
 
-.MAKE: all check install install-am install-strip
+.MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
 	clean-libLTLIBRARIES clean-libtool ctags distclean \
@@ -862,18 +824,6 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-am uninstall-libLTLIBRARIES \
 	uninstall-libswitcher_@LIBSWITCHER_API_VERSION@_la_includeHEADERS
 
-
-webservices/soapC.cpp: Makefile
-	mkdir -p webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.h
-
-$(srcdir)/webservices/soapcontrolProxy.cpp: Makefile
-	mkdir -p webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.h
-
-$(srcdir)/webservices/soapcontrolService.cpp: Makefile
-	mkdir -p webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i  -d webservices $(srcdir)/ctrl-webservice-definition.h
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -34,6 +34,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@SWITCHERBUILD_TRUE@am__append_1 = \
+@SWITCHERBUILD_TRUE@    src
+
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
@@ -96,7 +99,7 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	distdir dist dist-all distcheck
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
+DIST_SUBDIRS = switcher plugins tests src
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -168,11 +171,15 @@ EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
+GMODULE_CFLAGS = @GMODULE_CFLAGS@
+GMODULE_LIBS = @GMODULE_LIBS@
 GREP = @GREP@
 GSOAP_CFLAGS = @GSOAP_CFLAGS@
 GSOAP_LIBS = @GSOAP_LIBS@
 GST_CFLAGS = @GST_CFLAGS@
 GST_LIBS = @GST_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 HAVE_PKGCONFIG = @HAVE_PKGCONFIG@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -213,14 +220,23 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
+PORTMIDI_CFLAGS = @PORTMIDI_CFLAGS@
+PORTMIDI_LIBS = @PORTMIDI_LIBS@
+PULSE_CFLAGS = @PULSE_CFLAGS@
+PULSE_LIBS = @PULSE_LIBS@
+PYTHON_CFLAGS = @PYTHON_CFLAGS@
+PYTHON_LIBS = @PYTHON_LIBS@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
+SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -274,11 +290,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = \
-    switcher \
-    src \
-    tests
-
+SUBDIRS = switcher plugins tests $(am__append_1)
 EXTRA_DIST = autogen.sh
 
 # pkg-config file:
