@@ -90,7 +90,7 @@ Depends:
  libgtk2.0-0,
  liblo7,
  libportmidi0,
- libpulse0
+ libpulse0,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
