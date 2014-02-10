@@ -13,7 +13,8 @@ include /usr/share/cdbs/1/class/autotools.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 
 #DEB_SHLIBDEPS_INCLUDE := lib/.libs
-#DEB_CONFIGURE_USER_FLAGS := --enable-static
+DEB_CONFIGURE_USER_FLAGS := --enable-static
+LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/opt/qtm11/lib dh_shlibdeps
 
 # after the directories are created but before dh_compress is run.
 common-binary-post-install-arch::
