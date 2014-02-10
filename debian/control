@@ -13,9 +13,13 @@ Build-Depends:
  libglib2.0-dev,
  libgstreamer-plugins-base0.10-dev,
  libgstreamer0.10-dev,
+ libgtk2.0-dev,
  libjson-glib-dev,
  liblo-dev,
+ libportmidi-dev,
+ libpulse-dev,
  libshmdata-0.8-dev,
+ linux-libc-dev,
  pkg-config
 Homepage: http://code.sat.qc.ca/redmine/projects/switcher
 Standards-Version: 3.9.2
@@ -23,15 +27,15 @@ Maintainer: Nicolas Bouillot <nicolas.bouillot@gmail.com>
 Vcs-Git: git://code.sat.qc.ca/switcher.git
 Vcs-Browser: http://code.sat.qc.ca/redmine/projects/switcher/repository
 
-Package: libswitcher-0.2-dev
+Package: libswitcher-0.4-dev
 Section: libdevel
 Architecture: all
 Provides: libswitcher-dev
 Replaces: libswitcher-dev
 Conflicts: libswitcher-dev
-Suggests: libswitcher-0.2-doc
+Suggests: libswitcher-0.4-doc
 Depends: 
- libswitcher-0.2-0 (= ${binary:Version}),
+ libswitcher-0.4-0 (= ${binary:Version}),
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
  Switcher is the successor of Scenic's milhouse utility. It provides basic video  
@@ -41,10 +45,30 @@ Description: Switcher for audio, video, data and network streams.
  .
  This package contains headers, documentation and static libraries.
 
-Package: libswitcher-0.2-0
+Package: libswitcher-0.4-plugins
+Section: libs
+Architecture: all
+Provides: libswitcher-plugins
+Replaces: libswitcher-plugins
+Conflicts: libswitcher-plugins
+Suggests: libswitcher-0.4-doc
+Depends: 
+ gsoap,
+ libgtk2.0,
+ liblo7,
+ libportmidi,
+ libpulse,
+ libswitcher-0.4-0 (= ${binary:Version}),
+ ${misc:Depends}
+Description: Plugins for Switcher, including gtk fullscreen window, 
+ control from OSC and soap, midi support, pulse audio and v4l2. 
+ .
+ This package contains the binary shared libraries.
+
+Package: libswitcher-0.4-0
 Section: libs
 Architecture: any
-Suggests: libswitcher-0.2-dev
+Suggests: libswitcher-0.4-dev
 Depends:
  gstreamer0.10-ffmpeg,
  gstreamer0.10-plugins-bad,
@@ -52,7 +76,6 @@ Depends:
  gstreamer0.10-plugins-good,
  gstreamer0.10-plugins-ugly,
  libjson-glib-1.0-0,
- liblo7,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
@@ -63,10 +86,10 @@ Description: Switcher for audio, video, data and network streams.
  .
  This package contains the binary shared libraries.
 
-Package: libswitcher-0.2-doc
+Package: libswitcher-0.4-doc
 Section: doc
 Architecture: all
-Recommends: libswitcher-0.2-dev
+Recommends: libswitcher-0.4-dev
 Depends:
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
@@ -81,7 +104,8 @@ Package: switcher
 Section: net
 Architecture: any
 Depends:
- libswitcher-0.2-0 (= ${binary:Version}),
+ libswitcher-0.4-0 (= ${binary:Version}),
+ libswitcher-0.4-plugins (= ${binary:Version}),
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 

@@ -1,3 +1,9 @@
+switcher (0.4.1-1~precise~ppa1) precise; urgency=low
+
+  * Testing packaging for version 0.4.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Mon, 10 Feb 2014 15:07:11 -0500
+
 switcher (0.2.2-1~precise~ppa1) precise; urgency=low
 
   * Initial packaging.
