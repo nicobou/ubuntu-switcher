@@ -90,10 +90,10 @@ Suggests: libswitcher-0.4-doc
 Depends: 
  libswitcher-0.4-0 (= ${binary:Version}),
  gsoap,
- libgtk2.0,
+ libgtk2.0-0,
  liblo7,
- libportmidi,
- libpulse,
+ libportmidi0,
+ libpulse0,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Plugins for Switcher, including gtk fullscreen window, 
