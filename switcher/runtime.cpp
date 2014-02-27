@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2012-2013 Nicolas Bouillot (http://www.nicolasbouillot.net)
- *
  * This file is part of libswitcher.
  *
  * libswitcher is free software; you can redistribute it and/or
@@ -129,12 +127,9 @@ namespace switcher
   {
     if (position_tracking_source_ != NULL)
        g_source_destroy (position_tracking_source_);
-
     GstUtils::clean_element (pipeline_);
-			      //gst_element_set_state (pipeline_, GST_STATE_NULL);
-     gst_object_unref (GST_OBJECT (pipeline_));
-     if (!g_source_is_destroyed (source_))
-       g_source_destroy (source_);
+    if (!g_source_is_destroyed (source_))
+      g_source_destroy (source_);
   }
 
 
@@ -385,7 +380,7 @@ res = gst_element_query (pipeline_, query);
     Runtime *context = static_cast<Runtime *>(user_data);
     if ( reader != NULL)
       {
-	if ( shmdata_base_reader_process_error (reader, msg)) 
+	if (NULL != msg && shmdata_base_reader_process_error (reader, msg)) 
 	  return GST_BUS_DROP; 
 	else 
 	  return GST_BUS_PASS; 

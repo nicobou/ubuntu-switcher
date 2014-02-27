@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2012-2013 Nicolas Bouillot (http://www.nicolasbouillot.net)
- *
  * This file is part of libswitcher.
  *
  * libswitcher is free software; you can redistribute it and/or
@@ -29,7 +27,7 @@ namespace switcher
 {
   SWITCHER_MAKE_QUIDDITY_DOCUMENTATION(Uridecodebin,
 				       "Media Player (URI)",
-				       "uri source", 
+				       "uri src", 
 				       "decode an URI and writes to shmdata(s)",
 				       "LGPL",
 				       "uridecodebin", 
@@ -548,7 +546,7 @@ namespace switcher
     context->custom_props_->notify_property_changed (context->uri_spec_);
   }
 
-  gchar *
+  const gchar *
   Uridecodebin::get_uri (void *user_data)
   {
     Uridecodebin *context = static_cast <Uridecodebin *> (user_data);

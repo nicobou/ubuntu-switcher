@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2012-2013 Nicolas Bouillot (http://www.nicolasbouillot.net)
- *
  * This file is part of libswitcher.
  *
  * libswitcher is free software; you can redistribute it and/or
@@ -43,6 +41,7 @@ namespace switcher
       return false;
     init_startable (this);
     
+    client_name_ = g_strdup (get_nick_name ().c_str ());
     client_name_spec_ =
       custom_props_->make_string_property ("jack-client-name", 
 					   "the jack client name",
@@ -64,7 +63,7 @@ namespace switcher
     jacksink_ (NULL),
     custom_props_ (new CustomPropertyHelper ()),
     client_name_spec_ (NULL),
-    client_name_ (g_strdup ("switcher"))
+    client_name_ (NULL)
   {}
 
   JackSink::~JackSink ()
@@ -121,10 +120,27 @@ namespace switcher
     context->custom_props_->notify_property_changed (context->client_name_spec_);
    }
   
-  gchar *
+  const gchar *
   JackSink::get_client_name (void *user_data)
   {
     JackSink *context = static_cast <JackSink *> (user_data);
     return context->client_name_;
+  }
+
+  void 
+  JackSink::on_shmdata_disconnect () 
+  {
+    stop ();
+  }
+
+  void 
+  JackSink::on_shmdata_connect (std::string /* shmdata_sochet_path */) 
+  {
+    if (is_started ())
+      {
+	stop ();
+	make_elements ();
+	set_sink_element_no_connect (jacksink_);
+      }
   }
 }
