@@ -1,3 +1,9 @@
+switcher (0.4.2-1~quantal~ppa1) quantal; urgency=low
+
+  * Build package for quantal.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 27 Feb 2014 14:31:23 -0500
+
 switcher (0.4.2-1~precise~ppa1) precise; urgency=low
 
   * Build package for precise.
