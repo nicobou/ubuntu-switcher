@@ -1,3 +1,9 @@
+switcher (0.4.2-1~saucy~ppa1) saucy; urgency=low
+
+  * Build package for saucy.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 27 Feb 2014 14:39:06 -0500
+
 switcher (0.4.2-1~raring~ppa1) raring; urgency=low
 
   * Build package for raring.
