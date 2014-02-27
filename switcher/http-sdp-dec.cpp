@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2012-2013 Nicolas Bouillot (http://www.nicolasbouillot.net)
- *
  * This file is part of libswitcher.
  *
  * libswitcher is free software; you can redistribute it and/or
@@ -105,19 +103,19 @@ namespace switcher
   void 
   HTTPSDPDec::destroy_httpsdpdec ()
   {
+    clean_on_error_command ();
     if (NULL != souphttpsrc_)
-      GstUtils::clean_element (souphttpsrc_);
+	GstUtils::clean_element (souphttpsrc_);
     souphttpsrc_ = NULL;
     if (NULL != sdpdemux_)
       GstUtils::clean_element (sdpdemux_);
     sdpdemux_ = NULL;
-    clean_on_error_command ();
   }
 
   void 
   HTTPSDPDec::clean_on_error_command ()
   {
-    if (on_error_command_ != NULL)
+    if (NULL != on_error_command_)
       {
 	delete on_error_command_;
 	on_error_command_ = NULL;
@@ -496,7 +494,6 @@ namespace switcher
     
     gst_element_link (souphttpsrc_, sdpdemux_);
 
-    //GstUtils::wait_state_changed (bin_);
     GstUtils::sync_state_with_parent (souphttpsrc_);
     GstUtils::sync_state_with_parent (sdpdemux_);
     return true;

@@ -1,6 +1,4 @@
 /*
- * Copyright (C) 2012-2013 Nicolas Bouillot (http://www.nicolasbouillot.net)
- *
  * This file is part of libswitcher.
  *
  * libswitcher is free software; you can redistribute it and/or
@@ -41,7 +39,7 @@ namespace switcher
     num_channels_spec_ (NULL),
     num_channels_(2),
     client_name_spec_ (NULL),
-    client_name_ (g_strdup ("switcher"))
+    client_name_ (NULL)
   {}
 
   bool
@@ -65,6 +63,7 @@ namespace switcher
 			       num_channels_spec_, 
 			       "channels",
 			       "Channels");
+    client_name_ = g_strdup (get_nick_name ().c_str ());
     
     client_name_spec_ =
       custom_props_->make_string_property ("jack-client-name", 
@@ -183,7 +182,7 @@ namespace switcher
     context->custom_props_->notify_property_changed (context->client_name_spec_);
    }
   
-  gchar *
+  const gchar *
   JackAudioSource::get_client_name (void *user_data)
   {
     JackAudioSource *context = static_cast <JackAudioSource *> (user_data);
