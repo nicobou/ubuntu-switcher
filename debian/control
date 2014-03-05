@@ -52,7 +52,7 @@ Architecture: all
 Provides: node-switcher
 Replaces: node-switcher
 Conflicts: node-switcher
-Suggests: node-switcher
+Suggests: libswitcher-dev
 Depends: 
  libswitcher-0.4-0 (= ${binary:Version})
 Description: nodejs addon for switcher.
