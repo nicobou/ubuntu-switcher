@@ -20,6 +20,7 @@ Build-Depends:
  libpulse-dev,
  libshmdata-0.8-dev,
  linux-libc-dev,
+ nodejs-dev,
  pkg-config
 Homepage: http://code.sat.qc.ca/redmine/projects/switcher
 Standards-Version: 3.9.2
@@ -44,6 +45,19 @@ Description: Switcher for audio, video, data and network streams.
  telepresence in contexts of live arts and new media installations.
  .
  This package contains headers, documentation and static libraries.
+
+Package: node-switcher
+Section: libs
+Architecture: all
+Provides: node-switcher
+Replaces: node-switcher
+Conflicts: node-switcher
+Suggests: node-switcher
+Depends: 
+ libswitcher-0.4-0 (= ${binary:Version})
+Description: nodejs addon for switcher.
+ .
+ This package contains a plugin.
 
 Package: libswitcher-0.4-0
 Section: libs
