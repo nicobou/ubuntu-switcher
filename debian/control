@@ -20,6 +20,7 @@ Build-Depends:
  libpulse-dev,
  libshmdata-0.8-dev,
  linux-libc-dev,
+ nodejs,
  nodejs-dev,
  pkg-config
 Homepage: http://code.sat.qc.ca/redmine/projects/switcher
