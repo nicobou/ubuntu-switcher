@@ -118,17 +118,16 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(pluginsdir)"
 LTLIBRARIES = $(plugins_LTLIBRARIES)
-switcher_addon_la_LIBADD =
-am_switcher_addon_la_OBJECTS = switcher_addon_la-switcher_addon.lo
-switcher_addon_la_OBJECTS = $(am_switcher_addon_la_OBJECTS)
+switcher_la_LIBADD =
+am_switcher_la_OBJECTS = switcher_la-node-switcher.lo
+switcher_la_OBJECTS = $(am_switcher_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-switcher_addon_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(switcher_addon_la_CXXFLAGS) $(CXXFLAGS) \
-	$(switcher_addon_la_LDFLAGS) $(LDFLAGS) -o $@
+switcher_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(switcher_la_CXXFLAGS) \
+	$(CXXFLAGS) $(switcher_la_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -163,8 +162,8 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(switcher_addon_la_SOURCES)
-DIST_SOURCES = $(switcher_addon_la_SOURCES)
+SOURCES = $(switcher_la_SOURCES)
+DIST_SOURCES = $(switcher_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -341,19 +340,19 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-pluginsdir = $(prefix)/nodejs/node-switcher
+pluginsdir = $(prefix)/lib/nodejs
 plugins_LTLIBRARIES = \
-    switcher_addon.la
+    switcher.la
 
 
 #libmyplugin info
-switcher_addon_la_SOURCES = \
-    switcher_addon.cpp
+switcher_la_SOURCES = \
+    node-switcher.cpp
 
-switcher_addon_la_includedir = \
+switcher_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
 
-switcher_addon_la_LDFLAGS = \
+switcher_la_LDFLAGS = \
     $(GLIB_LIBS) \
     $(GMODULE_LIBS) \
     $(GST_LIBS) \
@@ -368,7 +367,7 @@ switcher_addon_la_LDFLAGS = \
     -shrext .node \
     -undefined suppress 
 
-switcher_addon_la_CXXFLAGS = \
+switcher_la_CXXFLAGS = \
     $(GLIB_CFLAGS) \
     $(GMODULE_CFLAGS) \
     $(GST_CFLAGS) \
@@ -454,8 +453,8 @@ clean-pluginsLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-switcher_addon.la: $(switcher_addon_la_OBJECTS) $(switcher_addon_la_DEPENDENCIES) $(EXTRA_switcher_addon_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(switcher_addon_la_LINK) -rpath $(pluginsdir) $(switcher_addon_la_OBJECTS) $(switcher_addon_la_LIBADD) $(LIBS)
+switcher.la: $(switcher_la_OBJECTS) $(switcher_la_DEPENDENCIES) $(EXTRA_switcher_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(switcher_la_LINK) -rpath $(pluginsdir) $(switcher_la_OBJECTS) $(switcher_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -463,7 +462,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/switcher_addon_la-switcher_addon.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/switcher_la-node-switcher.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -486,12 +485,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
-switcher_addon_la-switcher_addon.lo: switcher_addon.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_addon_la_CXXFLAGS) $(CXXFLAGS) -MT switcher_addon_la-switcher_addon.lo -MD -MP -MF $(DEPDIR)/switcher_addon_la-switcher_addon.Tpo -c -o switcher_addon_la-switcher_addon.lo `test -f 'switcher_addon.cpp' || echo '$(srcdir)/'`switcher_addon.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/switcher_addon_la-switcher_addon.Tpo $(DEPDIR)/switcher_addon_la-switcher_addon.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='switcher_addon.cpp' object='switcher_addon_la-switcher_addon.lo' libtool=yes @AMDEPBACKSLASH@
+switcher_la-node-switcher.lo: node-switcher.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -MT switcher_la-node-switcher.lo -MD -MP -MF $(DEPDIR)/switcher_la-node-switcher.Tpo -c -o switcher_la-node-switcher.lo `test -f 'node-switcher.cpp' || echo '$(srcdir)/'`node-switcher.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/switcher_la-node-switcher.Tpo $(DEPDIR)/switcher_la-node-switcher.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='node-switcher.cpp' object='switcher_la-node-switcher.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_addon_la_CXXFLAGS) $(CXXFLAGS) -c -o switcher_addon_la-switcher_addon.lo `test -f 'switcher_addon.cpp' || echo '$(srcdir)/'`switcher_addon.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -c -o switcher_la-node-switcher.lo `test -f 'node-switcher.cpp' || echo '$(srcdir)/'`node-switcher.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
