@@ -1,14 +1,62 @@
-switcher (0.2.2-1~quantal~ppa1) quantal; urgency=low
+switcher (0.4.6-1~saucy~ppa1) saucy; urgency=low
 
-  * v0.2.2 package for Quantal.
+  * Build package for saucy.
 
- -- Michal Seta <mis@artengine.ca>  Fri, 05 Jul 2013 17:52:28 -0400
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com> Fri, 07 Mar 2014 15:23:16 -0500
 
-switcher (0.2.2-1~raring~ppa1) raring; urgency=low
+switcher (0.4.4-4~saucy~ppa1) saucy; urgency=low
 
-  * v0.2.2 packaging for raring.
+  * Build package for saucy.
 
- -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 20 Jun 2013 13:37:05 -0400
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com> Thu, 06 Mar 2014 13:53:11 -0500
+
+switcher (0.4.4-3~saucy~ppa1) saucy; urgency=low
+
+  * Build package for saucy.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com> Thu, 06 Mar 2014 11:42:47 -0500
+
+switcher (0.4.4-2~saucy~ppa1) saucy; urgency=low
+
+  * Build package for saucy.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com> Wed, 05 Mar 2014 17:06:56 -0500
+
+switcher (0.4.4-1~saucy~ppa1) saucy; urgency=low
+
+  * Build package for saucy.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Wed, 05 Mar 2014 15:08:24 -0500
+
+switcher (0.4.2-1~saucy~ppa1) saucy; urgency=low
+
+  * Build package for saucy.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 27 Feb 2014 14:39:06 -0500
+
+switcher (0.4.2-1~raring~ppa1) raring; urgency=low
+
+  * Build package for raring.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 27 Feb 2014 14:39:06 -0500
+
+switcher (0.4.2-1~quantal~ppa1) quantal; urgency=low
+
+  * Build package for quantal.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 27 Feb 2014 14:31:23 -0500
+
+switcher (0.4.2-1~precise~ppa1) precise; urgency=low
+
+  * Build package for precise.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Thu, 27 Feb 2014 14:20:36 -0500
+
+switcher (0.4.1-1~precise~ppa1) precise; urgency=low
+
+  * Testing packaging for version 0.4.
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Mon, 10 Feb 2014 15:07:11 -0500
 
 switcher (0.2.2-1~precise~ppa1) precise; urgency=low
 
