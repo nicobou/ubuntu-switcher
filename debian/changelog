@@ -1,8 +1,14 @@
+switcher (0.4.6-2~trusty~ppa1) trusty; urgency=low
+
+  * Fix dependency in trusty package.
+
+ -- Michal Seta <mis@artengine.ca>  Wed, 23 Jul 2014 14:12:33 -0400
+
 switcher (0.4.6-1~trusty~ppa1) trusty; urgency=low
 
   * Build package for trusty.
 
- -- Michal Seta <mis@artengine.ca> Tue, 22 Jul 2014 11:24:06 -0400
+ -- Michal Seta <mis@artengine.ca>  Tue, 22 Jul 2014 11:24:06 -0400
 
 switcher (0.4.6-1~saucy~ppa1) saucy; urgency=low
 
