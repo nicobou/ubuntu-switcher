@@ -28,15 +28,15 @@ Maintainer: Nicolas Bouillot <nicolas.bouillot@gmail.com>
 Vcs-Git: git://code.sat.qc.ca/switcher.git
 Vcs-Browser: http://code.sat.qc.ca/redmine/projects/switcher/repository
 
-Package: libswitcher-0.4-dev
+Package: libswitcher-0.6-dev
 Section: libdevel
 Architecture: all
 Provides: libswitcher-dev
 Replaces: libswitcher-dev
 Conflicts: libswitcher-dev
-Suggests: libswitcher-0.4-doc
+Suggests: libswitcher-0.6-doc
 Depends: 
- libswitcher-0.4-0 (= ${binary:Version}),
+ libswitcher-0.6-0 (= ${binary:Version}),
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
  Switcher is the successor of Scenic's milhouse utility. It provides basic video  
@@ -46,10 +46,10 @@ Description: Switcher for audio, video, data and network streams.
  .
  This package contains headers, documentation and static libraries.
 
-Package: libswitcher-0.4-0
+Package: libswitcher-0.6-0
 Section: libs
 Architecture: any
-Suggests: libswitcher-0.4-dev
+Suggests: libswitcher-0.6-dev
 Depends:
  gstreamer0.10-plugins-bad,
  gstreamer0.10-plugins-base,
@@ -66,10 +66,10 @@ Description: Switcher for audio, video, data and network streams.
  .
  This package contains the binary shared libraries.
 
-Package: libswitcher-0.4-doc
+Package: libswitcher-0.6-doc
 Section: doc
 Architecture: all
-Recommends: libswitcher-0.4-dev
+Recommends: libswitcher-0.6-dev
 Depends:
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
@@ -84,7 +84,7 @@ Package: switcher
 Section: net
 Architecture: any
 Depends:
- libswitcher-0.4-0 (= ${binary:Version}),
+ libswitcher-0.6-0 (= ${binary:Version}),
  gsoap,
  libgtk2.0-0,
  liblo7,
