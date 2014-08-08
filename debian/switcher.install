@@ -1,5 +1,4 @@
 debian/tmp/usr/bin/switcher
 debian/tmp/usr/bin/switcher-ctrl
-debian/tmp/usr/switcher-0.4/plugins/*.so*
-
+plugins/*/.libs/* debian/tmp/usr/switcher-0.6/plugins/*.so*
 
