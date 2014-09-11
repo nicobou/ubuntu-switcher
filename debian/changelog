@@ -1,3 +1,9 @@
+switcher (0.6.2-2~trusty~ppa1) trusty; urgency=low
+
+  * Fix package for trusty
+
+ -- Michal Seta <mis@artengine.ca>  Thu, 11 Sep 2014 14:00:29 -0400
+
 switcher (0.6.2-1~trusty~ppa1) trusty; urgency=low
 
   * New release package for trusty.
