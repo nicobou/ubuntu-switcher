@@ -436,6 +436,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -470,8 +472,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -487,12 +487,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -558,8 +558,8 @@ libportmidisrc_la_SOURCES = \
     portmidi-source.cpp
 
 libportmidisrc_la_include_HEADERS = \
-    portmidi-devices.h \
-    portmidi-source.h
+    portmidi-devices.hpp \
+    portmidi-source.hpp
 
 libportmidisrc_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
@@ -571,7 +571,6 @@ libportmidisrc_la_LDFLAGS = \
     $(GMODULE_LIBS) \
     $(JSONGLIB_LIBS) \
     $(SHMDATA_LIBS) \
-    $(SHMDATA_ANY_LIBS) \
     -avoid-version \
     -module \
     -L$(top_builddir)/switcher/.libs \
@@ -584,7 +583,6 @@ libportmidisrc_la_CXXFLAGS = \
     $(GST_CFLAGS) \
     $(JSONGLIB_CFLAGS) \
     $(SHMDATA_CFLAGS) \
-    $(SHMDATA_ANY_CFLAGS) \
     -DG_LOG_DOMAIN=\"switcher\" \
     -I$(top_srcdir) 
 
@@ -593,8 +591,7 @@ libportmidisink_la_SOURCES = \
     portmidi-sink.cpp
 
 libportmidisink_la_include_HEADERS = \
-    portmidi-devices.h \
-    portmidi-sink.h
+    portmidi-sink.hpp
 
 libportmidisink_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
@@ -606,7 +603,6 @@ libportmidisink_la_LDFLAGS = \
     $(GMODULE_LIBS) \
     $(JSONGLIB_LIBS) \
     $(SHMDATA_LIBS) \
-    $(SHMDATA_ANY_LIBS) \
     -avoid-version \
     -module \
     -L$(top_builddir)/switcher/.libs \
@@ -619,7 +615,6 @@ libportmidisink_la_CXXFLAGS = \
     $(GST_CFLAGS) \
     $(JSONGLIB_CFLAGS) \
     $(SHMDATA_CFLAGS) \
-    $(SHMDATA_ANY_CFLAGS) \
     -DG_LOG_DOMAIN=\"switcher\" \
     -I$(top_srcdir) 
 

@@ -1,5 +1,6 @@
 SUBDIRS= \
-    example
+    example \
+    pjsip
 
 if V4L2BUILD
 SUBDIRS += \
@@ -31,23 +32,28 @@ SUBDIRS += \
     portmidi
 endif
 
-if PJSIPBUILD
-SUBDIRS += \
-    pjsip
-endif
-
 if POSTUREBUILD
 SUBDIRS += \
 	posture
 endif
 
-if HAVE_OSX
-SUBDIRS += \
-    syphonsrc
-endif
+# FIXME port to shmdata1
+# if HAVE_OSX
+# SUBDIRS += \
+#     syphonsrc
+# endif
 
 if !HAVE_OSX
 SUBDIRS += \
     systemusage
 endif
 
+if JACKBUILD
+SUBDIRS += \
+    jack
+endif
+
+if VNCBUILD
+SUBDIRS += \
+	vnc
+endif

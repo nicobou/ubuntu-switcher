@@ -119,14 +119,31 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(pluginsdir)"
 LTLIBRARIES = $(plugins_LTLIBRARIES)
-libposturedisplay_la_LIBADD =
-am_libposturedisplay_la_OBJECTS =  \
-	libposturedisplay_la-posture_display.lo
-libposturedisplay_la_OBJECTS = $(am_libposturedisplay_la_OBJECTS)
+libposturecolorize_la_LIBADD =
+am_libposturecolorize_la_OBJECTS =  \
+	libposturecolorize_la-posture_colorize.lo \
+	libposturecolorize_la-posture_worker.lo
+libposturecolorize_la_OBJECTS = $(am_libposturecolorize_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+libposturecolorize_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(libposturecolorize_la_CXXFLAGS) $(CXXFLAGS) \
+	$(libposturecolorize_la_LDFLAGS) $(LDFLAGS) -o $@
+libposturedetect_la_LIBADD =
+am_libposturedetect_la_OBJECTS =  \
+	libposturedetect_la-posture_detect.lo
+libposturedetect_la_OBJECTS = $(am_libposturedetect_la_OBJECTS)
+libposturedetect_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(libposturedetect_la_CXXFLAGS) $(CXXFLAGS) \
+	$(libposturedetect_la_LDFLAGS) $(LDFLAGS) -o $@
+libposturedisplay_la_LIBADD =
+am_libposturedisplay_la_OBJECTS =  \
+	libposturedisplay_la-posture_display.lo
+libposturedisplay_la_OBJECTS = $(am_libposturedisplay_la_OBJECTS)
 libposturedisplay_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
 	$(libposturedisplay_la_CXXFLAGS) $(CXXFLAGS) \
@@ -138,6 +155,32 @@ libposturemerge_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
 	$(libposturemerge_la_CXXFLAGS) $(CXXFLAGS) \
 	$(libposturemerge_la_LDFLAGS) $(LDFLAGS) -o $@
+libposturemeshmerge_la_LIBADD =
+am_libposturemeshmerge_la_OBJECTS =  \
+	libposturemeshmerge_la-posture_meshmerge.lo \
+	libposturemeshmerge_la-posture_worker.lo
+libposturemeshmerge_la_OBJECTS = $(am_libposturemeshmerge_la_OBJECTS)
+libposturemeshmerge_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(libposturemeshmerge_la_CXXFLAGS) $(CXXFLAGS) \
+	$(libposturemeshmerge_la_LDFLAGS) $(LDFLAGS) -o $@
+libposturescan3d_la_LIBADD =
+am_libposturescan3d_la_OBJECTS =  \
+	libposturescan3d_la-posture_scan3d.lo
+libposturescan3d_la_OBJECTS = $(am_libposturescan3d_la_OBJECTS)
+libposturescan3d_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(libposturescan3d_la_CXXFLAGS) $(CXXFLAGS) \
+	$(libposturescan3d_la_LDFLAGS) $(LDFLAGS) -o $@
+libposturesolidify_la_LIBADD =
+am_libposturesolidify_la_OBJECTS =  \
+	libposturesolidify_la-posture_solidify.lo \
+	libposturesolidify_la-posture_worker.lo
+libposturesolidify_la_OBJECTS = $(am_libposturesolidify_la_OBJECTS)
+libposturesolidify_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(libposturesolidify_la_CXXFLAGS) $(CXXFLAGS) \
+	$(libposturesolidify_la_LDFLAGS) $(LDFLAGS) -o $@
 libposturesource_la_LIBADD =
 am_libposturesource_la_OBJECTS =  \
 	libposturesource_la-posture_source.lo
@@ -180,10 +223,20 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libposturedisplay_la_SOURCES) \
-	$(libposturemerge_la_SOURCES) $(libposturesource_la_SOURCES)
-DIST_SOURCES = $(libposturedisplay_la_SOURCES) \
-	$(libposturemerge_la_SOURCES) $(libposturesource_la_SOURCES)
+SOURCES = $(libposturecolorize_la_SOURCES) \
+	$(libposturedetect_la_SOURCES) $(libposturedisplay_la_SOURCES) \
+	$(libposturemerge_la_SOURCES) \
+	$(libposturemeshmerge_la_SOURCES) \
+	$(libposturescan3d_la_SOURCES) \
+	$(libposturesolidify_la_SOURCES) \
+	$(libposturesource_la_SOURCES)
+DIST_SOURCES = $(libposturecolorize_la_SOURCES) \
+	$(libposturedetect_la_SOURCES) $(libposturedisplay_la_SOURCES) \
+	$(libposturemerge_la_SOURCES) \
+	$(libposturemeshmerge_la_SOURCES) \
+	$(libposturescan3d_la_SOURCES) \
+	$(libposturesolidify_la_SOURCES) \
+	$(libposturesource_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -257,6 +310,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -291,8 +346,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -308,12 +361,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -371,9 +424,176 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 pluginsdir = $(prefix)/switcher-@LIBSWITCHER_API_VERSION@/plugins
 plugins_LTLIBRARIES = \
-    libposturedisplay.la \
-    libposturemerge.la \
-    libposturesource.la 
+    libposturescan3d.la \
+	libposturecolorize.la \
+	libposturedetect.la \
+	libposturedisplay.la \
+	libposturemerge.la \
+	libposturemeshmerge.la \
+	libposturesource.la \
+	libposturesolidify.la
+
+noinst_HEADERS = \
+    posture_scan3d.hpp
+
+
+#libposturecolorize info
+libposturecolorize_la_SOURCES = \
+	posture_colorize.cpp \
+	posture_worker.cpp
+
+libposturecolorize_la_LDFLAGS = \
+	$(GLIB_LIBS) \
+	$(GST_LIBS) \
+	$(GMODULE_LIBS) \
+	$(JSONGLIB_LIBS) \
+	$(POSTURE_LIBS) \
+	$(SHMDATA_LIBS) \
+	-avoid-version \
+	-L$(top_builddir)/switcher/.libs \
+	-lswitcher-@LIBSWITCHER_API_VERSION@
+
+libposturecolorize_la_CXXFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GMODULE_CFLAGS) \
+	$(GST_CFLAGS) \
+	$(JSONGLIB_CFLAGS) \
+	$(POSTURE_CFLAGS) \
+	$(SHMDATA_CFLAGS) \
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"switcher\"
+
+
+#libposturedetect info
+libposturedetect_la_SOURCES = \
+	posture_detect.cpp
+
+libposturedetect_la_LDFLAGS = \
+	$(GLIB_LIBS) \
+	$(GST_LIBS) \
+	$(GMODULE_LIBS) \
+	$(JSONGLIB_LIBS) \
+	$(POSTURE_LIBS) \
+	$(SHMDATA_LIBS) \
+	-avoid-version \
+	-L$(top_builddir)/switcher/.libs \
+	-lswitcher-@LIBSWITCHER_API_VERSION@
+
+libposturedetect_la_CXXFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GMODULE_CFLAGS) \
+	$(GST_CFLAGS) \
+	$(JSONGLIB_CFLAGS) \
+	$(POSTURE_CFLAGS) \
+	$(SHMDATA_CFLAGS) \
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"switcher\"
+
+
+#libposturedisplay info
+libposturedisplay_la_SOURCES = \
+	posture_display.cpp
+
+libposturedisplay_la_LDFLAGS = \
+	$(GLIB_LIBS) \
+	$(GST_LIBS) \
+	$(GMODULE_LIBS) \
+	$(JSONGLIB_LIBS) \
+	$(POSTURE_LIBS) \
+	$(SHMDATA_LIBS) \
+	-avoid-version \
+	-L$(top_builddir)/switcher/.libs \
+	-lswitcher-@LIBSWITCHER_API_VERSION@
+
+libposturedisplay_la_CXXFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GMODULE_CFLAGS) \
+	$(GST_CFLAGS) \
+	$(JSONGLIB_CFLAGS) \
+	$(POSTURE_CFLAGS) \
+	$(SHMDATA_CFLAGS) \
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"switcher\"
+
+
+#libposturemerge info
+libposturemerge_la_SOURCES = \
+	posture_merge.cpp
+
+libposturemerge_la_LDFLAGS = \
+	$(GLIB_LIBS) \
+	$(GST_LIBS) \
+	$(GMODULE_LIBS) \
+	$(JSONGLIB_LIBS) \
+	$(POSTURE_LIBS) \
+	$(SHMDATA_LIBS) \
+	-avoid-version \
+	-L$(top_builddir)/switcher/.libs \
+	-lswitcher-@LIBSWITCHER_API_VERSION@
+
+libposturemerge_la_CXXFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GMODULE_CFLAGS) \
+	$(GST_CFLAGS) \
+	$(JSONGLIB_CFLAGS) \
+	$(POSTURE_CFLAGS) \
+	$(SHMDATA_CFLAGS) \
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"switcher\"
+
+
+#libposturemeshmerge info
+libposturemeshmerge_la_SOURCES = \
+	posture_meshmerge.cpp \
+	posture_worker.cpp
+
+libposturemeshmerge_la_LDFLAGS = \
+	$(GLIB_LIBS) \
+	$(GST_LIBS) \
+	$(GMODULE_LIBS) \
+	$(JSONGLIB_LIBS) \
+	$(POSTURE_LIBS) \
+	$(SHMDATA_LIBS) \
+	-avoid-version \
+	-L$(top_builddir)/switcher/.libs \
+	-lswitcher-@LIBSWITCHER_API_VERSION@
+
+libposturemeshmerge_la_CXXFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GMODULE_CFLAGS) \
+	$(GST_CFLAGS) \
+	$(JSONGLIB_CFLAGS) \
+	$(POSTURE_CFLAGS) \
+	$(SHMDATA_CFLAGS) \
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"switcher\"
+
+
+#libposturesolidify info
+libposturesolidify_la_SOURCES = \
+	posture_solidify.cpp \
+	posture_worker.cpp
+
+libposturesolidify_la_LDFLAGS = \
+	$(GLIB_LIBS) \
+	$(GST_LIBS) \
+	$(GMODULE_LIBS) \
+	$(JSONGLIB_LIBS) \
+	$(POSTURE_LIBS) \
+	$(SHMDATA_LIBS) \
+	-avoid-version \
+	-L$(top_builddir)/switcher/.libs \
+	-lswitcher-@LIBSWITCHER_API_VERSION@
+
+libposturesolidify_la_CXXFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GMODULE_CFLAGS) \
+	$(GST_CFLAGS) \
+	$(JSONGLIB_CFLAGS) \
+	$(POSTURE_CFLAGS) \
+	$(SHMDATA_CFLAGS) \
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"switcher\"
 
 
 #libposturesource info
@@ -401,14 +621,12 @@ libposturesource_la_CXXFLAGS = \
     -I$(top_srcdir) \
     -DG_LOG_DOMAIN=\"switcher\"
 
-noinst_HEADERS = posture.h posture_source.h posture_merge.h \
-	posture_display.h
 
-#libposturemerge info
-libposturemerge_la_SOURCES = \
-    posture_merge.cpp
+#libposturescan3d info
+libposturescan3d_la_SOURCES = \
+    posture_scan3d.cpp
 
-libposturemerge_la_LDFLAGS = \
+libposturescan3d_la_LDFLAGS = \
     $(GLIB_LIBS) \
     $(GST_LIBS) \
     $(GMODULE_LIBS) \
@@ -419,33 +637,7 @@ libposturemerge_la_LDFLAGS = \
     -L$(top_builddir)/switcher/.libs \
     -lswitcher-@LIBSWITCHER_API_VERSION@
 
-libposturemerge_la_CXXFLAGS = \
-    $(GLIB_CFLAGS) \
-    $(GMODULE_CFLAGS) \
-    $(GST_CFLAGS) \
-    $(JSONGLIB_CFLAGS) \
-    $(POSTURE_CFLAGS) \
-    $(SHMDATA_CFLAGS) \
-    -I$(top_srcdir) \
-    -DG_LOG_DOMAIN=\"switcher\"
-
-
-#libposturedisplay info
-libposturedisplay_la_SOURCES = \
-    posture_display.cpp
-
-libposturedisplay_la_LDFLAGS = \
-    $(GLIB_LIBS) \
-    $(GST_LIBS) \
-    $(GMODULE_LIBS) \
-    $(JSONGLIB_LIBS) \
-    $(POSTURE_LIBS) \
-    $(SHMDATA_LIBS) \
-    -avoid-version \
-    -L$(top_builddir)/switcher/.libs \
-    -lswitcher-@LIBSWITCHER_API_VERSION@
-
-libposturedisplay_la_CXXFLAGS = \
+libposturescan3d_la_CXXFLAGS = \
     $(GLIB_CFLAGS) \
     $(GMODULE_CFLAGS) \
     $(GST_CFLAGS) \
@@ -525,11 +717,26 @@ clean-pluginsLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
+libposturecolorize.la: $(libposturecolorize_la_OBJECTS) $(libposturecolorize_la_DEPENDENCIES) $(EXTRA_libposturecolorize_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libposturecolorize_la_LINK) -rpath $(pluginsdir) $(libposturecolorize_la_OBJECTS) $(libposturecolorize_la_LIBADD) $(LIBS)
+
+libposturedetect.la: $(libposturedetect_la_OBJECTS) $(libposturedetect_la_DEPENDENCIES) $(EXTRA_libposturedetect_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libposturedetect_la_LINK) -rpath $(pluginsdir) $(libposturedetect_la_OBJECTS) $(libposturedetect_la_LIBADD) $(LIBS)
+
 libposturedisplay.la: $(libposturedisplay_la_OBJECTS) $(libposturedisplay_la_DEPENDENCIES) $(EXTRA_libposturedisplay_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(libposturedisplay_la_LINK) -rpath $(pluginsdir) $(libposturedisplay_la_OBJECTS) $(libposturedisplay_la_LIBADD) $(LIBS)
 
 libposturemerge.la: $(libposturemerge_la_OBJECTS) $(libposturemerge_la_DEPENDENCIES) $(EXTRA_libposturemerge_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(libposturemerge_la_LINK) -rpath $(pluginsdir) $(libposturemerge_la_OBJECTS) $(libposturemerge_la_LIBADD) $(LIBS)
+
+libposturemeshmerge.la: $(libposturemeshmerge_la_OBJECTS) $(libposturemeshmerge_la_DEPENDENCIES) $(EXTRA_libposturemeshmerge_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libposturemeshmerge_la_LINK) -rpath $(pluginsdir) $(libposturemeshmerge_la_OBJECTS) $(libposturemeshmerge_la_LIBADD) $(LIBS)
+
+libposturescan3d.la: $(libposturescan3d_la_OBJECTS) $(libposturescan3d_la_DEPENDENCIES) $(EXTRA_libposturescan3d_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libposturescan3d_la_LINK) -rpath $(pluginsdir) $(libposturescan3d_la_OBJECTS) $(libposturescan3d_la_LIBADD) $(LIBS)
+
+libposturesolidify.la: $(libposturesolidify_la_OBJECTS) $(libposturesolidify_la_DEPENDENCIES) $(EXTRA_libposturesolidify_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libposturesolidify_la_LINK) -rpath $(pluginsdir) $(libposturesolidify_la_OBJECTS) $(libposturesolidify_la_LIBADD) $(LIBS)
 
 libposturesource.la: $(libposturesource_la_OBJECTS) $(libposturesource_la_DEPENDENCIES) $(EXTRA_libposturesource_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(libposturesource_la_LINK) -rpath $(pluginsdir) $(libposturesource_la_OBJECTS) $(libposturesource_la_LIBADD) $(LIBS)
@@ -540,8 +747,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturecolorize_la-posture_colorize.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturecolorize_la-posture_worker.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturedetect_la-posture_detect.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturedisplay_la-posture_display.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturemerge_la-posture_merge.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturemeshmerge_la-posture_meshmerge.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturemeshmerge_la-posture_worker.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturescan3d_la-posture_scan3d.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturesolidify_la-posture_solidify.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturesolidify_la-posture_worker.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libposturesource_la-posture_source.Plo@am__quote@
 
 .cpp.o:
@@ -565,6 +780,27 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
+libposturecolorize_la-posture_colorize.lo: posture_colorize.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturecolorize_la_CXXFLAGS) $(CXXFLAGS) -MT libposturecolorize_la-posture_colorize.lo -MD -MP -MF $(DEPDIR)/libposturecolorize_la-posture_colorize.Tpo -c -o libposturecolorize_la-posture_colorize.lo `test -f 'posture_colorize.cpp' || echo '$(srcdir)/'`posture_colorize.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturecolorize_la-posture_colorize.Tpo $(DEPDIR)/libposturecolorize_la-posture_colorize.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_colorize.cpp' object='libposturecolorize_la-posture_colorize.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturecolorize_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturecolorize_la-posture_colorize.lo `test -f 'posture_colorize.cpp' || echo '$(srcdir)/'`posture_colorize.cpp
+
+libposturecolorize_la-posture_worker.lo: posture_worker.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturecolorize_la_CXXFLAGS) $(CXXFLAGS) -MT libposturecolorize_la-posture_worker.lo -MD -MP -MF $(DEPDIR)/libposturecolorize_la-posture_worker.Tpo -c -o libposturecolorize_la-posture_worker.lo `test -f 'posture_worker.cpp' || echo '$(srcdir)/'`posture_worker.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturecolorize_la-posture_worker.Tpo $(DEPDIR)/libposturecolorize_la-posture_worker.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_worker.cpp' object='libposturecolorize_la-posture_worker.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturecolorize_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturecolorize_la-posture_worker.lo `test -f 'posture_worker.cpp' || echo '$(srcdir)/'`posture_worker.cpp
+
+libposturedetect_la-posture_detect.lo: posture_detect.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturedetect_la_CXXFLAGS) $(CXXFLAGS) -MT libposturedetect_la-posture_detect.lo -MD -MP -MF $(DEPDIR)/libposturedetect_la-posture_detect.Tpo -c -o libposturedetect_la-posture_detect.lo `test -f 'posture_detect.cpp' || echo '$(srcdir)/'`posture_detect.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturedetect_la-posture_detect.Tpo $(DEPDIR)/libposturedetect_la-posture_detect.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_detect.cpp' object='libposturedetect_la-posture_detect.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturedetect_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturedetect_la-posture_detect.lo `test -f 'posture_detect.cpp' || echo '$(srcdir)/'`posture_detect.cpp
+
 libposturedisplay_la-posture_display.lo: posture_display.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturedisplay_la_CXXFLAGS) $(CXXFLAGS) -MT libposturedisplay_la-posture_display.lo -MD -MP -MF $(DEPDIR)/libposturedisplay_la-posture_display.Tpo -c -o libposturedisplay_la-posture_display.lo `test -f 'posture_display.cpp' || echo '$(srcdir)/'`posture_display.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturedisplay_la-posture_display.Tpo $(DEPDIR)/libposturedisplay_la-posture_display.Plo
@@ -578,6 +814,41 @@ libposturemerge_la-posture_merge.lo: posture_merge.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_merge.cpp' object='libposturemerge_la-posture_merge.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturemerge_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturemerge_la-posture_merge.lo `test -f 'posture_merge.cpp' || echo '$(srcdir)/'`posture_merge.cpp
+
+libposturemeshmerge_la-posture_meshmerge.lo: posture_meshmerge.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturemeshmerge_la_CXXFLAGS) $(CXXFLAGS) -MT libposturemeshmerge_la-posture_meshmerge.lo -MD -MP -MF $(DEPDIR)/libposturemeshmerge_la-posture_meshmerge.Tpo -c -o libposturemeshmerge_la-posture_meshmerge.lo `test -f 'posture_meshmerge.cpp' || echo '$(srcdir)/'`posture_meshmerge.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturemeshmerge_la-posture_meshmerge.Tpo $(DEPDIR)/libposturemeshmerge_la-posture_meshmerge.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_meshmerge.cpp' object='libposturemeshmerge_la-posture_meshmerge.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturemeshmerge_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturemeshmerge_la-posture_meshmerge.lo `test -f 'posture_meshmerge.cpp' || echo '$(srcdir)/'`posture_meshmerge.cpp
+
+libposturemeshmerge_la-posture_worker.lo: posture_worker.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturemeshmerge_la_CXXFLAGS) $(CXXFLAGS) -MT libposturemeshmerge_la-posture_worker.lo -MD -MP -MF $(DEPDIR)/libposturemeshmerge_la-posture_worker.Tpo -c -o libposturemeshmerge_la-posture_worker.lo `test -f 'posture_worker.cpp' || echo '$(srcdir)/'`posture_worker.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturemeshmerge_la-posture_worker.Tpo $(DEPDIR)/libposturemeshmerge_la-posture_worker.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_worker.cpp' object='libposturemeshmerge_la-posture_worker.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturemeshmerge_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturemeshmerge_la-posture_worker.lo `test -f 'posture_worker.cpp' || echo '$(srcdir)/'`posture_worker.cpp
+
+libposturescan3d_la-posture_scan3d.lo: posture_scan3d.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturescan3d_la_CXXFLAGS) $(CXXFLAGS) -MT libposturescan3d_la-posture_scan3d.lo -MD -MP -MF $(DEPDIR)/libposturescan3d_la-posture_scan3d.Tpo -c -o libposturescan3d_la-posture_scan3d.lo `test -f 'posture_scan3d.cpp' || echo '$(srcdir)/'`posture_scan3d.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturescan3d_la-posture_scan3d.Tpo $(DEPDIR)/libposturescan3d_la-posture_scan3d.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_scan3d.cpp' object='libposturescan3d_la-posture_scan3d.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturescan3d_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturescan3d_la-posture_scan3d.lo `test -f 'posture_scan3d.cpp' || echo '$(srcdir)/'`posture_scan3d.cpp
+
+libposturesolidify_la-posture_solidify.lo: posture_solidify.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturesolidify_la_CXXFLAGS) $(CXXFLAGS) -MT libposturesolidify_la-posture_solidify.lo -MD -MP -MF $(DEPDIR)/libposturesolidify_la-posture_solidify.Tpo -c -o libposturesolidify_la-posture_solidify.lo `test -f 'posture_solidify.cpp' || echo '$(srcdir)/'`posture_solidify.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturesolidify_la-posture_solidify.Tpo $(DEPDIR)/libposturesolidify_la-posture_solidify.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_solidify.cpp' object='libposturesolidify_la-posture_solidify.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturesolidify_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturesolidify_la-posture_solidify.lo `test -f 'posture_solidify.cpp' || echo '$(srcdir)/'`posture_solidify.cpp
+
+libposturesolidify_la-posture_worker.lo: posture_worker.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturesolidify_la_CXXFLAGS) $(CXXFLAGS) -MT libposturesolidify_la-posture_worker.lo -MD -MP -MF $(DEPDIR)/libposturesolidify_la-posture_worker.Tpo -c -o libposturesolidify_la-posture_worker.lo `test -f 'posture_worker.cpp' || echo '$(srcdir)/'`posture_worker.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libposturesolidify_la-posture_worker.Tpo $(DEPDIR)/libposturesolidify_la-posture_worker.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='posture_worker.cpp' object='libposturesolidify_la-posture_worker.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturesolidify_la_CXXFLAGS) $(CXXFLAGS) -c -o libposturesolidify_la-posture_worker.lo `test -f 'posture_worker.cpp' || echo '$(srcdir)/'`posture_worker.cpp
 
 libposturesource_la-posture_source.lo: posture_source.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libposturesource_la_CXXFLAGS) $(CXXFLAGS) -MT libposturesource_la-posture_source.lo -MD -MP -MF $(DEPDIR)/libposturesource_la-posture_source.Tpo -c -o libposturesource_la-posture_source.lo `test -f 'posture_source.cpp' || echo '$(srcdir)/'`posture_source.cpp
@@ -809,7 +1080,7 @@ uninstall-am: uninstall-pluginsLTLIBRARIES
 #     $(GSOAP_CFLAGS) \
 #     $(GST_CFLAGS) \
 #     $(JSONGLIB_CFLAGS) \
-# 	$(POSTURE_CFLAGS) \
+#     $(POSTURE_CFLAGS) \
 #     $(SHMDATA_CFLAGS) \
 #     -I$(top_srcdir) 
 
@@ -818,7 +1089,7 @@ uninstall-am: uninstall-pluginsLTLIBRARIES
 #     $(GSOAP_LIBS) \
 #     $(GST_LIBS) \
 #     $(JSONGLIB_LIBS) \
-# 	$(POSTURE_LIBS) \
+#     $(POSTURE_LIBS) \
 #     $(SHMDATA_LIBS) \
 #     $(top_builddir)/switcher/libswitcher-@LIBSWITCHER_API_VERSION@.la
 

@@ -2,10 +2,11 @@ dnl required version of autoconf
 AC_PREREQ([2.53])
 
 dnl package name and package version
-AC_INIT([switcher],[0.6.2])
+AC_INIT([switcher],[0.8.2])
 
 dnl required version of gstreamer and gst-plugins-base
-GST_REQUIRED=0.10.36
+GST_REQUIRED=1.0.0
+GSTPB_REQUIRED=1.0.0
 
 dnl AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
@@ -33,8 +34,8 @@ AC_CANONICAL_HOST
 AC_SUBST([LIBSWITCHER_SO_VERSION], [0:0:0])
 
 # The version of the API. Should be major.minor and not change until not backward-compatible
-AC_SUBST([LIBSWITCHER_API_VERSION], [0.6])
-AC_DEFINE(LIBSWITCHER_API_VERSION, ["0.6"], [API version])
+AC_SUBST([LIBSWITCHER_API_VERSION], [0.8])
+AC_DEFINE(LIBSWITCHER_API_VERSION, ["0.8"], [API version])
 
 dnl check for tools (compiler etc.)
 AC_PROG_CXX
@@ -58,7 +59,7 @@ case "$host" in *-darwin* | *-macos10*)
   LIBTOOL="glibtool"
   CXXFLAGS+=" -D__Darwin -stdlib=libc++ -Qunused-arguments"
   CXX="clang++"
-  LDFLAGS+=" -undefined dynamic_lookup -Wl,-headerpad_max_install_names"
+  LDFLAGS+=" -g -undefined dynamic_lookup -Wl,-headerpad_max_install_names"
   if test -d /opt/local ; then
     CPPFLAGS+=" -I/usr/local/include -I/opt/local/include"
     CXXFLAGS+=" -I/usr/local/include -I/opt/local/include"
@@ -77,7 +78,7 @@ case "$host" in *-darwin* | *-macos10*)
   PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
   export PKG_CONFIG_PATH
   
-  LDFLAGS+=" -fPIC -L/usr/local/lib -L/usr/local/lib64"
+  LDFLAGS+=" -fPIC -L/usr/local/lib"
   ;;
 *)
   AM_CONDITIONAL([HAVE_OSX], false)
@@ -85,37 +86,19 @@ case "$host" in *-darwin* | *-macos10*)
   ;;
 esac
 
-# -- testing GStreamer SDK, if found, then building against --
-AM_CONDITIONAL(HAVE_GST_SDK, false)
- # linux
- AC_CHECK_FILE([/opt/gstreamer-sdk/lib/pkgconfig/gstreamer-0.10.pc], 
-                [AC_MSG_WARN([building against Linux GStreamer SDK.]) 
-                 AM_CONDITIONAL(HAVE_GST_SDK, true)
-                 PKG_CONFIG_PATH=/opt/gstreamer-sdk/lib/pkgconfig:$PKG_CONFIG_PATH
-                 export PKG_CONFIG_PATH],
-                [AC_MSG_WARN([Linux GStreamer SDK not found])])
-
- # osx
-AC_CHECK_FILE([/Library/Frameworks/GStreamer.framework/Libraries/pkgconfig], 
-              [AC_MSG_WARN([building against OSX GStreamer SDK.]) 
-               AM_CONDITIONAL(HAVE_GST_SDK, true)
-               PKG_CONFIG_PATH=/Library/Frameworks/GStreamer.framework/Libraries/pkgconfig:$PKG_CONFIG_PATH
-               export PKG_CONFIG_PATH],
-              [AC_MSG_WARN([OSX GStreamer SDK not found])])
-
-
 dnl =======================================================================
 dnl Check for the required version of GStreamer core (and gst-plugins-base)
 dnl
 dnl This will export GST_CFLAGS and GST_LIBS variables for use in Makefile.am
 dnl
+dnl =======================================================================
 
 PKG_CHECK_MODULES(GST, [
-    gstreamer-0.10              >= $GST_REQUIRED
-    gstreamer-base-0.10         >= $GST_REQUIRED
-    gstreamer-controller-0.10   >= $GST_REQUIRED
-    gstreamer-sdp-0.10          >= $GST_REQUIRED
-    gstreamer-interfaces-0.10   >= $GST_REQUIRED
+    gstreamer-1.0              >= $GST_REQUIRED
+    gstreamer-base-1.0         >= $GST_REQUIRED
+    gstreamer-controller-1.0   >= $GST_REQUIRED
+    gstreamer-sdp-1.0          >= $GST_REQUIRED
+    gstreamer-video-1.0        >= $GST_REQUIRED
   ], [
     AC_SUBST(GST_CFLAGS)
     AC_SUBST(GST_LIBS)
@@ -123,20 +106,17 @@ PKG_CHECK_MODULES(GST, [
   AC_MSG_ERROR([
     Can't find the following GStreamer development packages:
 
-      gstreamer-0.10              >= $GST_REQUIRED
-      gstreamer-base-0.10         >= $GST_REQUIRED
-      gstreamer-controller-0.10   >= $GST_REQUIRED
-      gstreamer-sdp-0.10          >= $GST_REQUIRED
-      gstreamer-interfaces-0.10   >= $GST_REQUIRED
+      gstreamer-1.0              >= $GST_REQUIRED
+      gstreamer-base-1.0         >= $GST_REQUIRED
+      gstreamer-controller-1.0   >= $GST_REQUIRED
+      gstreamer-sdp-1.0          >= $GST_REQUIRED
+      gstreamer-video-1.0        >= $GST_REQUIRED
 
-    Please make sure you have the necessary GStreamer-0.10
-    development headers installed.
-
-    On debian/Ubuntu systems you will probably need to install the
-    'libgstreamer0.10-dev' and 'libgstreamer-plugins-base0.10-dev' packages.
-
-    On RPM-based systems you will probably need to install the
-    'gstreamer-devel-0.10' package.
+    You need to install or upgrade the GStreamer development
+      packages on your system. On debian-based systems these are
+      libgstreamer1.0-dev and libgstreamer-plugins-base1.0-dev.
+      on RPM-based systems gstreamer1.0-devel, libgstreamer1.0-devel
+      or similar. The minimum version required is $GST_REQUIRED.
   ])
 ])
 
@@ -151,14 +131,9 @@ if test "x${have_gmodule}" = "xfalse" ; then
 fi
 
 #shmdata
-PKG_CHECK_MODULES(SHMDATA, shmdata-0.8, have_shmdata=true, have_shmdata=false)
+PKG_CHECK_MODULES(SHMDATA, shmdata-1.0, have_shmdata=true, have_shmdata=false)
 if test "x${have_shmdata}" = "xfalse" ; then
-    AC_MSG_ERROR([Missing libshmdata-0.8-dev])
-fi
-
-PKG_CHECK_MODULES(SHMDATA_ANY, shmdata-any-0.8, have_shmdata_any=true, have_shmdata_any=false)
-if test "x${have_shmdata_any}" = "xfalse" ; then
-    AC_MSG_ERROR([Missing libshmdata-0.8-dev])
+    AC_MSG_ERROR([Missing libshmdata-1.0 development files])
 fi
 
 #gsoap
@@ -180,6 +155,16 @@ else
     OSCBUILD=enabled
 fi
 AM_CONDITIONAL(OSCBUILD, test "${OSCBUILD}" = "enabled")
+
+#jack
+PKG_CHECK_MODULES(JACK, jack, have_jack=true, have_jack=false)
+if test "x${have_jack}" = "xfalse" ; then
+    JACKBUILD=disabled
+    AC_MSG_WARN([Missing libjack-jackd2-dev package])
+else
+    JACKBUILD=enabled
+fi
+AM_CONDITIONAL(JACKBUILD, test "${JACKBUILD}" = "enabled")
 
 # python
 PKG_CHECK_MODULES(PYTHON, python, have_python=true, have_python=false)
@@ -244,14 +229,14 @@ AC_CHECK_HEADER(linux/videodev2.h,
 AM_CONDITIONAL(V4L2BUILD, test "${V4L2BUILD}" = "enabled")
 
 #pjsip
-PKG_CHECK_MODULES(PJSIP, libpjproject, have_pjsip=true, have_pjsip=false)
-if test "x${have_pjsip}" = "xfalse" ; then
-    PJSIPBUILD=disabled
-    AC_MSG_WARN([Missing pjsip dev files])
-else
-    PJSIPBUILD=enabled
-fi
-AM_CONDITIONAL(PJSIPBUILD, test "${PJSIPBUILD}" = "enabled")
+dnl PKG_CHECK_MODULES(PJSIP, libpjproject, have_pjsip=true, have_pjsip=false)
+dnl if test "x${have_pjsip}" = "xfalse" ; then
+dnl     PJSIPBUILD=disabled
+dnl     AC_MSG_WARN([Missing pjsip dev files])
+dnl else
+dnl     PJSIPBUILD=enabled
+dnl fi
+dnl AM_CONDITIONAL(PJSIPBUILD, test "${PJSIPBUILD}" = "enabled")
 
 
 # check for gtk (compatible with gstreamer sdk)
@@ -285,6 +270,16 @@ else
     POSTUREBUILD=enabled
 fi
 AM_CONDITIONAL(POSTUREBUILD, test "${POSTUREBUILD}" = "enabled")
+
+# check for libvncclient
+PKG_CHECK_MODULES(VNC, libvncclient, have_vnc=true, have_vnc=false)
+if test "x${have_vnc}" = "xfalse" ; then
+    VNCBUILD=disabled
+    AC_MSG_WARN([Missing libvncclient, VNC client quiddity won't be built])
+else
+    VNCBUILD=enabled
+fi
+AM_CONDITIONAL(VNCBUILD, test "${VNCBUILD}" = "enabled")
 
 
 dnl Use the C++ compiler for the compile tests
@@ -348,13 +343,29 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([ ], [ ])], [
 ])
 
 dnl clang++
-dnl check if compiler understands -Wno-error=return-type-c-linkage (if yes, add it to CFLAGS)
+dnl check if compiler understands -Wno-error=return-type-c-linkage 
+dnl (if yes, add it to CFLAGS)
 dnl -Wno-error=unused-parameter is required for gsoap generated code compiling
 AC_MSG_CHECKING([to see if compiler understands -Wno-error=return-type-c-linkage])
 saved_CXXFLAGS="$CXXFLAGS"
 CXXFLAGS="$CXXFLAGS -Wno-error=return-type-c-linkage"
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([ ], [ ])], [
   CXXFLAGS="$saved_CXXFLAGS -Wno-error=return-type-c-linkage"
+  AC_MSG_RESULT([yes])
+], [
+  CXXFLAGS="$saved_CXXFLAGS"
+  AC_MSG_RESULT([no])
+])
+
+dnl clang++
+dnl check if compiler understands -Wno-error=deprecated-register
+dnl (if yes, add it to CFLAGS)
+dnl required for gstreamer header inclusion
+AC_MSG_CHECKING([to see if compiler understands -Wno-error=deprecated-register])
+saved_CXXFLAGS="$CXXFLAGS"
+CXXFLAGS="$CXXFLAGS -Wno-error=deprecated-register"
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([ ], [ ])], [
+  CXXFLAGS="$saved_CXXFLAGS -Wno-error=deprecated-register"
   AC_MSG_RESULT([yes])
 ], [
   CXXFLAGS="$saved_CXXFLAGS"
@@ -378,8 +389,12 @@ if test "${SOAPBUILD}" = "disabled";
 fi
 AM_CONDITIONAL(SWITCHERBUILD, test "${SWITCHERBUILD}" = "enabled")
 
+
 dnl =======================================================================
 dnl Finally, create Makefiles in all directories
+dnl =======================================================================
+
+dnl plugins/syphonsrc/Makefile FIXME syphon should be ported to shmdata1
 
 AC_CONFIG_FILES([
 Makefile
@@ -391,7 +406,6 @@ src/Makefile
 plugins/Makefile
 plugins/example/Makefile
 plugins/systemusage/Makefile
-plugins/syphonsrc/Makefile
 plugins/gsoap/Makefile
 plugins/osc/Makefile
 plugins/portmidi/Makefile
@@ -399,8 +413,10 @@ plugins/pulse/Makefile
 plugins/v4l2/Makefile
 plugins/pjsip/Makefile
 plugins/gtk/Makefile
-nodejs/Makefile
+plugins/jack/Makefile
 plugins/posture/Makefile
+plugins/vnc/Makefile
+nodejs/Makefile
 ])
 AC_OUTPUT
 
@@ -413,7 +429,7 @@ AC_OUTPUT
 [echo "GTK fullscreen video       ${GTKBUILD}"]
 [echo "Pulse audio                ${PULSEBUILD}"]
 [echo "PortMidi                   ${PORTMIDIBUILD}"]
-[echo "PJSIP                      ${PJSIPBUILD}"]
+[echo "Jack                       ${JACKBUILD}"]
 [echo ""]
 [echo "-----------------------------------"]
 [echo ""]
@@ -429,6 +445,7 @@ AC_OUTPUT
 [echo "nodejs addon               ${NODEADDONBUILD}"]
 [echo "python                     ${PYTHONBUILD}"]
 [echo "posture support            ${POSTUREBUILD}"]
+[echo "vnc client support         ${VNCBUILD}"]
 [echo ""]
 [echo "-----------------------------------"]
 [echo ""]

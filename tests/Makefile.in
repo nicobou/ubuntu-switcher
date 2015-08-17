@@ -78,12 +78,12 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = check_description_by_class$(EXEEXT) \
-	check_fakesink$(EXEEXT) check_information_tree$(EXEEXT) \
+	check_gst_pipeline$(EXEEXT) check_information_tree$(EXEEXT) \
+	check_make_consultable$(EXEEXT) check_manager$(EXEEXT) \
 	check_quiddity_create_remove$(EXEEXT) \
-	check_property_mapper$(EXEEXT) \
-	check_property_subscriber$(EXEEXT) check_rtp_session$(EXEEXT) \
-	check_scope_guard$(EXEEXT) check_signal_subscriber$(EXEEXT) \
-	check_startable$(EXEEXT)
+	check_rtp_session$(EXEEXT) check_scope_guard$(EXEEXT) \
+	check_startable$(EXEEXT) check_string_dictionary$(EXEEXT) \
+	check_ugstelem$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp $(top_srcdir)/test-driver
@@ -104,20 +104,18 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-am_check_fakesink_OBJECTS = check_fakesink.$(OBJEXT)
-check_fakesink_OBJECTS = $(am_check_fakesink_OBJECTS)
-check_fakesink_LDADD = $(LDADD)
+am_check_gst_pipeline_OBJECTS = check_gst_pipeline.$(OBJEXT)
+check_gst_pipeline_OBJECTS = $(am_check_gst_pipeline_OBJECTS)
+check_gst_pipeline_LDADD = $(LDADD)
 am_check_information_tree_OBJECTS = check_information_tree.$(OBJEXT)
 check_information_tree_OBJECTS = $(am_check_information_tree_OBJECTS)
 check_information_tree_LDADD = $(LDADD)
-am_check_property_mapper_OBJECTS = check_property_mapper.$(OBJEXT)
-check_property_mapper_OBJECTS = $(am_check_property_mapper_OBJECTS)
-check_property_mapper_LDADD = $(LDADD)
-am_check_property_subscriber_OBJECTS =  \
-	check_property_subscriber.$(OBJEXT)
-check_property_subscriber_OBJECTS =  \
-	$(am_check_property_subscriber_OBJECTS)
-check_property_subscriber_LDADD = $(LDADD)
+am_check_make_consultable_OBJECTS = check_make_consultable.$(OBJEXT)
+check_make_consultable_OBJECTS = $(am_check_make_consultable_OBJECTS)
+check_make_consultable_LDADD = $(LDADD)
+am_check_manager_OBJECTS = check_manager.$(OBJEXT)
+check_manager_OBJECTS = $(am_check_manager_OBJECTS)
+check_manager_LDADD = $(LDADD)
 am_check_quiddity_create_remove_OBJECTS =  \
 	check_quiddity_create_remove.$(OBJEXT)
 check_quiddity_create_remove_OBJECTS =  \
@@ -129,14 +127,17 @@ check_rtp_session_LDADD = $(LDADD)
 am_check_scope_guard_OBJECTS = check_scope_guard.$(OBJEXT)
 check_scope_guard_OBJECTS = $(am_check_scope_guard_OBJECTS)
 check_scope_guard_LDADD = $(LDADD)
-am_check_signal_subscriber_OBJECTS =  \
-	check_signal_subscriber.$(OBJEXT)
-check_signal_subscriber_OBJECTS =  \
-	$(am_check_signal_subscriber_OBJECTS)
-check_signal_subscriber_LDADD = $(LDADD)
 am_check_startable_OBJECTS = check_startable.$(OBJEXT)
 check_startable_OBJECTS = $(am_check_startable_OBJECTS)
 check_startable_LDADD = $(LDADD)
+am_check_string_dictionary_OBJECTS =  \
+	check_string_dictionary.$(OBJEXT)
+check_string_dictionary_OBJECTS =  \
+	$(am_check_string_dictionary_OBJECTS)
+check_string_dictionary_LDADD = $(LDADD)
+am_check_ugstelem_OBJECTS = check_ugstelem.$(OBJEXT)
+check_ugstelem_OBJECTS = $(am_check_ugstelem_OBJECTS)
+check_ugstelem_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -172,19 +173,21 @@ am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
 SOURCES = $(check_description_by_class_SOURCES) \
-	$(check_fakesink_SOURCES) $(check_information_tree_SOURCES) \
-	$(check_property_mapper_SOURCES) \
-	$(check_property_subscriber_SOURCES) \
+	$(check_gst_pipeline_SOURCES) \
+	$(check_information_tree_SOURCES) \
+	$(check_make_consultable_SOURCES) $(check_manager_SOURCES) \
 	$(check_quiddity_create_remove_SOURCES) \
 	$(check_rtp_session_SOURCES) $(check_scope_guard_SOURCES) \
-	$(check_signal_subscriber_SOURCES) $(check_startable_SOURCES)
+	$(check_startable_SOURCES) $(check_string_dictionary_SOURCES) \
+	$(check_ugstelem_SOURCES)
 DIST_SOURCES = $(check_description_by_class_SOURCES) \
-	$(check_fakesink_SOURCES) $(check_information_tree_SOURCES) \
-	$(check_property_mapper_SOURCES) \
-	$(check_property_subscriber_SOURCES) \
+	$(check_gst_pipeline_SOURCES) \
+	$(check_information_tree_SOURCES) \
+	$(check_make_consultable_SOURCES) $(check_manager_SOURCES) \
 	$(check_quiddity_create_remove_SOURCES) \
 	$(check_rtp_session_SOURCES) $(check_scope_guard_SOURCES) \
-	$(check_signal_subscriber_SOURCES) $(check_startable_SOURCES)
+	$(check_startable_SOURCES) $(check_string_dictionary_SOURCES) \
+	$(check_ugstelem_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -461,6 +464,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -495,8 +500,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -512,12 +515,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -595,8 +598,20 @@ AM_LDFLAGS = \
 check_description_by_class_SOURCES = \
     check_description_by_class.cpp
 
-check_quiddity_create_remove_SOURCES = \
-    check_quiddity_create_remove.cpp
+check_fake_shmdata_writer_SOURCES = \
+    check_fake_shmdata_writer.cpp
+
+check_gst_pipeline_SOURCES = \
+    check_gst_pipeline.cpp
+
+check_information_tree_SOURCES = \
+    check_information_tree.cpp
+
+check_make_consultable_SOURCES = \
+    check_make_consultable.cpp
+
+check_manager_SOURCES = \
+    check_manager.cpp
 
 check_property_mapper_SOURCES = \
     check_property_mapper.cpp
@@ -604,8 +619,14 @@ check_property_mapper_SOURCES = \
 check_property_subscriber_SOURCES = \
     check_property_subscriber.cpp
 
+check_quiddity_create_remove_SOURCES = \
+    check_quiddity_create_remove.cpp
+
 check_rtp_session_SOURCES = \
     check_rtp_session.cpp
+
+check_scope_guard_SOURCES = \
+    check_scope_guard.cpp
 
 check_signal_subscriber_SOURCES = \
     check_signal_subscriber.cpp
@@ -613,14 +634,11 @@ check_signal_subscriber_SOURCES = \
 check_startable_SOURCES = \
     check_startable.cpp
 
-check_fakesink_SOURCES = \
-    check_fakesink.cpp
+check_string_dictionary_SOURCES = \
+    check_string_dictionary.cpp
 
-check_information_tree_SOURCES = \
-    check_information_tree.cpp
-
-check_scope_guard_SOURCES = \
-    check_scope_guard.cpp
+check_ugstelem_SOURCES = \
+    check_ugstelem.cpp
 
 TESTS = $(check_PROGRAMS)
 all: all-am
@@ -671,21 +689,21 @@ check_description_by_class$(EXEEXT): $(check_description_by_class_OBJECTS) $(che
 	@rm -f check_description_by_class$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(check_description_by_class_OBJECTS) $(check_description_by_class_LDADD) $(LIBS)
 
-check_fakesink$(EXEEXT): $(check_fakesink_OBJECTS) $(check_fakesink_DEPENDENCIES) $(EXTRA_check_fakesink_DEPENDENCIES) 
-	@rm -f check_fakesink$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(check_fakesink_OBJECTS) $(check_fakesink_LDADD) $(LIBS)
+check_gst_pipeline$(EXEEXT): $(check_gst_pipeline_OBJECTS) $(check_gst_pipeline_DEPENDENCIES) $(EXTRA_check_gst_pipeline_DEPENDENCIES) 
+	@rm -f check_gst_pipeline$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(check_gst_pipeline_OBJECTS) $(check_gst_pipeline_LDADD) $(LIBS)
 
 check_information_tree$(EXEEXT): $(check_information_tree_OBJECTS) $(check_information_tree_DEPENDENCIES) $(EXTRA_check_information_tree_DEPENDENCIES) 
 	@rm -f check_information_tree$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(check_information_tree_OBJECTS) $(check_information_tree_LDADD) $(LIBS)
 
-check_property_mapper$(EXEEXT): $(check_property_mapper_OBJECTS) $(check_property_mapper_DEPENDENCIES) $(EXTRA_check_property_mapper_DEPENDENCIES) 
-	@rm -f check_property_mapper$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(check_property_mapper_OBJECTS) $(check_property_mapper_LDADD) $(LIBS)
+check_make_consultable$(EXEEXT): $(check_make_consultable_OBJECTS) $(check_make_consultable_DEPENDENCIES) $(EXTRA_check_make_consultable_DEPENDENCIES) 
+	@rm -f check_make_consultable$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(check_make_consultable_OBJECTS) $(check_make_consultable_LDADD) $(LIBS)
 
-check_property_subscriber$(EXEEXT): $(check_property_subscriber_OBJECTS) $(check_property_subscriber_DEPENDENCIES) $(EXTRA_check_property_subscriber_DEPENDENCIES) 
-	@rm -f check_property_subscriber$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(check_property_subscriber_OBJECTS) $(check_property_subscriber_LDADD) $(LIBS)
+check_manager$(EXEEXT): $(check_manager_OBJECTS) $(check_manager_DEPENDENCIES) $(EXTRA_check_manager_DEPENDENCIES) 
+	@rm -f check_manager$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(check_manager_OBJECTS) $(check_manager_LDADD) $(LIBS)
 
 check_quiddity_create_remove$(EXEEXT): $(check_quiddity_create_remove_OBJECTS) $(check_quiddity_create_remove_DEPENDENCIES) $(EXTRA_check_quiddity_create_remove_DEPENDENCIES) 
 	@rm -f check_quiddity_create_remove$(EXEEXT)
@@ -699,13 +717,17 @@ check_scope_guard$(EXEEXT): $(check_scope_guard_OBJECTS) $(check_scope_guard_DEP
 	@rm -f check_scope_guard$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(check_scope_guard_OBJECTS) $(check_scope_guard_LDADD) $(LIBS)
 
-check_signal_subscriber$(EXEEXT): $(check_signal_subscriber_OBJECTS) $(check_signal_subscriber_DEPENDENCIES) $(EXTRA_check_signal_subscriber_DEPENDENCIES) 
-	@rm -f check_signal_subscriber$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(check_signal_subscriber_OBJECTS) $(check_signal_subscriber_LDADD) $(LIBS)
-
 check_startable$(EXEEXT): $(check_startable_OBJECTS) $(check_startable_DEPENDENCIES) $(EXTRA_check_startable_DEPENDENCIES) 
 	@rm -f check_startable$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(check_startable_OBJECTS) $(check_startable_LDADD) $(LIBS)
+
+check_string_dictionary$(EXEEXT): $(check_string_dictionary_OBJECTS) $(check_string_dictionary_DEPENDENCIES) $(EXTRA_check_string_dictionary_DEPENDENCIES) 
+	@rm -f check_string_dictionary$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(check_string_dictionary_OBJECTS) $(check_string_dictionary_LDADD) $(LIBS)
+
+check_ugstelem$(EXEEXT): $(check_ugstelem_OBJECTS) $(check_ugstelem_DEPENDENCIES) $(EXTRA_check_ugstelem_DEPENDENCIES) 
+	@rm -f check_ugstelem$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(check_ugstelem_OBJECTS) $(check_ugstelem_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -714,15 +736,16 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_description_by_class.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_fakesink.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_gst_pipeline.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_information_tree.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_property_mapper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_property_subscriber.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_make_consultable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_manager.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_quiddity_create_remove.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_rtp_session.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_scope_guard.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_signal_subscriber.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_startable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_string_dictionary.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_ugstelem.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -951,9 +974,9 @@ check_description_by_class.log: check_description_by_class$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-check_fakesink.log: check_fakesink$(EXEEXT)
-	@p='check_fakesink$(EXEEXT)'; \
-	b='check_fakesink'; \
+check_gst_pipeline.log: check_gst_pipeline$(EXEEXT)
+	@p='check_gst_pipeline$(EXEEXT)'; \
+	b='check_gst_pipeline'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -965,23 +988,23 @@ check_information_tree.log: check_information_tree$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+check_make_consultable.log: check_make_consultable$(EXEEXT)
+	@p='check_make_consultable$(EXEEXT)'; \
+	b='check_make_consultable'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+check_manager.log: check_manager$(EXEEXT)
+	@p='check_manager$(EXEEXT)'; \
+	b='check_manager'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 check_quiddity_create_remove.log: check_quiddity_create_remove$(EXEEXT)
 	@p='check_quiddity_create_remove$(EXEEXT)'; \
 	b='check_quiddity_create_remove'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-check_property_mapper.log: check_property_mapper$(EXEEXT)
-	@p='check_property_mapper$(EXEEXT)'; \
-	b='check_property_mapper'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-check_property_subscriber.log: check_property_subscriber$(EXEEXT)
-	@p='check_property_subscriber$(EXEEXT)'; \
-	b='check_property_subscriber'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -1000,16 +1023,23 @@ check_scope_guard.log: check_scope_guard$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-check_signal_subscriber.log: check_signal_subscriber$(EXEEXT)
-	@p='check_signal_subscriber$(EXEEXT)'; \
-	b='check_signal_subscriber'; \
+check_startable.log: check_startable$(EXEEXT)
+	@p='check_startable$(EXEEXT)'; \
+	b='check_startable'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-check_startable.log: check_startable$(EXEEXT)
-	@p='check_startable$(EXEEXT)'; \
-	b='check_startable'; \
+check_string_dictionary.log: check_string_dictionary$(EXEEXT)
+	@p='check_string_dictionary$(EXEEXT)'; \
+	b='check_string_dictionary'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+check_ugstelem.log: check_ugstelem$(EXEEXT)
+	@p='check_ugstelem$(EXEEXT)'; \
+	b='check_ugstelem'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
