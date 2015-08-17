@@ -435,6 +435,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -469,8 +471,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -486,12 +486,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -581,8 +581,8 @@ libsoapserver_la_SOURCES = \
     webservices/soapcontrolService.cpp 
 
 libsoapserver_la_include_HEADERS = \
-    ctrl-webservice-definition.h \
-    soap-ctrl-server.h 
+    ctrl-webservice-definition.hpp \
+    soap-ctrl-server.hpp 
 
 libsoapserver_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
@@ -598,7 +598,7 @@ libsoapclient_la_SOURCES = \
     webservices/soapcontrolProxy.cpp 
 
 libsoapclient_la_include_HEADERS = \
-    soap-ctrl-client.h
+    soap-ctrl-client.hpp
 
 libsoapclient_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
@@ -1228,15 +1228,15 @@ uninstall-am: uninstall-libsoapclient_la_includeHEADERS \
 
 webservices/soapC.cpp: Makefile
 	mkdir -p webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.h
+	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.hpp
 
 $(srcdir)/webservices/soapcontrolProxy.cpp: Makefile
 	mkdir -p webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.h
+	soapcpp2 -I $(gsoap_INCLUDE) -i -d webservices $(srcdir)/ctrl-webservice-definition.hpp
 
 $(srcdir)/webservices/soapcontrolService.cpp: Makefile
 	mkdir -p webservices
-	soapcpp2 -I $(gsoap_INCLUDE) -i  -d webservices $(srcdir)/ctrl-webservice-definition.h
+	soapcpp2 -I $(gsoap_INCLUDE) -i  -d webservices $(srcdir)/ctrl-webservice-definition.hpp
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

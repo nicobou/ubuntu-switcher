@@ -1,3 +1,34 @@
+switcher 0.8.2 (2015-08-17)
+---------------------------
+This is an official release in the 0.8 stable series. 
+
+New features:
+
+* none
+
+Bugs fixed:
+
+* switcher plugin not loaded from nodejs addon
+
+switcher 0.8.0 (2015-08-17)
+---------------------------
+This is an official release in the 0.8 stable series. 
+
+New features:
+
+* SIP
+* VNC (compatible with gtkwin)
+* jack (resampling + autoconnection)
+* audio encoder
+* more option with v4l2 capture
+* ported to gstreamer 1.0
+* ported to shmdata 1.0
+* using internal information tree
+
+Bugs fixed:
+
+* two many to be listed here
+
 switcher 0.6.2 (2014-08-04)
 ---------------------------
 This is an official release in the 0.6 stable series. 
@@ -88,14 +119,6 @@ New features:
 Bugs fixed:
 
 * too many for being listed here
-
-switcher 0.2.4 (2013-11-19)
----------------------------
-This is an official release in the 0.2 stable series. 
-
-New features:
-
-* loop option for uridecodebin 
 
 switcher 0.2.2 (2013-06-20)
 ---------------------------

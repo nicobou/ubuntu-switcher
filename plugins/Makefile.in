@@ -95,17 +95,23 @@ host_triplet = @host@
 @PORTMIDIBUILD_TRUE@am__append_6 = \
 @PORTMIDIBUILD_TRUE@    portmidi
 
-@PJSIPBUILD_TRUE@am__append_7 = \
-@PJSIPBUILD_TRUE@    pjsip
-
-@POSTUREBUILD_TRUE@am__append_8 = \
+@POSTUREBUILD_TRUE@am__append_7 = \
 @POSTUREBUILD_TRUE@	posture
 
-@HAVE_OSX_TRUE@am__append_9 = \
-@HAVE_OSX_TRUE@    syphonsrc
 
-@HAVE_OSX_FALSE@am__append_10 = \
+# FIXME port to shmdata1
+# if HAVE_OSX
+# SUBDIRS += \
+#     syphonsrc
+# endif
+@HAVE_OSX_FALSE@am__append_8 = \
 @HAVE_OSX_FALSE@    systemusage
+
+@JACKBUILD_TRUE@am__append_9 = \
+@JACKBUILD_TRUE@    jack
+
+@VNCBUILD_TRUE@am__append_10 = \
+@VNCBUILD_TRUE@	vnc
 
 subdir = plugins
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am
@@ -171,8 +177,8 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = example v4l2 osc gsoap gtk pulse portmidi pjsip posture \
-	syphonsrc systemusage
+DIST_SUBDIRS = example pjsip v4l2 osc gsoap gtk pulse portmidi posture \
+	systemusage jack vnc
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -246,6 +252,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -280,8 +288,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -297,12 +303,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -358,10 +364,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = example $(am__append_1) $(am__append_2) $(am__append_3) \
-	$(am__append_4) $(am__append_5) $(am__append_6) \
-	$(am__append_7) $(am__append_8) $(am__append_9) \
-	$(am__append_10)
+SUBDIRS = example pjsip $(am__append_1) $(am__append_2) \
+	$(am__append_3) $(am__append_4) $(am__append_5) \
+	$(am__append_6) $(am__append_7) $(am__append_8) \
+	$(am__append_9) $(am__append_10)
 all: all-recursive
 
 .SUFFIXES:

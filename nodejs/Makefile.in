@@ -14,6 +14,7 @@
 
 @SET_MAKE@
 
+
 VPATH = @srcdir@
 am__is_gnu_make = test -n '$(MAKEFILE_LIST)' && test -n '$(MAKELEVEL)'
 am__make_running_with_option = \
@@ -80,7 +81,7 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = nodejs
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
-	$(top_srcdir)/depcomp
+	$(top_srcdir)/depcomp $(switcher_la_include_HEADERS)
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -116,10 +117,12 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(pluginsdir)"
+am__installdirs = "$(DESTDIR)$(pluginsdir)" \
+	"$(DESTDIR)$(switcher_la_includedir)"
 LTLIBRARIES = $(plugins_LTLIBRARIES)
 switcher_la_LIBADD =
-am_switcher_la_OBJECTS = switcher_la-node-switcher.lo
+am_switcher_la_OBJECTS = switcher_la-switcher-controller.lo \
+	switcher_la-switcher-addon.lo
 switcher_la_OBJECTS = $(am_switcher_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -169,6 +172,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+HEADERS = $(switcher_la_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -236,6 +240,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -270,8 +276,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -287,12 +291,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -353,9 +357,13 @@ plugins_LTLIBRARIES = \
     switcher.la
 
 
-#libmyplugin info
+#libplugin info
 switcher_la_SOURCES = \
-    node-switcher.cpp
+    switcher-controller.cpp \
+    switcher-addon.cpp
+
+switcher_la_include_HEADERS = \
+    switcher-controller.hpp
 
 switcher_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
@@ -470,7 +478,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/switcher_la-node-switcher.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/switcher_la-switcher-addon.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/switcher_la-switcher-controller.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -493,18 +502,46 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
-switcher_la-node-switcher.lo: node-switcher.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -MT switcher_la-node-switcher.lo -MD -MP -MF $(DEPDIR)/switcher_la-node-switcher.Tpo -c -o switcher_la-node-switcher.lo `test -f 'node-switcher.cpp' || echo '$(srcdir)/'`node-switcher.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/switcher_la-node-switcher.Tpo $(DEPDIR)/switcher_la-node-switcher.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='node-switcher.cpp' object='switcher_la-node-switcher.lo' libtool=yes @AMDEPBACKSLASH@
+switcher_la-switcher-controller.lo: switcher-controller.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -MT switcher_la-switcher-controller.lo -MD -MP -MF $(DEPDIR)/switcher_la-switcher-controller.Tpo -c -o switcher_la-switcher-controller.lo `test -f 'switcher-controller.cpp' || echo '$(srcdir)/'`switcher-controller.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/switcher_la-switcher-controller.Tpo $(DEPDIR)/switcher_la-switcher-controller.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='switcher-controller.cpp' object='switcher_la-switcher-controller.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -c -o switcher_la-node-switcher.lo `test -f 'node-switcher.cpp' || echo '$(srcdir)/'`node-switcher.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -c -o switcher_la-switcher-controller.lo `test -f 'switcher-controller.cpp' || echo '$(srcdir)/'`switcher-controller.cpp
+
+switcher_la-switcher-addon.lo: switcher-addon.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -MT switcher_la-switcher-addon.lo -MD -MP -MF $(DEPDIR)/switcher_la-switcher-addon.Tpo -c -o switcher_la-switcher-addon.lo `test -f 'switcher-addon.cpp' || echo '$(srcdir)/'`switcher-addon.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/switcher_la-switcher-addon.Tpo $(DEPDIR)/switcher_la-switcher-addon.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='switcher-addon.cpp' object='switcher_la-switcher-addon.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(switcher_la_CXXFLAGS) $(CXXFLAGS) -c -o switcher_la-switcher-addon.lo `test -f 'switcher-addon.cpp' || echo '$(srcdir)/'`switcher-addon.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
+install-switcher_la_includeHEADERS: $(switcher_la_include_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(switcher_la_include_HEADERS)'; test -n "$(switcher_la_includedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(switcher_la_includedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(switcher_la_includedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(switcher_la_includedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(switcher_la_includedir)" || exit $$?; \
+	done
+
+uninstall-switcher_la_includeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(switcher_la_include_HEADERS)'; test -n "$(switcher_la_includedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(switcher_la_includedir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -590,9 +627,9 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES)
+all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(pluginsdir)"; do \
+	for dir in "$(DESTDIR)$(pluginsdir)" "$(DESTDIR)$(switcher_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -648,7 +685,8 @@ info: info-am
 
 info-am:
 
-install-data-am: install-pluginsLTLIBRARIES
+install-data-am: install-pluginsLTLIBRARIES \
+	install-switcher_la_includeHEADERS
 
 install-dvi: install-dvi-am
 
@@ -694,7 +732,8 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-pluginsLTLIBRARIES
+uninstall-am: uninstall-pluginsLTLIBRARIES \
+	uninstall-switcher_la_includeHEADERS
 
 .MAKE: install-am install-strip
 
@@ -707,11 +746,13 @@ uninstall-am: uninstall-pluginsLTLIBRARIES
 	install-exec-am install-html install-html-am install-info \
 	install-info-am install-man install-pdf install-pdf-am \
 	install-pluginsLTLIBRARIES install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am \
-	uninstall-pluginsLTLIBRARIES
+	install-strip install-switcher_la_includeHEADERS installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am \
+	uninstall-pluginsLTLIBRARIES \
+	uninstall-switcher_la_includeHEADERS
 
 
 #    -D_FILE_OFFSET_BITS=64 \

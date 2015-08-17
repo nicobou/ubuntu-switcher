@@ -123,28 +123,27 @@ am__installdirs = "$(DESTDIR)$(libdir)" \
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libswitcher_@LIBSWITCHER_API_VERSION@_la_LIBADD =
 am_libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS =  \
-	aravis-genicam.lo audio-source.lo audio-test-source.lo \
-	single-pad-gst-sink.lo categorizable.lo counter-map.lo \
-	custom-property-helper.lo create-remove-spy.lo decodebin2.lo \
-	decodebin-to-shmdata.lo deinterleave.lo fake-shmdata-writer.lo \
-	file-sdp.lo fakesink.lo gobject-custom-property.lo \
-	gobject-wrapper.lo gpipe.lo gst-element-cleaner.lo \
-	gst-parse-to-bin-src.lo gst-video-parse-to-bin-src.lo \
-	gst-utils.lo http-sdp.lo http-sdp-dec.lo information-tree.lo \
+	audio-test-source.lo categorizable.lo counter-map.lo \
+	create-remove-spy.lo custom-property-helper.lo \
+	decodebin-to-shmdata.lo external-shmdata-writer.lo \
+	g-source-wrapper.lo glibmainloop.lo gobject-custom-property.lo \
+	gobject-wrapper.lo gst-audio-codec.lo gst-audio-encoder.lo \
+	gst-pipe.lo gst-pipeliner.lo gst-pixel-format-converter.lo \
+	gst-shmdata-subscriber.lo gst-utils.lo gst-video-codec.lo \
+	gst-video-converter.lo gst-video-encoder.lo http-sdp-dec.lo \
 	information-tree-basic-serializer.lo information-tree-json.lo \
-	jack-audio-source.lo jack-sink.lo json-builder.lo logger.lo \
-	method.lo on-caps.lo plugin-loader.lo property.lo \
-	property-mapper.lo quiddity-basic-test.lo quiddity-command.lo \
-	quiddity-documentation.lo quiddity-manager-wrapper.lo \
-	quiddity-manager.lo quiddity-manager-impl.lo \
-	quiddity-property-subscriber.lo quiddity-signal-subscriber.lo \
-	quiddity.lo rtp-destination.lo rtp-session.lo sdp-utils.lo \
-	segment.lo shmdata-any-writer.lo shmdata-any-reader.lo \
-	shmdata-from-gdp-file.lo shmdata-reader.lo shmdata-to-file.lo \
+	information-tree.lo json-builder.lo logger.lo method.lo \
+	net-utils.lo periodic-task.lo plugin-loader.lo \
+	property-mapper.lo property.lo quiddity-basic-test.lo \
+	quiddity-command.lo quiddity-documentation.lo \
+	quiddity-manager-impl.lo quiddity-manager-wrapper.lo \
+	quiddity-manager.lo quiddity-property-subscriber.lo \
+	quiddity-signal-subscriber.lo quiddity.lo rtp-destination.lo \
+	rtp-session.lo safe-bool-idiom.lo sdp-utils.lo \
+	shmdata-connector.lo shmdata-follower.lo shmdata-utils.lo \
 	shmdata-writer.lo signal-string.lo startable-quiddity.lo \
-	string-dictionary.lo udpsink.lo unique-gst-element.lo \
-	uridecodebin.lo video-source.lo video-test-source.lo \
-	xvimagesink.lo
+	string-dictionary.lo string-utils.lo unique-gst-element.lo \
+	uridecodebin.lo video-test-source.lo
 libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS =  \
 	$(am_libswitcher_@LIBSWITCHER_API_VERSION@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -247,6 +246,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -281,8 +282,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -298,12 +297,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -365,7 +364,6 @@ AM_CXXFLAGS = \
     $(GMODULE_CFLAGS) \
     $(JSONGLIB_CFLAGS) \
     $(PYTHON_CFLAGS) \
-    $(SHMDATA_ANY_CFLAGS) \
     $(SHMDATA_CFLAGS) \
     -DG_LOG_DOMAIN=\"switcher\" \
     -I$(top_srcdir) 
@@ -376,76 +374,69 @@ AM_LIBS = \
     $(GMODULE_LIBS) \
     $(JSONGLIB_LIBS) \
     $(PYTHON_LIBS) \
-    $(SHMDATA_ANY_LIBS) \
     $(SHMDATA_LIBS)
 
 lib_LTLIBRARIES = \
     libswitcher-@LIBSWITCHER_API_VERSION@.la
 
 libswitcher_@LIBSWITCHER_API_VERSION@_la_SOURCES = \
-    aravis-genicam.cpp \
-    audio-source.cpp \
     audio-test-source.cpp \
-    single-pad-gst-sink.cpp \
     categorizable.cpp \
     counter-map.cpp \
-    custom-property-helper.cpp \
     create-remove-spy.cpp \
-    decodebin2.cpp \
+    custom-property-helper.cpp \
     decodebin-to-shmdata.cpp \
-    deinterleave.cpp \
-    fake-shmdata-writer.cpp \
-    file-sdp.cpp \
-    fakesink.cpp \
+    external-shmdata-writer.cpp \
+    g-source-wrapper.cpp \
+    glibmainloop.cpp \
     gobject-custom-property.cpp \
     gobject-wrapper.cpp \
-    gpipe.cpp \
-    gst-element-cleaner.cpp \
-    gst-parse-to-bin-src.cpp \
-    gst-video-parse-to-bin-src.cpp \
+    gst-audio-codec.cpp \
+    gst-audio-encoder.cpp \
+    gst-pipe.cpp \
+    gst-pipeliner.cpp \
+    gst-pixel-format-converter.cpp \
+    gst-shmdata-subscriber.cpp \
     gst-utils.cpp \
-    http-sdp.cpp \
+    gst-video-codec.cpp \
+    gst-video-converter.cpp \
+    gst-video-encoder.cpp \
     http-sdp-dec.cpp \
-    information-tree.cpp \
     information-tree-basic-serializer.cpp \
     information-tree-json.cpp \
-    jack-audio-source.cpp \
-    jack-sink.cpp \
+    information-tree.cpp \
     json-builder.cpp \
     logger.cpp \
     method.cpp \
-    on-caps.cpp \
+    net-utils.cpp \
+    periodic-task.cpp \
     plugin-loader.cpp \
-    property.cpp \
     property-mapper.cpp \
+    property.cpp \
     quiddity-basic-test.cpp \
     quiddity-command.cpp \
     quiddity-documentation.cpp \
+    quiddity-manager-impl.cpp \
     quiddity-manager-wrapper.cpp \
     quiddity-manager.cpp \
-    quiddity-manager-impl.cpp \
     quiddity-property-subscriber.cpp \
     quiddity-signal-subscriber.cpp \
     quiddity.cpp \
     rtp-destination.cpp \
     rtp-session.cpp \
+    safe-bool-idiom.cpp \
     sdp-utils.cpp \
-    segment.cpp \
-    shmdata-any-writer.cpp \
-    shmdata-any-reader.cpp \
-    shmdata-from-gdp-file.cpp \
-    shmdata-reader.cpp \
-    shmdata-to-file.cpp \
+    shmdata-connector.cpp \
+    shmdata-follower.cpp \
+    shmdata-utils.cpp \
     shmdata-writer.cpp \
     signal-string.cpp \
     startable-quiddity.cpp \
     string-dictionary.cpp \
-    udpsink.cpp \
+    string-utils.cpp \
     unique-gst-element.cpp \
     uridecodebin.cpp \
-    video-source.cpp \
-    video-test-source.cpp \
-    xvimagesink.cpp
+    video-test-source.cpp
 
 libswitcher_@LIBSWITCHER_API_VERSION@_la_LDFLAGS = \
     $(GLIB_LIBS) \
@@ -453,7 +444,6 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_LDFLAGS = \
     $(GMODULE_LIBS) \
     $(JSONGLIB_LIBS) \
     $(PYTHON_LIBS) \
-    $(SHMDATA_ANY_LIBS) \
     $(SHMDATA_LIBS) \
     -version-info $(LIBSWITCHER_SO_VERSION)
 
@@ -461,77 +451,71 @@ libswitcher_@LIBSWITCHER_API_VERSION@_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
 
 libswitcher_@LIBSWITCHER_API_VERSION@_la_include_HEADERS = \
-    abstract-factory.h \
-    abstract-factory_spec.h \
-    any.h \
-    aravis-genicam.h \
-    audio-source.h \
-    audio-test-source.h \
-    single-pad-gst-sink.h \
-    categorizable.h \
-    clock.h \
-    counter-map.h \
-    create-remove-spy.h \
-    creator.h \
-    custom-property-helper.h \
-    decodebin2.h \
-    decodebin-to-shmdata.h \
-    deinterleave.h \
-    fake-shmdata-writer.h \
-    fakesink.h \
-    file-sdp.h \
-    gobject-custom-property.h \
-    gobject-wrapper.h \
-    gpipe.h \
-    gst-element-cleaner.h \
-    gst-parse-to-bin-src.h \
-    gst-video-parse-to-bin-src.h \
-    gst-utils.h \
-    hash-table.h \
-    hash-table_spec.h \
-    http-sdp.h \
-    http-sdp-dec.h \
-    information-tree.h \
-    information-tree-basic-serializer.h \
-    information-tree-json.h \
-    jack-audio-source.h \
-    jack-sink.h \
-    json-builder.h \
-    logger.h \
-    method.h \
-    on-caps.h \
-    plugin-loader.h \
-    property.h \
-    property-mapper.h \
-    quiddity-basic-test.h \
-    quiddity-command.h \
-    quiddity-documentation.h \
-    quiddity-manager-wrapper.h \
-    quiddity-manager.h \
-    quiddity-manager-impl.h \
-    quiddity-property-subscriber.h \
-    quiddity-signal-subscriber.h \
-    quiddity.h \
-    rtp-destination.h \
-    rtp-session.h \
-    scope-exit.h \
-    sdp-utils.h \
-    segment.h \
-    shmdata-any-writer.h \
-    shmdata-any-reader.h \
-    shmdata-from-gdp-file.h \
-    shmdata-reader.h \
-    shmdata-to-file.h \
-    shmdata-writer.h \
-    signal-string.h \
-    startable-quiddity.h \
-    string-dictionary.h \
-    udpsink.h \
-    unique-gst-element.h \
-    uridecodebin.h \
-    video-source.h \
-    video-test-source.h \
-    xvimagesink.h
+    abstract-factory.hpp \
+    abstract-factory_spec.hpp \
+    any.hpp \
+    audio-test-source.hpp \
+    categorizable.hpp \
+    counter-map.hpp \
+    create-remove-spy.hpp \
+    creator.hpp \
+    custom-property-helper.hpp \
+    decodebin-to-shmdata.hpp \
+    external-shmdata-writer.hpp \
+    g-source-wrapper.hpp \
+    glibmainloop.hpp \
+    gobject-custom-property.hpp \
+    gobject-wrapper.hpp \
+    gst-audio-codec.hpp \
+    gst-audio-encoder.hpp \
+    gst-pipe.hpp \
+    gst-pipeliner.hpp \
+    gst-pixel-format-converter.hpp \
+    gst-shmdata-subscriber.hpp \
+    gst-utils.hpp \
+    gst-video-codec.hpp \
+    gst-video-converter.hpp \
+    gst-video-encoder.hpp \
+    http-sdp-dec.hpp \
+    information-tree-basic-serializer.hpp \
+    information-tree-json.hpp \
+    information-tree.hpp \
+    json-builder.hpp \
+    logger.hpp \
+    make-consultable.hpp \
+    method.hpp \
+    net-utils.hpp \
+    periodic-task.hpp \
+    plugin-loader.hpp \
+    property-mapper.hpp \
+    property.hpp \
+    quiddity-basic-test.hpp \
+    quiddity-command.hpp \
+    quiddity-documentation.hpp \
+    quiddity-manager-impl.hpp \
+    quiddity-manager-wrapper.hpp \
+    quiddity-manager.hpp \
+    quiddity-property-subscriber.hpp \
+    quiddity-signal-subscriber.hpp \
+    quiddity.hpp \
+    rtp-destination.hpp \
+    rtp-session.hpp \
+    safe-bool-idiom.hpp \
+    scope-exit.hpp \
+    sdp-utils.hpp \
+    shmdata-connector.hpp \
+    shmdata-glib-logger.hpp \
+    shmdata-follower.hpp \
+    shmdata-utils.hpp \
+    shmdata-writer.hpp \
+    signal-string.hpp \
+    startable-quiddity.hpp \
+    std2.hpp \
+    string-dictionary.hpp \
+    string-utils.hpp \
+    unique-gst-element.hpp \
+    uridecodebin.hpp \
+    video-test-source.hpp
 
 all: all-am
 
@@ -612,37 +596,36 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/aravis-genicam.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio-source.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio-test-source.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/categorizable.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/counter-map.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/create-remove-spy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/custom-property-helper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decodebin-to-shmdata.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decodebin2.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/deinterleave.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fake-shmdata-writer.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fakesink.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/file-sdp.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/external-shmdata-writer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/g-source-wrapper.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glibmainloop.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gobject-custom-property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gobject-wrapper.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpipe.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-element-cleaner.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-parse-to-bin-src.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-audio-codec.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-audio-encoder.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-pipe.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-pipeliner.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-pixel-format-converter.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-shmdata-subscriber.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-utils.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-video-parse-to-bin-src.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-video-codec.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-video-converter.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst-video-encoder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/http-sdp-dec.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/http-sdp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/information-tree-basic-serializer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/information-tree-json.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/information-tree.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jack-audio-source.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jack-sink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/json-builder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logger.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/method.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/on-caps.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/net-utils.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/periodic-task.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin-loader.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/property-mapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/property.Plo@am__quote@
@@ -657,24 +640,19 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/quiddity.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rtp-destination.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rtp-session.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/safe-bool-idiom.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sdp-utils.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/segment.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-any-reader.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-any-writer.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-from-gdp-file.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-reader.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-to-file.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-connector.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-follower.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shmdata-writer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signal-string.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/single-pad-gst-sink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/startable-quiddity.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string-dictionary.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udpsink.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unique-gst-element.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uridecodebin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video-source.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video-test-source.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xvimagesink.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

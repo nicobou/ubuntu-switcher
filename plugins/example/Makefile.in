@@ -82,7 +82,7 @@ host_triplet = @host@
 check_PROGRAMS = check_example_plugin$(EXEEXT)
 subdir = plugins/example
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
-	$(top_srcdir)/depcomp $(libmyplugin_la_include_HEADERS) \
+	$(top_srcdir)/depcomp $(libdummy_plugin_la_include_HEADERS) \
 	$(top_srcdir)/test-driver
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -120,19 +120,19 @@ am__uninstall_files_from_dir = { \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
 am__installdirs = "$(DESTDIR)$(pluginsdir)" \
-	"$(DESTDIR)$(libmyplugin_la_includedir)"
+	"$(DESTDIR)$(libdummy_plugin_la_includedir)"
 LTLIBRARIES = $(plugins_LTLIBRARIES)
-libmyplugin_la_LIBADD =
-am_libmyplugin_la_OBJECTS = libmyplugin_la-myplugin.lo
-libmyplugin_la_OBJECTS = $(am_libmyplugin_la_OBJECTS)
+libdummy_plugin_la_LIBADD =
+am_libdummy_plugin_la_OBJECTS = libdummy_plugin_la-dummy-plugin.lo
+libdummy_plugin_la_OBJECTS = $(am_libdummy_plugin_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libmyplugin_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+libdummy_plugin_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(libmyplugin_la_CXXFLAGS) $(CXXFLAGS) \
-	$(libmyplugin_la_LDFLAGS) $(LDFLAGS) -o $@
+	$(libdummy_plugin_la_CXXFLAGS) $(CXXFLAGS) \
+	$(libdummy_plugin_la_LDFLAGS) $(LDFLAGS) -o $@
 am_check_example_plugin_OBJECTS = check_example_plugin.$(OBJEXT)
 check_example_plugin_OBJECTS = $(am_check_example_plugin_OBJECTS)
 check_example_plugin_LDADD = $(LDADD)
@@ -170,15 +170,16 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libmyplugin_la_SOURCES) $(check_example_plugin_SOURCES)
-DIST_SOURCES = $(libmyplugin_la_SOURCES) \
+SOURCES = $(libdummy_plugin_la_SOURCES) \
+	$(check_example_plugin_SOURCES)
+DIST_SOURCES = $(libdummy_plugin_la_SOURCES) \
 	$(check_example_plugin_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-HEADERS = $(libmyplugin_la_include_HEADERS)
+HEADERS = $(libdummy_plugin_la_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -423,6 +424,8 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JACK_CFLAGS = @JACK_CFLAGS@
+JACK_LIBS = @JACK_LIBS@
 JSONGLIB_CFLAGS = @JSONGLIB_CFLAGS@
 JSONGLIB_LIBS = @JSONGLIB_LIBS@
 LD = @LD@
@@ -457,8 +460,6 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PJSIP_CFLAGS = @PJSIP_CFLAGS@
-PJSIP_LIBS = @PJSIP_LIBS@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
@@ -474,12 +475,12 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
-SHMDATA_ANY_CFLAGS = @SHMDATA_ANY_CFLAGS@
-SHMDATA_ANY_LIBS = @SHMDATA_ANY_LIBS@
 SHMDATA_CFLAGS = @SHMDATA_CFLAGS@
 SHMDATA_LIBS = @SHMDATA_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
+VNC_CFLAGS = @VNC_CFLAGS@
+VNC_LIBS = @VNC_LIBS@
 W_NO_ERROR_UNUSED_PARAMETER = @W_NO_ERROR_UNUSED_PARAMETER@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -537,20 +538,20 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 pluginsdir = $(prefix)/switcher-@LIBSWITCHER_API_VERSION@/plugins
 plugins_LTLIBRARIES = \
-    libmyplugin.la 
+    libdummy-plugin.la 
 
 
-#libmyplugin info
-libmyplugin_la_SOURCES = \
-    myplugin.cpp
+#libdummy-plugin info
+libdummy_plugin_la_SOURCES = \
+    dummy-plugin.cpp
 
-libmyplugin_la_include_HEADERS = \
-    myplugin.h
+libdummy_plugin_la_include_HEADERS = \
+    dummy-plugin.hpp
 
-libmyplugin_la_includedir = \
+libdummy_plugin_la_includedir = \
     $(includedir)/switcher-$(LIBSWITCHER_API_VERSION)/switcher
 
-libmyplugin_la_LDFLAGS = \
+libdummy_plugin_la_LDFLAGS = \
     $(GLIB_LIBS) \
     $(GST_LIBS) \
     $(GMODULE_LIBS) \
@@ -561,7 +562,7 @@ libmyplugin_la_LDFLAGS = \
     -L$(top_builddir)/switcher/.libs \
     -lswitcher-@LIBSWITCHER_API_VERSION@
 
-libmyplugin_la_CXXFLAGS = \
+libdummy_plugin_la_CXXFLAGS = \
     $(GLIB_CFLAGS) \
     $(GMODULE_CFLAGS) \
     $(GST_CFLAGS) \
@@ -665,8 +666,8 @@ clean-pluginsLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libmyplugin.la: $(libmyplugin_la_OBJECTS) $(libmyplugin_la_DEPENDENCIES) $(EXTRA_libmyplugin_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libmyplugin_la_LINK) -rpath $(pluginsdir) $(libmyplugin_la_OBJECTS) $(libmyplugin_la_LIBADD) $(LIBS)
+libdummy-plugin.la: $(libdummy_plugin_la_OBJECTS) $(libdummy_plugin_la_DEPENDENCIES) $(EXTRA_libdummy_plugin_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libdummy_plugin_la_LINK) -rpath $(pluginsdir) $(libdummy_plugin_la_OBJECTS) $(libdummy_plugin_la_LIBADD) $(LIBS)
 
 clean-checkPROGRAMS:
 	@list='$(check_PROGRAMS)'; test -n "$$list" || exit 0; \
@@ -688,7 +689,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_example_plugin.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmyplugin_la-myplugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libdummy_plugin_la-dummy-plugin.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -711,39 +712,39 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
-libmyplugin_la-myplugin.lo: myplugin.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libmyplugin_la_CXXFLAGS) $(CXXFLAGS) -MT libmyplugin_la-myplugin.lo -MD -MP -MF $(DEPDIR)/libmyplugin_la-myplugin.Tpo -c -o libmyplugin_la-myplugin.lo `test -f 'myplugin.cpp' || echo '$(srcdir)/'`myplugin.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmyplugin_la-myplugin.Tpo $(DEPDIR)/libmyplugin_la-myplugin.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='myplugin.cpp' object='libmyplugin_la-myplugin.lo' libtool=yes @AMDEPBACKSLASH@
+libdummy_plugin_la-dummy-plugin.lo: dummy-plugin.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libdummy_plugin_la_CXXFLAGS) $(CXXFLAGS) -MT libdummy_plugin_la-dummy-plugin.lo -MD -MP -MF $(DEPDIR)/libdummy_plugin_la-dummy-plugin.Tpo -c -o libdummy_plugin_la-dummy-plugin.lo `test -f 'dummy-plugin.cpp' || echo '$(srcdir)/'`dummy-plugin.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libdummy_plugin_la-dummy-plugin.Tpo $(DEPDIR)/libdummy_plugin_la-dummy-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='dummy-plugin.cpp' object='libdummy_plugin_la-dummy-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libmyplugin_la_CXXFLAGS) $(CXXFLAGS) -c -o libmyplugin_la-myplugin.lo `test -f 'myplugin.cpp' || echo '$(srcdir)/'`myplugin.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libdummy_plugin_la_CXXFLAGS) $(CXXFLAGS) -c -o libdummy_plugin_la-dummy-plugin.lo `test -f 'dummy-plugin.cpp' || echo '$(srcdir)/'`dummy-plugin.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
-install-libmyplugin_la_includeHEADERS: $(libmyplugin_la_include_HEADERS)
+install-libdummy_plugin_la_includeHEADERS: $(libdummy_plugin_la_include_HEADERS)
 	@$(NORMAL_INSTALL)
-	@list='$(libmyplugin_la_include_HEADERS)'; test -n "$(libmyplugin_la_includedir)" || list=; \
+	@list='$(libdummy_plugin_la_include_HEADERS)'; test -n "$(libdummy_plugin_la_includedir)" || list=; \
 	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(libmyplugin_la_includedir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(libmyplugin_la_includedir)" || exit 1; \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libdummy_plugin_la_includedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libdummy_plugin_la_includedir)" || exit 1; \
 	fi; \
 	for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  echo "$$d$$p"; \
 	done | $(am__base_list) | \
 	while read files; do \
-	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libmyplugin_la_includedir)'"; \
-	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libmyplugin_la_includedir)" || exit $$?; \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libdummy_plugin_la_includedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libdummy_plugin_la_includedir)" || exit $$?; \
 	done
 
-uninstall-libmyplugin_la_includeHEADERS:
+uninstall-libdummy_plugin_la_includeHEADERS:
 	@$(NORMAL_UNINSTALL)
-	@list='$(libmyplugin_la_include_HEADERS)'; test -n "$(libmyplugin_la_includedir)" || list=; \
+	@list='$(libdummy_plugin_la_include_HEADERS)'; test -n "$(libdummy_plugin_la_includedir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(libmyplugin_la_includedir)'; $(am__uninstall_files_from_dir)
+	dir='$(DESTDIR)$(libdummy_plugin_la_includedir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -996,7 +997,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(pluginsdir)" "$(DESTDIR)$(libmyplugin_la_includedir)"; do \
+	for dir in "$(DESTDIR)$(pluginsdir)" "$(DESTDIR)$(libdummy_plugin_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -1055,7 +1056,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-libmyplugin_la_includeHEADERS \
+install-data-am: install-libdummy_plugin_la_includeHEADERS \
 	install-pluginsLTLIBRARIES
 
 install-dvi: install-dvi-am
@@ -1102,7 +1103,7 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-libmyplugin_la_includeHEADERS \
+uninstall-am: uninstall-libdummy_plugin_la_includeHEADERS \
 	uninstall-pluginsLTLIBRARIES
 
 .MAKE: check-am install-am install-strip
@@ -1115,14 +1116,14 @@ uninstall-am: uninstall-libmyplugin_la_includeHEADERS \
 	html-am info info-am install install-am install-data \
 	install-data-am install-dvi install-dvi-am install-exec \
 	install-exec-am install-html install-html-am install-info \
-	install-info-am install-libmyplugin_la_includeHEADERS \
+	install-info-am install-libdummy_plugin_la_includeHEADERS \
 	install-man install-pdf install-pdf-am \
 	install-pluginsLTLIBRARIES install-ps install-ps-am \
 	install-strip installcheck installcheck-am installdirs \
 	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am recheck tags tags-am uninstall \
-	uninstall-am uninstall-libmyplugin_la_includeHEADERS \
+	uninstall-am uninstall-libdummy_plugin_la_includeHEADERS \
 	uninstall-pluginsLTLIBRARIES
 
 
