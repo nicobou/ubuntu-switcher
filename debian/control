@@ -9,18 +9,25 @@ Build-Depends:
  debhelper (>= 7.0.0),
  dh-buildinfo,
  doxygen,
- gsoap,
  libglib2.0-dev,
- libgstreamer-plugins-base0.10-dev,
- libgstreamer0.10-dev,
- libgtk2.0-dev,
+ libgstreamer1.0-dev,
+ libgstreamer-plugins-base1.0-dev,
  libjson-glib-dev,
+ libcgsi-gsoap-dev,
+ curl,
  liblo-dev,
- libportmidi-dev,
- libpulse-dev,
- libshmdata-0.8-dev,
  linux-libc-dev,
+ libgtk2.0-dev,
+ libpulse-dev,
+ libportmidi-dev,
  nodejs-dev,
+ libjack-jackd2-dev,
+ libvncserver-dev,
+ gstreamer1.0-libav,
+ gstreamer1.0-plugins-bad,
+ gstreamer1.0-plugins-base,
+ gstreamer1.0-plugins-good,
+ gstreamer1.0-plugins-ugly,
  pkg-config
 Homepage: http://code.sat.qc.ca/redmine/projects/switcher
 Standards-Version: 3.9.2
@@ -28,15 +35,15 @@ Maintainer: Nicolas Bouillot <nicolas.bouillot@gmail.com>
 Vcs-Git: git://code.sat.qc.ca/switcher.git
 Vcs-Browser: http://code.sat.qc.ca/redmine/projects/switcher/repository
 
-Package: libswitcher-0.6-dev
+Package: libswitcher-0.8-dev
 Section: libdevel
 Architecture: all
 Provides: libswitcher-dev
 Replaces: libswitcher-dev
 Conflicts: libswitcher-dev
-Suggests: libswitcher-0.6-doc
+Suggests: libswitcher-0.8-doc
 Depends: 
- libswitcher-0.6-0 (= ${binary:Version}),
+ libswitcher-0.8-0 (= ${binary:Version}),
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
  Switcher is the successor of Scenic's milhouse utility. It provides basic video  
@@ -46,16 +53,24 @@ Description: Switcher for audio, video, data and network streams.
  .
  This package contains headers, documentation and static libraries.
 
-Package: libswitcher-0.6-0
+Package: libswitcher-0.8-0
 Section: libs
 Architecture: any
-Suggests: libswitcher-0.6-dev
+Suggests: libswitcher-0.8-dev
 Depends:
- gstreamer0.10-plugins-bad,
- gstreamer0.10-plugins-base,
- gstreamer0.10-plugins-good,
- gstreamer0.10-plugins-ugly,
+ gstreamer1.0-libav,
+ gstreamer1.0-plugins-bad,
+ gstreamer1.0-plugins-base,
+ gstreamer1.0-plugins-good,
+ gstreamer1.0-plugins-ugly
  libjson-glib-1.0-0,
+ gsoap,
+ libgtk2.0-0,
+ liblo7,
+ libportmidi0,
+ libpulse0,
+ libjack-jackd2-0,
+ libvncserver0,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
@@ -63,13 +78,15 @@ Description: Switcher for audio, video, data and network streams.
  signal routing, switching and mixing features. It was created at the 
  Society for Arts and Technology (SAT) to give to artists a powerful tool for 
  telepresence in contexts of live arts and new media installations.
+ This package includes plugins for Switcher, including SIP, gtk fullscreen window, 
+ control from OSC and soap, midi support, pulse audio, v4l2, system usage and vnc.
  .
  This package contains the binary shared libraries.
 
-Package: libswitcher-0.6-doc
+Package: libswitcher-0.8-doc
 Section: doc
 Architecture: all
-Recommends: libswitcher-0.6-dev
+Recommends: libswitcher-0.8-dev
 Depends:
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
@@ -84,12 +101,7 @@ Package: switcher
 Section: net
 Architecture: any
 Depends:
- libswitcher-0.6-0 (= ${binary:Version}),
- gsoap,
- libgtk2.0-0,
- liblo7,
- libportmidi0,
- libpulse0,
+ libswitcher-0.8-0 (= ${binary:Version}),
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Switcher for audio, video, data and network streams. 
@@ -97,8 +109,6 @@ Description: Switcher for audio, video, data and network streams.
  signal routing, switching and mixing features. It was created at the 
  Society for Arts and Technology (SAT) to give to artists a powerful tool for 
  telepresence in contexts of live arts and new media installations.
- This package includes plugins for Switcher, including gtk fullscreen window, 
- control from OSC and soap, midi support, pulse audio and v4l2.
  .
  This package contains the binary and shared libraries.
 

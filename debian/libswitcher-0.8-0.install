@@ -1,0 +1,3 @@
+debian/tmp/usr/lib/lib*.so*
+debian/tmp/usr/lib/nodejs/switcher.node
+plugins/*/.libs/* debian/tmp/usr/switcher-0.8/plugins/*.so*
