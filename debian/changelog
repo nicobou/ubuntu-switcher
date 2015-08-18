@@ -1,3 +1,9 @@
+switcher (0.8.4-1~trusty~ppa1) trusty; urgency=low
+
+  * Package for trusty without dependency to curl
+
+ -- Nicolas Bouillot <nicolas.bouillot@gmail.com>  Tue, 18 Aug 2015 12:04:27 -0400
+
 switcher (0.8.2-1~trusty~ppa1) trusty; urgency=low
 
   * Package for trusty
